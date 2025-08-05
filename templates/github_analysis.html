@@ -1,0 +1,221 @@
+{% extends "base.html" %}
+
+{% block title %}GitHub Repository Analysis - AutoTestify{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <div class="text-center mb-5">
+                <h2 class="display-5 fw-bold">
+                    <i class="fab fa-github text-primary me-3"></i>GitHub Repository Analysis
+                </h2>
+                <p class="lead text-muted">Comprehensive code analysis with AI-powered insights and recommendations</p>
+            </div>
+
+            <div class="card border-0 shadow-lg">
+                <div class="card-body p-5">
+                    <form id="githubAnalysisForm">
+                        <div class="mb-4">
+                            <label for="repoUrl" class="form-label fw-semibold">
+                                <i class="fas fa-link me-2"></i>GitHub Repository URL
+                            </label>
+                            <input type="url" class="form-control form-control-lg" id="repoUrl" 
+                                   placeholder="https://github.com/username/repository" required>
+                            <div class="form-text">
+                                <i class="fas fa-info-circle me-1"></i>
+                                Enter the URL of any public GitHub repository for analysis
+                            </div>
+                        </div>
+
+                        <div class="mb-4">
+                            <label for="email" class="form-label fw-semibold">
+                                <i class="fas fa-envelope me-2"></i>Email Address (Optional)
+                            </label>
+                            <input type="email" class="form-control form-control-lg" id="email" 
+                                   placeholder="your.email@example.com">
+                            <div class="form-text">
+                                <i class="fas fa-info-circle me-1"></i>
+                                Receive the detailed report via email
+                            </div>
+                        </div>
+
+                        <div class="d-grid gap-2">
+                            <button type="submit" class="btn btn-primary btn-lg" id="analyzeBtn">
+                                <i class="fas fa-search me-2"></i>Start Analysis
+                            </button>
+                        </div>
+                    </form>
+
+                    <!-- Progress Section -->
+                    <div id="progressSection" class="mt-4" style="display: none;">
+                        <div class="card bg-light border-0">
+                            <div class="card-body">
+                                <h5 class="card-title">
+                                    <i class="fas fa-cog fa-spin me-2"></i>Analysis in Progress
+                                </h5>
+                                <div class="progress mb-3">
+                                    <div class="progress-bar progress-bar-striped progress-bar-animated" 
+                                         role="progressbar" style="width: 0%" id="progressBar"></div>
+                                </div>
+                                <div id="progressText">Initializing analysis...</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Results Section -->
+                    <div id="resultsSection" class="mt-4" style="display: none;">
+                        <div class="card border-success">
+                            <div class="card-body">
+                                <h5 class="card-title text-success">
+                                    <i class="fas fa-check-circle me-2"></i>Analysis Complete
+                                </h5>
+                                <p id="resultMessage" class="card-text"></p>
+                                <div class="d-flex gap-2 flex-wrap">
+                                    <a id="downloadBtn" class="btn btn-success">
+                                        <i class="fas fa-download me-2"></i>Download Report
+                                    </a>
+                                    <a id="viewBtn" class="btn btn-outline-primary" target="_blank">
+                                        <i class="fas fa-eye me-2"></i>View Report
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Error Section -->
+                    <div id="errorSection" class="mt-4" style="display: none;">
+                        <div class="card border-danger">
+                            <div class="card-body">
+                                <h5 class="card-title text-danger">
+                                    <i class="fas fa-exclamation-triangle me-2"></i>Analysis Failed
+                                </h5>
+                                <p id="errorMessage" class="card-text"></p>
+                                <button class="btn btn-outline-danger" onclick="resetForm()">
+                                    <i class="fas fa-redo me-2"></i>Try Again
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Features Information -->
+            <div class="row g-4 mt-4">
+                <div class="col-md-6">
+                    <div class="card border-0 bg-light">
+                        <div class="card-body">
+                            <h5 class="card-title">
+                                <i class="fas fa-code-branch text-primary me-2"></i>Repository Analysis
+                            </h5>
+                            <ul class="list-unstyled mb-0">
+                                <li><i class="fas fa-check text-success me-2"></i>Commit history visualization</li>
+                                <li><i class="fas fa-check text-success me-2"></i>Branch structure analysis</li>
+                                <li><i class="fas fa-check text-success me-2"></i>File type distribution</li>
+                                <li><i class="fas fa-check text-success me-2"></i>Contributor activity</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="card border-0 bg-light">
+                        <div class="card-body">
+                            <h5 class="card-title">
+                                <i class="fas fa-brain text-success me-2"></i>AI Code Review
+                            </h5>
+                            <ul class="list-unstyled mb-0">
+                                <li><i class="fas fa-check text-success me-2"></i>Quality scoring & grading</li>
+                                <li><i class="fas fa-check text-success me-2"></i>Security vulnerability detection</li>
+                                <li><i class="fas fa-check text-success me-2"></i>Best practice recommendations</li>
+                                <li><i class="fas fa-check text-success me-2"></i>Maintainability insights</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+document.getElementById('githubAnalysisForm').onsubmit = async function(e) {
+    e.preventDefault();
+    
+    const repoUrl = document.getElementById('repoUrl').value;
+    const email = document.getElementById('email').value;
+    
+    // Show progress
+    document.getElementById('progressSection').style.display = 'block';
+    document.getElementById('resultsSection').style.display = 'none';
+    document.getElementById('errorSection').style.display = 'none';
+    document.getElementById('analyzeBtn').disabled = true;
+    
+    // Simulate progress
+    simulateProgress();
+    
+    try {
+        const response = await fetch('/api/analyze-github', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                repo_url: repoUrl,
+                email: email
+            })
+        });
+        
+        const result = await response.json();
+        
+        if (result.success) {
+            document.getElementById('progressSection').style.display = 'none';
+            document.getElementById('resultsSection').style.display = 'block';
+            document.getElementById('resultMessage').textContent = result.message;
+            document.getElementById('downloadBtn').href = result.report_url;
+            document.getElementById('viewBtn').href = result.report_url.replace('/download-report/', '/view-report/');
+        } else {
+            showError(result.error);
+        }
+    } catch (error) {
+        showError('Network error: ' + error.message);
+    }
+    
+    document.getElementById('analyzeBtn').disabled = false;
+};
+
+function simulateProgress() {
+    const progressBar = document.getElementById('progressBar');
+    const progressText = document.getElementById('progressText');
+    const steps = [
+        { percent: 20, text: 'Connecting to GitHub API...' },
+        { percent: 40, text: 'Analyzing repository structure...' },
+        { percent: 60, text: 'Processing code files...' },
+        { percent: 80, text: 'Generating AI assessment...' },
+        { percent: 95, text: 'Creating report...' }
+    ];
+    
+    let currentStep = 0;
+    const interval = setInterval(() => {
+        if (currentStep < steps.length) {
+            progressBar.style.width = steps[currentStep].percent + '%';
+            progressText.textContent = steps[currentStep].text;
+            currentStep++;
+        } else {
+            clearInterval(interval);
+        }
+    }, 1000);
+}
+
+function showError(message) {
+    document.getElementById('progressSection').style.display = 'none';
+    document.getElementById('errorSection').style.display = 'block';
+    document.getElementById('errorMessage').textContent = message;
+}
+
+function resetForm() {
+    document.getElementById('errorSection').style.display = 'none';
+    document.getElementById('resultsSection').style.display = 'none';
+    document.getElementById('progressSection').style.display = 'none';
+}
+</script>
+{% endblock %}

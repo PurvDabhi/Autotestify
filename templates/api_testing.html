@@ -1,0 +1,275 @@
+{% extends "base.html" %}
+
+{% block title %}API Testing - AutoTestify{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <div class="text-center mb-5">
+                <h2 class="display-5 fw-bold">
+                    <i class="fas fa-code text-success me-3"></i>API Endpoint Testing
+                </h2>
+                <p class="lead text-muted">Comprehensive API testing with performance analysis and security validation</p>
+            </div>
+
+            <div class="card border-0 shadow-lg">
+                <div class="card-body p-5">
+                    <form id="apiTestingForm">
+                        <div class="mb-4">
+                            <label for="baseUrl" class="form-label fw-semibold">
+                                <i class="fas fa-globe me-2"></i>API Base URL
+                            </label>
+                            <input type="url" class="form-control form-control-lg" id="baseUrl" 
+                                   placeholder="https://api.example.com" required>
+                            <div class="form-text">
+                                <i class="fas fa-info-circle me-1"></i>
+                                Enter the base URL of the API you want to test
+                            </div>
+                        </div>
+
+                        <div class="mb-4">
+                            <label class="form-label fw-semibold">
+                                <i class="fas fa-list me-2"></i>Test Configuration
+                            </label>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="autoDiscover" checked>
+                                        <label class="form-check-label" for="autoDiscover">
+                                            Auto-discover endpoints
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="securityCheck" checked>
+                                        <label class="form-check-label" for="securityCheck">
+                                            Security header analysis
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="mb-4">
+                            <label for="customEndpoints" class="form-label fw-semibold">
+                                <i class="fas fa-plus me-2"></i>Custom Endpoints (Optional)
+                            </label>
+                            <textarea class="form-control" id="customEndpoints" rows="4" 
+                                      placeholder="Add custom endpoints, one per line:&#10;GET /api/users&#10;POST /api/login&#10;GET /api/products"></textarea>
+                            <div class="form-text">
+                                <i class="fas fa-info-circle me-1"></i>
+                                Specify custom endpoints in the format: METHOD /path
+                            </div>
+                        </div>
+
+                        <div class="mb-4">
+                            <label for="emailApi" class="form-label fw-semibold">
+                                <i class="fas fa-envelope me-2"></i>Email Address (Optional)
+                            </label>
+                            <input type="email" class="form-control form-control-lg" id="emailApi" 
+                                   placeholder="your.email@example.com">
+                            <div class="form-text">
+                                <i class="fas fa-info-circle me-1"></i>
+                                Receive the detailed test report via email
+                            </div>
+                        </div>
+
+                        <div class="d-grid gap-2">
+                            <button type="submit" class="btn btn-success btn-lg" id="testBtn">
+                                <i class="fas fa-play me-2"></i>Start API Testing
+                            </button>
+                        </div>
+                    </form>
+
+                    <!-- Progress Section -->
+                    <div id="apiProgressSection" class="mt-4" style="display: none;">
+                        <div class="card bg-light border-0">
+                            <div class="card-body">
+                                <h5 class="card-title">
+                                    <i class="fas fa-cog fa-spin me-2"></i>Testing in Progress
+                                </h5>
+                                <div class="progress mb-3">
+                                    <div class="progress-bar bg-success progress-bar-striped progress-bar-animated" 
+                                         role="progressbar" style="width: 0%" id="apiProgressBar"></div>
+                                </div>
+                                <div id="apiProgressText">Initializing API tests...</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Results Section -->
+                    <div id="apiResultsSection" class="mt-4" style="display: none;">
+                        <div class="card border-success">
+                            <div class="card-body">
+                                <h5 class="card-title text-success">
+                                    <i class="fas fa-check-circle me-2"></i>Testing Complete
+                                </h5>
+                                <p id="apiResultMessage" class="card-text"></p>
+                                <div class="d-flex gap-2 flex-wrap">
+                                    <a id="apiDownloadBtn" href="#" class="btn btn-success">
+                                        <i class="fas fa-download me-2"></i>Download Report
+                                    </a>
+                                    <a id="apiViewBtn" href="#" class="btn btn-outline-primary" target="_blank">
+                                        <i class="fas fa-eye me-2"></i>View Report
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Error Section -->
+                    <div id="apiErrorSection" class="mt-4" style="display: none;">
+                        <div class="card border-danger">
+                            <div class="card-body">
+                                <h5 class="card-title text-danger">
+                                    <i class="fas fa-exclamation-triangle me-2"></i>Testing Failed
+                                </h5>
+                                <p id="apiErrorMessage" class="card-text"></p>
+                                <button class="btn btn-outline-danger" onclick="resetApiForm()">
+                                    <i class="fas fa-redo me-2"></i>Try Again
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Features Information -->
+            <div class="row g-4 mt-4">
+                <div class="col-md-6">
+                    <div class="card border-0 bg-light">
+                        <div class="card-body">
+                            <h5 class="card-title">
+                                <i class="fas fa-rocket text-success me-2"></i>Performance Testing
+                            </h5>
+                            <ul class="list-unstyled mb-0">
+                                <li><i class="fas fa-check text-success me-2"></i>Response time measurement</li>
+                                <li><i class="fas fa-check text-success me-2"></i>Throughput analysis</li>
+                                <li><i class="fas fa-check text-success me-2"></i>Performance grading</li>
+                                <li><i class="fas fa-check text-success me-2"></i>Bottleneck identification</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="card border-0 bg-light">
+                        <div class="card-body">
+                            <h5 class="card-title">
+                                <i class="fas fa-shield-alt text-primary me-2"></i>Security Analysis
+                            </h5>
+                            <ul class="list-unstyled mb-0">
+                                <li><i class="fas fa-check text-success me-2"></i>Security header validation</li>
+                                <li><i class="fas fa-check text-success me-2"></i>HTTPS usage verification</li>
+                                <li><i class="fas fa-check text-success me-2"></i>CORS policy analysis</li>
+                                <li><i class="fas fa-check text-success me-2"></i>Vulnerability assessment</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+document.getElementById('apiTestingForm').onsubmit = async function(e) {
+    e.preventDefault();
+    
+    const baseUrl = document.getElementById('baseUrl').value;
+    const emailApi = document.getElementById('emailApi').value;
+    const customEndpoints = document.getElementById('customEndpoints').value;
+    
+    // Parse custom endpoints
+    const endpoints = [];
+    if (customEndpoints.trim()) {
+        const lines = customEndpoints.trim().split('\n');
+        for (const line of lines) {
+            const parts = line.trim().split(' ');
+            if (parts.length >= 2) {
+                endpoints.push({
+                    method: parts[0].toUpperCase(),
+                    path: parts[1],
+                    description: `Custom ${parts[0].toUpperCase()} endpoint`
+                });
+            }
+        }
+    }
+    
+    // Show progress
+    document.getElementById('apiProgressSection').style.display = 'block';
+    document.getElementById('apiResultsSection').style.display = 'none';
+    document.getElementById('apiErrorSection').style.display = 'none';
+    document.getElementById('testBtn').disabled = true;
+    
+    // Simulate progress
+    simulateApiProgress();
+    
+    try {
+        const response = await fetch('/api/test-api', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                base_url: baseUrl,
+                email: emailApi,
+                endpoints: endpoints.length > 0 ? endpoints : undefined
+            })
+        });
+        
+        const result = await response.json();
+        
+        if (result.success) {
+            document.getElementById('apiProgressSection').style.display = 'none';
+            document.getElementById('apiResultsSection').style.display = 'block';
+            document.getElementById('apiResultMessage').textContent = result.message;
+            document.getElementById('apiDownloadBtn').href = result.report_url;
+            document.getElementById('apiViewBtn').href = result.report_url.replace('/download-report/', '/view-report/');
+        } else {
+            showApiError(result.error);
+        }
+    } catch (error) {
+        showApiError('Network error: ' + error.message);
+    }
+    
+    document.getElementById('testBtn').disabled = false;
+};
+
+function simulateApiProgress() {
+    const progressBar = document.getElementById('apiProgressBar');
+    const progressText = document.getElementById('apiProgressText');
+    const steps = [
+        { percent: 15, text: 'Discovering API endpoints...' },
+        { percent: 30, text: 'Testing endpoint connectivity...' },
+        { percent: 50, text: 'Measuring response times...' },
+        { percent: 70, text: 'Analyzing security headers...' },
+        { percent: 90, text: 'Generating performance report...' }
+    ];
+    
+    let currentStep = 0;
+    const interval = setInterval(() => {
+        if (currentStep < steps.length) {
+            progressBar.style.width = steps[currentStep].percent + '%';
+            progressText.textContent = steps[currentStep].text;
+            currentStep++;
+        } else {
+            clearInterval(interval);
+        }
+    }, 1200);
+}
+
+function showApiError(message) {
+    document.getElementById('apiProgressSection').style.display = 'none';
+    document.getElementById('apiErrorSection').style.display = 'block';
+    document.getElementById('apiErrorMessage').textContent = message;
+}
+
+function resetApiForm() {
+    document.getElementById('apiErrorSection').style.display = 'none';
+    document.getElementById('apiResultsSection').style.display = 'none';
+    document.getElementById('apiProgressSection').style.display = 'none';
+}
+</script>
+{% endblock %}

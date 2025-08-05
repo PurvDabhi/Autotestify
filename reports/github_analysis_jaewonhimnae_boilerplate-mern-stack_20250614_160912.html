@@ -1,0 +1,1459 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AutoTestify - GitHub Analysis Report</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <style>
+        .report-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 2rem;
+        }
+        .metric-card {
+            border: none;
+            border-left: 4px solid #007bff;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .grade-A { border-left-color: #28a745; }
+        .grade-B { border-left-color: #ffc107; }
+        .grade-C { border-left-color: #fd7e14; }
+        .grade-D { border-left-color: #dc3545; }
+        .grade-F { border-left-color: #6c757d; }
+        .chart-container {
+            min-height: 400px;
+            margin: 1rem 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="report-header text-center">
+        <h1><i class="fab fa-github me-3"></i>GitHub Repository Analysis</h1>
+        <h2>jaewonhimnae/boilerplate-mern-stack</h2>
+        <p class="mb-0">Generated on June 14, 2025 at 04:09 PM</p>
+    </div>
+
+    <div class="container-fluid py-4">
+        <!-- Repository Overview -->
+        <div class="row mb-4">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h3><i class="fas fa-info-circle me-2"></i>Repository Overview</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-8">
+                                <table class="table table-borderless">
+                                    <tr>
+                                        <td><strong>Name:</strong></td>
+                                        <td>boilerplate-mern-stack</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Description:</strong></td>
+                                        <td>Boilerplate when you use REACT JS, MONG DB, EXPRESS JS, REDUX</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Language:</strong></td>
+                                        <td>JavaScript</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Created:</strong></td>
+                                        <td>July 21, 2019</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Last Updated:</strong></td>
+                                        <td>May 04, 2025</td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="row g-2">
+                                    <div class="col-6">
+                                        <div class="card metric-card text-center">
+                                            <div class="card-body p-3">
+                                                <h4 class="text-primary">527</h4>
+                                                <small>Stars</small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="card metric-card text-center">
+                                            <div class="card-body p-3">
+                                                <h4 class="text-success">394</h4>
+                                                <small>Forks</small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="card metric-card text-center">
+                                            <div class="card-body p-3">
+                                                <h4 class="text-info">10</h4>
+                                                <small>Branches</small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="card metric-card text-center">
+                                            <div class="card-body p-3">
+                                                <h4 class="text-warning">33</h4>
+                                                <small>Code Files</small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Code Quality Overview -->
+        <div class="row mb-4">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header d-flex justify-content-between align-items-center">
+                        <h3><i class="fas fa-brain me-2"></i>AI Code Quality Assessment</h3>
+                        <div class="badge bg-primary fs-6">Overall Grade: F</div>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="card metric-card grade-F">
+                                    <div class="card-body text-center">
+                                        <h2 class="text-primary">81/100</h2>
+                                        <p class="mb-0">Overall Score</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-8">
+                                <h5>Summary</h5>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <h6 class="text-success">Strengths</h6>
+                                        <ul class="list-unstyled">
+                                            
+                                            <li><i class="fas fa-check text-success me-2"></i>Directly addresses common issues like deployment and build failures.</li>
+                                            
+                                            <li><i class="fas fa-check text-success me-2"></i>Clear and descriptive constant names.</li>
+                                            
+                                            <li><i class="fas fa-check text-success me-2"></i>Clear and concise component logic.</li>
+                                            
+                                            <li><i class="fas fa-check text-success me-2"></i>Logout functionality implemented using axios and backend API.</li>
+                                            
+                                            <li><i class="fas fa-check text-success me-2"></i>Uses Ant Design components for UI, providing a consistent look and feel.</li>
+                                            
+                                        </ul>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <h6 class="text-warning">Areas for Improvement</h6>
+                                        <ul class="list-unstyled">
+                                            
+                                            <li><i class="fas fa-exclamation-triangle text-warning me-2"></i>Inconsistent use of keys on form items. The email Form.Item has `hasFeedback` property but lacks a key prop.</li>
+                                            
+                                            <li><i class="fas fa-exclamation-triangle text-warning me-2"></i>The error message in the `!user` case could be more informative.</li>
+                                            
+                                            <li><i class="fas fa-exclamation-triangle text-warning me-2"></i>The comments describing null, true, false are helpful, but consider moving this to a JSDoc comment block for improved readability and IDE support.</li>
+                                            
+                                            <li><i class="fas fa-exclamation-triangle text-warning me-2"></i>Direct usage of `window.__REDUX_DEVTOOLS_EXTENSION__` is not ideal for production. It exposes the Redux DevTools extension conditionally, but a more robust solution involves environment variables or build-time flags.</li>
+                                            
+                                            <li><i class="fas fa-exclamation-triangle text-warning me-2"></i>The 'rememberMe' functionality saves the user's 'id' in localStorage instead of the email. This is likely a bug.</li>
+                                            
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Charts Section -->
+        
+        <div class="row mb-4">
+            
+            <div class="col-lg-6 mb-4">
+                <div class="card">
+                    <div class="card-header">
+                        <h5><i class="fas fa-chart-line me-2"></i>Commit Activity</h5>
+                    </div>
+                    <div class="card-body">
+                        <div id="commitChart" class="chart-container"></div>
+                    </div>
+                </div>
+            </div>
+            
+            
+            
+            <div class="col-lg-6 mb-4">
+                <div class="card">
+                    <div class="card-header">
+                        <h5><i class="fas fa-chart-pie me-2"></i>Code Quality Distribution</h5>
+                    </div>
+                    <div class="card-body">
+                        <div id="gradeChart" class="chart-container"></div>
+                    </div>
+                </div>
+            </div>
+            
+            
+            
+            <div class="col-12 mb-4">
+                <div class="card">
+                    <div class="card-header">
+                        <h5><i class="fas fa-chart-bar me-2"></i>File Type Distribution</h5>
+                    </div>
+                    <div class="card-body">
+                        <div id="fileTypeChart" class="chart-container"></div>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+        
+
+        <!-- File Assessments -->
+        
+        <div class="row mb-4">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h3><i class="fas fa-code me-2"></i>File-by-File Analysis</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="row g-3">
+                            
+                            <div class="col-lg-6">
+                                <div class="card metric-card grade-C">
+                                    <div class="card-body">
+                                        <div class="d-flex justify-content-between align-items-start mb-2">
+                                            <h6 class="card-title mb-0">README.md</h6>
+                                            <span class="badge bg-primary">C</span>
+                                        </div>
+                                        <p class="text-muted small mb-2">Markdown • Score: 60/100</p>
+                                        
+                                        
+                                        <div class="mb-2">
+                                            <small class="text-success fw-bold">Strengths:</small>
+                                            <ul class="list-unstyled mb-0" style="font-size: 0.8rem;">
+                                                
+                                                <li><i class="fas fa-check text-success me-1"></i>Provides basic instructions for setup.</li>
+                                                
+                                                <li><i class="fas fa-check text-success me-1"></i>Includes a link to a tutorial.</li>
+                                                
+                                            </ul>
+                                        </div>
+                                        
+                                        
+                                        
+                                        <div class="mb-0">
+                                            <small class="text-primary fw-bold">Suggestions:</small>
+                                            <ul class="list-unstyled mb-0" style="font-size: 0.8rem;">
+                                                
+                                                <li><i class="fas fa-lightbulb text-primary me-1"></i>Add a clear project title and description.</li>
+                                                
+                                                <li><i class="fas fa-lightbulb text-primary me-1"></i>Specify the technologies used (e.g., Node.js, React).</li>
+                                                
+                                            </ul>
+                                        </div>
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="col-lg-6">
+                                <div class="card metric-card grade-B">
+                                    <div class="card-body">
+                                        <div class="d-flex justify-content-between align-items-start mb-2">
+                                            <h6 class="card-title mb-0">README.md</h6>
+                                            <span class="badge bg-primary">B</span>
+                                        </div>
+                                        <p class="text-muted small mb-2">Markdown • Score: 80/100</p>
+                                        
+                                        
+                                        <div class="mb-2">
+                                            <small class="text-success fw-bold">Strengths:</small>
+                                            <ul class="list-unstyled mb-0" style="font-size: 0.8rem;">
+                                                
+                                                <li><i class="fas fa-check text-success me-1"></i>Clear and concise instructions for common tasks.</li>
+                                                
+                                                <li><i class="fas fa-check text-success me-1"></i>Provides links to official documentation for further learning.</li>
+                                                
+                                            </ul>
+                                        </div>
+                                        
+                                        
+                                        
+                                        <div class="mb-0">
+                                            <small class="text-primary fw-bold">Suggestions:</small>
+                                            <ul class="list-unstyled mb-0" style="font-size: 0.8rem;">
+                                                
+                                                <li><i class="fas fa-lightbulb text-primary me-1"></i>Add a brief description of the project's purpose and functionality.</li>
+                                                
+                                                <li><i class="fas fa-lightbulb text-primary me-1"></i>Instead of listing moved sections with their new URLs, consider removing those sections entirely or integrating the relevant information directly into the README if applicable and the content is stable.</li>
+                                                
+                                            </ul>
+                                        </div>
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="col-lg-6">
+                                <div class="card metric-card grade-B">
+                                    <div class="card-body">
+                                        <div class="d-flex justify-content-between align-items-start mb-2">
+                                            <h6 class="card-title mb-0">package.json</h6>
+                                            <span class="badge bg-primary">B</span>
+                                        </div>
+                                        <p class="text-muted small mb-2">JSON • Score: 80/100</p>
+                                        
+                                        
+                                        <div class="mb-2">
+                                            <small class="text-success fw-bold">Strengths:</small>
+                                            <ul class="list-unstyled mb-0" style="font-size: 0.8rem;">
+                                                
+                                                <li><i class="fas fa-check text-success me-1"></i>Clearly defined dependencies and devDependencies.</li>
+                                                
+                                                <li><i class="fas fa-check text-success me-1"></i>Standard `react-scripts` setup for ease of use and maintenance.</li>
+                                                
+                                            </ul>
+                                        </div>
+                                        
+                                        
+                                        
+                                        <div class="mb-0">
+                                            <small class="text-primary fw-bold">Suggestions:</small>
+                                            <ul class="list-unstyled mb-0" style="font-size: 0.8rem;">
+                                                
+                                                <li><i class="fas fa-lightbulb text-primary me-1"></i>Upgrade dependencies to their latest stable versions where possible. Test thoroughly after each upgrade to ensure compatibility.</li>
+                                                
+                                                <li><i class="fas fa-lightbulb text-primary me-1"></i>Consider using `npm audit` or `yarn audit` to identify and address any known security vulnerabilities in the dependencies.</li>
+                                                
+                                            </ul>
+                                        </div>
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="col-lg-6">
+                                <div class="card metric-card grade-B">
+                                    <div class="card-body">
+                                        <div class="d-flex justify-content-between align-items-start mb-2">
+                                            <h6 class="card-title mb-0">index.html</h6>
+                                            <span class="badge bg-primary">B</span>
+                                        </div>
+                                        <p class="text-muted small mb-2">HTML • Score: 80/100</p>
+                                        
+                                        
+                                        <div class="mb-2">
+                                            <small class="text-success fw-bold">Strengths:</small>
+                                            <ul class="list-unstyled mb-0" style="font-size: 0.8rem;">
+                                                
+                                                <li><i class="fas fa-check text-success me-1"></i>Basic HTML structure is present.</li>
+                                                
+                                                <li><i class="fas fa-check text-success me-1"></i>Meta tags for character set, viewport, and theme color are included.</li>
+                                                
+                                            </ul>
+                                        </div>
+                                        
+                                        
+                                        
+                                        <div class="mb-0">
+                                            <small class="text-primary fw-bold">Suggestions:</small>
+                                            <ul class="list-unstyled mb-0" style="font-size: 0.8rem;">
+                                                
+                                                <li><i class="fas fa-lightbulb text-primary me-1"></i>Add meaningful content to the body section.</li>
+                                                
+                                                <li><i class="fas fa-lightbulb text-primary me-1"></i>Consider adding basic styling or linking to a stylesheet.</li>
+                                                
+                                            </ul>
+                                        </div>
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="col-lg-6">
+                                <div class="card metric-card grade-B">
+                                    <div class="card-body">
+                                        <div class="d-flex justify-content-between align-items-start mb-2">
+                                            <h6 class="card-title mb-0">manifest.json</h6>
+                                            <span class="badge bg-primary">B</span>
+                                        </div>
+                                        <p class="text-muted small mb-2">JSON • Score: 80/100</p>
+                                        
+                                        
+                                        <div class="mb-2">
+                                            <small class="text-success fw-bold">Strengths:</small>
+                                            <ul class="list-unstyled mb-0" style="font-size: 0.8rem;">
+                                                
+                                                <li><i class="fas fa-check text-success me-1"></i>Clear and concise structure.</li>
+                                                
+                                                <li><i class="fas fa-check text-success me-1"></i>Includes essential fields like name, short_name, icons, start_url, and display.</li>
+                                                
+                                            </ul>
+                                        </div>
+                                        
+                                        
+                                        
+                                        <div class="mb-0">
+                                            <small class="text-primary fw-bold">Suggestions:</small>
+                                            <ul class="list-unstyled mb-0" style="font-size: 0.8rem;">
+                                                
+                                                <li><i class="fas fa-lightbulb text-primary me-1"></i>Add more icon sizes (e.g., 192x192, 512x512) and use PNG format for better compatibility and visual quality.</li>
+                                                
+                                                <li><i class="fas fa-lightbulb text-primary me-1"></i>Consider using a more specific start_url if the application has a preferred landing page.</li>
+                                                
+                                            </ul>
+                                        </div>
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="col-lg-6">
+                                <div class="card metric-card grade-A">
+                                    <div class="card-body">
+                                        <div class="d-flex justify-content-between align-items-start mb-2">
+                                            <h6 class="card-title mb-0">types.js</h6>
+                                            <span class="badge bg-primary">A</span>
+                                        </div>
+                                        <p class="text-muted small mb-2">JavaScript • Score: 95/100</p>
+                                        
+                                        
+                                        <div class="mb-2">
+                                            <small class="text-success fw-bold">Strengths:</small>
+                                            <ul class="list-unstyled mb-0" style="font-size: 0.8rem;">
+                                                
+                                                <li><i class="fas fa-check text-success me-1"></i>Clear and descriptive constant names.</li>
+                                                
+                                                <li><i class="fas fa-check text-success me-1"></i>Well-organized and easy to understand.</li>
+                                                
+                                            </ul>
+                                        </div>
+                                        
+                                        
+                                        
+                                        <div class="mb-0">
+                                            <small class="text-primary fw-bold">Suggestions:</small>
+                                            <ul class="list-unstyled mb-0" style="font-size: 0.8rem;">
+                                                
+                                                <li><i class="fas fa-lightbulb text-primary me-1"></i>Consider grouping related constants into a single object if the list grows significantly for better organization, but it's not necessary at this scale.</li>
+                                                
+                                                <li><i class="fas fa-lightbulb text-primary me-1"></i>Adding JSDoc-style comments to describe each constant might be beneficial, but is optional at this size.</li>
+                                                
+                                            </ul>
+                                        </div>
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="col-lg-6">
+                                <div class="card metric-card grade-C">
+                                    <div class="card-body">
+                                        <div class="d-flex justify-content-between align-items-start mb-2">
+                                            <h6 class="card-title mb-0">user_actions.js</h6>
+                                            <span class="badge bg-primary">C</span>
+                                        </div>
+                                        <p class="text-muted small mb-2">JavaScript • Score: 70/100</p>
+                                        
+                                        
+                                        <div class="mb-2">
+                                            <small class="text-success fw-bold">Strengths:</small>
+                                            <ul class="list-unstyled mb-0" style="font-size: 0.8rem;">
+                                                
+                                                <li><i class="fas fa-check text-success me-1"></i>Clear separation of concerns by encapsulating user actions into distinct functions.</li>
+                                                
+                                                <li><i class="fas fa-check text-success me-1"></i>Uses `axios` for making HTTP requests, which is a widely used and reliable library.</li>
+                                                
+                                            </ul>
+                                        </div>
+                                        
+                                        
+                                        
+                                        <div class="mb-0">
+                                            <small class="text-primary fw-bold">Suggestions:</small>
+                                            <ul class="list-unstyled mb-0" style="font-size: 0.8rem;">
+                                                
+                                                <li><i class="fas fa-lightbulb text-primary me-1"></i>Use `redux-thunk` or similar middleware to handle asynchronous actions. This allows you to dispatch a function that returns a promise, and then dispatch the actual action with the resolved data in the `.then()` block.  Also use `.catch` to handle errors.</li>
+                                                
+                                                <li><i class="fas fa-lightbulb text-primary me-1"></i>Implement error handling for the `axios` requests using `.catch` and dispatch an error action to update the Redux store with the error state.</li>
+                                                
+                                            </ul>
+                                        </div>
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="col-lg-6">
+                                <div class="card metric-card grade-A">
+                                    <div class="card-body">
+                                        <div class="d-flex justify-content-between align-items-start mb-2">
+                                            <h6 class="card-title mb-0">index.js</h6>
+                                            <span class="badge bg-primary">A</span>
+                                        </div>
+                                        <p class="text-muted small mb-2">JavaScript • Score: 95/100</p>
+                                        
+                                        
+                                        <div class="mb-2">
+                                            <small class="text-success fw-bold">Strengths:</small>
+                                            <ul class="list-unstyled mb-0" style="font-size: 0.8rem;">
+                                                
+                                                <li><i class="fas fa-check text-success me-1"></i>Uses Redux's `combineReducers` correctly.</li>
+                                                
+                                                <li><i class="fas fa-check text-success me-1"></i>Clear and concise reducer structure.</li>
+                                                
+                                            </ul>
+                                        </div>
+                                        
+                                        
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="col-lg-6">
+                                <div class="card metric-card grade-B">
+                                    <div class="card-body">
+                                        <div class="d-flex justify-content-between align-items-start mb-2">
+                                            <h6 class="card-title mb-0">user_reducer.js</h6>
+                                            <span class="badge bg-primary">B</span>
+                                        </div>
+                                        <p class="text-muted small mb-2">JavaScript • Score: 80/100</p>
+                                        
+                                        
+                                        <div class="mb-2">
+                                            <small class="text-success fw-bold">Strengths:</small>
+                                            <ul class="list-unstyled mb-0" style="font-size: 0.8rem;">
+                                                
+                                                <li><i class="fas fa-check text-success me-1"></i>Clear and concise reducer logic.</li>
+                                                
+                                                <li><i class="fas fa-check text-success me-1"></i>Uses the spread operator for immutability.</li>
+                                                
+                                            </ul>
+                                        </div>
+                                        
+                                        
+                                        
+                                        <div class="mb-0">
+                                            <small class="text-primary fw-bold">Suggestions:</small>
+                                            <ul class="list-unstyled mb-0" style="font-size: 0.8rem;">
+                                                
+                                                <li><i class="fas fa-lightbulb text-primary me-1"></i>Correct the typo `loginSucces` to `loginSuccess`.</li>
+                                                
+                                                <li><i class="fas fa-lightbulb text-primary me-1"></i>Explicitly define the initial state of the reducer, e.g., `const initialState = { register: null, loginSuccess: null, userData: null };` and use this in the reducer function: `function(state = initialState, action){...}`.</li>
+                                                
+                                            </ul>
+                                        </div>
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="col-lg-6">
+                                <div class="card metric-card grade-B">
+                                    <div class="card-body">
+                                        <div class="d-flex justify-content-between align-items-start mb-2">
+                                            <h6 class="card-title mb-0">App.js</h6>
+                                            <span class="badge bg-primary">B</span>
+                                        </div>
+                                        <p class="text-muted small mb-2">JavaScript • Score: 80/100</p>
+                                        
+                                        
+                                        <div class="mb-2">
+                                            <small class="text-success fw-bold">Strengths:</small>
+                                            <ul class="list-unstyled mb-0" style="font-size: 0.8rem;">
+                                                
+                                                <li><i class="fas fa-check text-success me-1"></i>Clear component structure using React Router.</li>
+                                                
+                                                <li><i class="fas fa-check text-success me-1"></i>Use of Suspense for better loading experience.</li>
+                                                
+                                            </ul>
+                                        </div>
+                                        
+                                        
+                                        
+                                        <div class="mb-0">
+                                            <small class="text-primary fw-bold">Suggestions:</small>
+                                            <ul class="list-unstyled mb-0" style="font-size: 0.8rem;">
+                                                
+                                                <li><i class="fas fa-lightbulb text-primary me-1"></i>Move inline styles to a separate CSS file or use a styling library like styled-components or Material-UI.</li>
+                                                
+                                                <li><i class="fas fa-lightbulb text-primary me-1"></i>Add JSDoc comments to clarify the purpose of the Auth HOC and its parameters.</li>
+                                                
+                                            </ul>
+                                        </div>
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="col-lg-6">
+                                <div class="card metric-card grade-A">
+                                    <div class="card-body">
+                                        <div class="d-flex justify-content-between align-items-start mb-2">
+                                            <h6 class="card-title mb-0">Config.js</h6>
+                                            <span class="badge bg-primary">A</span>
+                                        </div>
+                                        <p class="text-muted small mb-2">JavaScript • Score: 95/100</p>
+                                        
+                                        
+                                        <div class="mb-2">
+                                            <small class="text-success fw-bold">Strengths:</small>
+                                            <ul class="list-unstyled mb-0" style="font-size: 0.8rem;">
+                                                
+                                                <li><i class="fas fa-check text-success me-1"></i>Simple and clear configuration.</li>
+                                                
+                                                <li><i class="fas fa-check text-success me-1"></i>Uses modern JavaScript syntax (export).</li>
+                                                
+                                            </ul>
+                                        </div>
+                                        
+                                        
+                                        
+                                        <div class="mb-0">
+                                            <small class="text-primary fw-bold">Suggestions:</small>
+                                            <ul class="list-unstyled mb-0" style="font-size: 0.8rem;">
+                                                
+                                                <li><i class="fas fa-lightbulb text-primary me-1"></i>Consider grouping related routes into a single object for better organization if the file grows.</li>
+                                                
+                                                <li><i class="fas fa-lightbulb text-primary me-1"></i>If applicable, define data types/interfaces for configuration variables (e.g., using TypeScript).</li>
+                                                
+                                            </ul>
+                                        </div>
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="col-lg-6">
+                                <div class="card metric-card grade-B">
+                                    <div class="card-body">
+                                        <div class="d-flex justify-content-between align-items-start mb-2">
+                                            <h6 class="card-title mb-0">Footer.js</h6>
+                                            <span class="badge bg-primary">B</span>
+                                        </div>
+                                        <p class="text-muted small mb-2">JavaScript • Score: 85/100</p>
+                                        
+                                        
+                                        <div class="mb-2">
+                                            <small class="text-success fw-bold">Strengths:</small>
+                                            <ul class="list-unstyled mb-0" style="font-size: 0.8rem;">
+                                                
+                                                <li><i class="fas fa-check text-success me-1"></i>Functional component using React hooks.</li>
+                                                
+                                                <li><i class="fas fa-check text-success me-1"></i>Simple and readable code.</li>
+                                                
+                                            </ul>
+                                        </div>
+                                        
+                                        
+                                        
+                                        <div class="mb-0">
+                                            <small class="text-primary fw-bold">Suggestions:</small>
+                                            <ul class="list-unstyled mb-0" style="font-size: 0.8rem;">
+                                                
+                                                <li><i class="fas fa-lightbulb text-primary me-1"></i>Consider using CSS classes for styling instead of inline styles. This improves maintainability and allows for media queries to handle responsiveness.</li>
+                                                
+                                                <li><i class="fas fa-lightbulb text-primary me-1"></i>Move height to a CSS class and consider using `min-height` instead of `height` to accommodate potentially larger content.</li>
+                                                
+                                            </ul>
+                                        </div>
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="col-lg-6">
+                                <div class="card metric-card grade-B">
+                                    <div class="card-body">
+                                        <div class="d-flex justify-content-between align-items-start mb-2">
+                                            <h6 class="card-title mb-0">LandingPage.js</h6>
+                                            <span class="badge bg-primary">B</span>
+                                        </div>
+                                        <p class="text-muted small mb-2">JavaScript • Score: 80/100</p>
+                                        
+                                        
+                                        <div class="mb-2">
+                                            <small class="text-success fw-bold">Strengths:</small>
+                                            <ul class="list-unstyled mb-0" style="font-size: 0.8rem;">
+                                                
+                                                <li><i class="fas fa-check text-success me-1"></i>Simple and readable component.</li>
+                                                
+                                                <li><i class="fas fa-check text-success me-1"></i>Uses functional component with React Hooks.</li>
+                                                
+                                            </ul>
+                                        </div>
+                                        
+                                        
+                                        
+                                        <div class="mb-0">
+                                            <small class="text-primary fw-bold">Suggestions:</small>
+                                            <ul class="list-unstyled mb-0" style="font-size: 0.8rem;">
+                                                
+                                                <li><i class="fas fa-lightbulb text-primary me-1"></i>Move styling to a CSS file or use a CSS-in-JS library for better organization and maintainability.</li>
+                                                
+                                                <li><i class="fas fa-lightbulb text-primary me-1"></i>Use semantic HTML elements like `<header>`, `<main>`, and `<footer>` to improve accessibility and SEO.</li>
+                                                
+                                            </ul>
+                                        </div>
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="col-lg-6">
+                                <div class="card metric-card grade-B">
+                                    <div class="card-body">
+                                        <div class="d-flex justify-content-between align-items-start mb-2">
+                                            <h6 class="card-title mb-0">LoginPage.js</h6>
+                                            <span class="badge bg-primary">B</span>
+                                        </div>
+                                        <p class="text-muted small mb-2">JavaScript • Score: 80/100</p>
+                                        
+                                        
+                                        <div class="mb-2">
+                                            <small class="text-success fw-bold">Strengths:</small>
+                                            <ul class="list-unstyled mb-0" style="font-size: 0.8rem;">
+                                                
+                                                <li><i class="fas fa-check text-success me-1"></i>Uses Formik and Yup for form management and validation, which simplifies form handling.</li>
+                                                
+                                                <li><i class="fas fa-check text-success me-1"></i>Redux is used for managing the login state.</li>
+                                                
+                                            </ul>
+                                        </div>
+                                        
+                                        
+                                        
+                                        <div class="mb-0">
+                                            <small class="text-primary fw-bold">Suggestions:</small>
+                                            <ul class="list-unstyled mb-0" style="font-size: 0.8rem;">
+                                                
+                                                <li><i class="fas fa-lightbulb text-primary me-1"></i>Correct the 'rememberMe' functionality to store the email address instead of the user id.</li>
+                                                
+                                                <li><i class="fas fa-lightbulb text-primary me-1"></i>Consider using a more robust method for storing user credentials or session information, such as cookies with appropriate security flags, or a session management library. Avoid storing sensitive information directly in localStorage.</li>
+                                                
+                                            </ul>
+                                        </div>
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="col-lg-6">
+                                <div class="card metric-card grade-B">
+                                    <div class="card-body">
+                                        <div class="d-flex justify-content-between align-items-start mb-2">
+                                            <h6 class="card-title mb-0">NavBar.js</h6>
+                                            <span class="badge bg-primary">B</span>
+                                        </div>
+                                        <p class="text-muted small mb-2">JavaScript • Score: 80/100</p>
+                                        
+                                        
+                                        <div class="mb-2">
+                                            <small class="text-success fw-bold">Strengths:</small>
+                                            <ul class="list-unstyled mb-0" style="font-size: 0.8rem;">
+                                                
+                                                <li><i class="fas fa-check text-success me-1"></i>Clear separation of concerns with LeftMenu and RightMenu components.</li>
+                                                
+                                                <li><i class="fas fa-check text-success me-1"></i>Use of functional component and useState hook for managing drawer visibility.</li>
+                                                
+                                            </ul>
+                                        </div>
+                                        
+                                        
+                                        
+                                        <div class="mb-0">
+                                            <small class="text-primary fw-bold">Suggestions:</small>
+                                            <ul class="list-unstyled mb-0" style="font-size: 0.8rem;">
+                                                
+                                                <li><i class="fas fa-lightbulb text-primary me-1"></i>Fix the typo in `menu_rigth`.</li>
+                                                
+                                                <li><i class="fas fa-lightbulb text-primary me-1"></i>Replace hardcoded strings (like 'Logo' and 'Basic Drawer') with props or configuration variables.</li>
+                                                
+                                            </ul>
+                                        </div>
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="col-lg-6">
+                                <div class="card metric-card grade-B">
+                                    <div class="card-body">
+                                        <div class="d-flex justify-content-between align-items-start mb-2">
+                                            <h6 class="card-title mb-0">LeftMenu.js</h6>
+                                            <span class="badge bg-primary">B</span>
+                                        </div>
+                                        <p class="text-muted small mb-2">JavaScript • Score: 85/100</p>
+                                        
+                                        
+                                        <div class="mb-2">
+                                            <small class="text-success fw-bold">Strengths:</small>
+                                            <ul class="list-unstyled mb-0" style="font-size: 0.8rem;">
+                                                
+                                                <li><i class="fas fa-check text-success me-1"></i>Clear and concise component definition.</li>
+                                                
+                                                <li><i class="fas fa-check text-success me-1"></i>Uses Ant Design components effectively.</li>
+                                                
+                                            </ul>
+                                        </div>
+                                        
+                                        
+                                        
+                                        <div class="mb-0">
+                                            <small class="text-primary fw-bold">Suggestions:</small>
+                                            <ul class="list-unstyled mb-0" style="font-size: 0.8rem;">
+                                                
+                                                <li><i class="fas fa-lightbulb text-primary me-1"></i>Consider using an array of data to dynamically render menu items.</li>
+                                                
+                                                <li><i class="fas fa-lightbulb text-primary me-1"></i>Add propTypes or TypeScript to define expected prop types.</li>
+                                                
+                                            </ul>
+                                        </div>
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="col-lg-6">
+                                <div class="card metric-card grade-B">
+                                    <div class="card-body">
+                                        <div class="d-flex justify-content-between align-items-start mb-2">
+                                            <h6 class="card-title mb-0">Navbar.css</h6>
+                                            <span class="badge bg-primary">B</span>
+                                        </div>
+                                        <p class="text-muted small mb-2">CSS • Score: 80/100</p>
+                                        
+                                        
+                                        <div class="mb-2">
+                                            <small class="text-success fw-bold">Strengths:</small>
+                                            <ul class="list-unstyled mb-0" style="font-size: 0.8rem;">
+                                                
+                                                <li><i class="fas fa-check text-success me-1"></i>Clear and relatively well-organized CSS targeting specific elements within the navbar.</li>
+                                                
+                                                <li><i class="fas fa-check text-success me-1"></i>Use of media queries for responsive design is present.</li>
+                                                
+                                            </ul>
+                                        </div>
+                                        
+                                        
+                                        
+                                        <div class="mb-0">
+                                            <small class="text-primary fw-bold">Suggestions:</small>
+                                            <ul class="list-unstyled mb-0" style="font-size: 0.8rem;">
+                                                
+                                                <li><i class="fas fa-lightbulb text-primary me-1"></i>Avoid using `!important` unless absolutely necessary. Consider increasing specificity using class names or cascading.</li>
+                                                
+                                                <li><i class="fas fa-lightbulb text-primary me-1"></i>Correct the typo in `menu_rigth` to `menu_right`.</li>
+                                                
+                                            </ul>
+                                        </div>
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="col-lg-6">
+                                <div class="card metric-card grade-B">
+                                    <div class="card-body">
+                                        <div class="d-flex justify-content-between align-items-start mb-2">
+                                            <h6 class="card-title mb-0">RightMenu.js</h6>
+                                            <span class="badge bg-primary">B</span>
+                                        </div>
+                                        <p class="text-muted small mb-2">JavaScript • Score: 82/100</p>
+                                        
+                                        
+                                        <div class="mb-2">
+                                            <small class="text-success fw-bold">Strengths:</small>
+                                            <ul class="list-unstyled mb-0" style="font-size: 0.8rem;">
+                                                
+                                                <li><i class="fas fa-check text-success me-1"></i>Clear and concise component logic.</li>
+                                                
+                                                <li><i class="fas fa-check text-success me-1"></i>Uses Redux useSelector hook for state management effectively.</li>
+                                                
+                                            </ul>
+                                        </div>
+                                        
+                                        
+                                        
+                                        <div class="mb-0">
+                                            <small class="text-primary fw-bold">Suggestions:</small>
+                                            <ul class="list-unstyled mb-0" style="font-size: 0.8rem;">
+                                                
+                                                <li><i class="fas fa-lightbulb text-primary me-1"></i>Replace `alert` with a more sophisticated notification system (e.g., Ant Design's `message` component).</li>
+                                                
+                                                <li><i class="fas fa-lightbulb text-primary me-1"></i>Use React Router's `Link` component instead of `<a href>` for navigation to prevent full page reloads.</li>
+                                                
+                                            </ul>
+                                        </div>
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="col-lg-6">
+                                <div class="card metric-card grade-B">
+                                    <div class="card-body">
+                                        <div class="d-flex justify-content-between align-items-start mb-2">
+                                            <h6 class="card-title mb-0">RegisterPage.js</h6>
+                                            <span class="badge bg-primary">B+</span>
+                                        </div>
+                                        <p class="text-muted small mb-2">JavaScript • Score: 85/100</p>
+                                        
+                                        
+                                        <div class="mb-2">
+                                            <small class="text-success fw-bold">Strengths:</small>
+                                            <ul class="list-unstyled mb-0" style="font-size: 0.8rem;">
+                                                
+                                                <li><i class="fas fa-check text-success me-1"></i>Uses Formik and Yup for form handling and validation, promoting code clarity and maintainability.</li>
+                                                
+                                                <li><i class="fas fa-check text-success me-1"></i>Uses Redux for state management (dispatching registerUser action).</li>
+                                                
+                                            </ul>
+                                        </div>
+                                        
+                                        
+                                        
+                                        <div class="mb-0">
+                                            <small class="text-primary fw-bold">Suggestions:</small>
+                                            <ul class="list-unstyled mb-0" style="font-size: 0.8rem;">
+                                                
+                                                <li><i class="fas fa-lightbulb text-primary me-1"></i>Remove the `setTimeout` in the `onSubmit` function.</li>
+                                                
+                                                <li><i class="fas fa-lightbulb text-primary me-1"></i>Implement a better approach for generating unique image identifiers (e.g., UUID).</li>
+                                                
+                                            </ul>
+                                        </div>
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="col-lg-6">
+                                <div class="card metric-card grade-B">
+                                    <div class="card-body">
+                                        <div class="d-flex justify-content-between align-items-start mb-2">
+                                            <h6 class="card-title mb-0">auth.js</h6>
+                                            <span class="badge bg-primary">B</span>
+                                        </div>
+                                        <p class="text-muted small mb-2">JavaScript • Score: 80/100</p>
+                                        
+                                        
+                                        <div class="mb-2">
+                                            <small class="text-success fw-bold">Strengths:</small>
+                                            <ul class="list-unstyled mb-0" style="font-size: 0.8rem;">
+                                                
+                                                <li><i class="fas fa-check text-success me-1"></i>Clear authentication logic.</li>
+                                                
+                                                <li><i class="fas fa-check text-success me-1"></i>Uses Redux for state management, which is appropriate for user authentication.</li>
+                                                
+                                            </ul>
+                                        </div>
+                                        
+                                        
+                                        
+                                        <div class="mb-0">
+                                            <small class="text-primary fw-bold">Suggestions:</small>
+                                            <ul class="list-unstyled mb-0" style="font-size: 0.8rem;">
+                                                
+                                                <li><i class="fas fa-lightbulb text-primary me-1"></i>Use the `useHistory` hook from `react-router-dom` for navigation instead of directly accessing `props.history`.</li>
+                                                
+                                                <li><i class="fas fa-lightbulb text-primary me-1"></i>Add JSDoc comments to explain the purpose of the `option` and `adminRoute` parameters.</li>
+                                                
+                                            </ul>
+                                        </div>
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="col-lg-6">
+                                <div class="card metric-card grade-B">
+                                    <div class="card-body">
+                                        <div class="d-flex justify-content-between align-items-start mb-2">
+                                            <h6 class="card-title mb-0">index.css</h6>
+                                            <span class="badge bg-primary">B</span>
+                                        </div>
+                                        <p class="text-muted small mb-2">CSS • Score: 80/100</p>
+                                        
+                                        
+                                        <div class="mb-2">
+                                            <small class="text-success fw-bold">Strengths:</small>
+                                            <ul class="list-unstyled mb-0" style="font-size: 0.8rem;">
+                                                
+                                                <li><i class="fas fa-check text-success me-1"></i>Good font stack with fallback options.</li>
+                                                
+                                                <li><i class="fas fa-check text-success me-1"></i>Use of flexbox for layout.</li>
+                                                
+                                            </ul>
+                                        </div>
+                                        
+                                        
+                                        
+                                        <div class="mb-0">
+                                            <small class="text-primary fw-bold">Suggestions:</small>
+                                            <ul class="list-unstyled mb-0" style="font-size: 0.8rem;">
+                                                
+                                                <li><i class="fas fa-lightbulb text-primary me-1"></i>Remove duplicate body selector and consolidate styles.</li>
+                                                
+                                                <li><i class="fas fa-lightbulb text-primary me-1"></i>Standardize font stacks for consistency.</li>
+                                                
+                                            </ul>
+                                        </div>
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="col-lg-6">
+                                <div class="card metric-card grade-B">
+                                    <div class="card-body">
+                                        <div class="d-flex justify-content-between align-items-start mb-2">
+                                            <h6 class="card-title mb-0">index.js</h6>
+                                            <span class="badge bg-primary">B</span>
+                                        </div>
+                                        <p class="text-muted small mb-2">JavaScript • Score: 80/100</p>
+                                        
+                                        
+                                        <div class="mb-2">
+                                            <small class="text-success fw-bold">Strengths:</small>
+                                            <ul class="list-unstyled mb-0" style="font-size: 0.8rem;">
+                                                
+                                                <li><i class="fas fa-check text-success me-1"></i>Use of Redux for state management.</li>
+                                                
+                                                <li><i class="fas fa-check text-success me-1"></i>Use of React Router for navigation.</li>
+                                                
+                                            </ul>
+                                        </div>
+                                        
+                                        
+                                        
+                                        <div class="mb-0">
+                                            <small class="text-primary fw-bold">Suggestions:</small>
+                                            <ul class="list-unstyled mb-0" style="font-size: 0.8rem;">
+                                                
+                                                <li><i class="fas fa-lightbulb text-primary me-1"></i>Implement a more robust check for the Redux DevTools extension, preferably using environment variables or build-time flags to prevent its inclusion in production builds.</li>
+                                                
+                                                <li><i class="fas fa-lightbulb text-primary me-1"></i>Consider registering the service worker or removing the service worker file if offline support is not required.</li>
+                                                
+                                            </ul>
+                                        </div>
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="col-lg-6">
+                                <div class="card metric-card grade-B">
+                                    <div class="card-body">
+                                        <div class="d-flex justify-content-between align-items-start mb-2">
+                                            <h6 class="card-title mb-0">serviceWorker.js</h6>
+                                            <span class="badge bg-primary">B</span>
+                                        </div>
+                                        <p class="text-muted small mb-2">JavaScript • Score: 80/100</p>
+                                        
+                                        
+                                        <div class="mb-2">
+                                            <small class="text-success fw-bold">Strengths:</small>
+                                            <ul class="list-unstyled mb-0" style="font-size: 0.8rem;">
+                                                
+                                                <li><i class="fas fa-check text-success me-1"></i>Clear separation of concerns with functions for registration and validation.</li>
+                                                
+                                                <li><i class="fas fa-check text-success me-1"></i>Handles localhost and production environments differently.</li>
+                                                
+                                            </ul>
+                                        </div>
+                                        
+                                        
+                                        
+                                        <div class="mb-0">
+                                            <small class="text-primary fw-bold">Suggestions:</small>
+                                            <ul class="list-unstyled mb-0" style="font-size: 0.8rem;">
+                                                
+                                                <li><i class="fas fa-lightbulb text-primary me-1"></i>Add a `catch` block to handle errors in the `fetch` call within `checkValidServiceWorker` to avoid unhandled promise rejections.</li>
+                                                
+                                                <li><i class="fas fa-lightbulb text-primary me-1"></i>Simplify the localhost IPv4 address matching regex or remove it altogether, relying solely on `window.location.hostname === 'localhost'` and `window.location.hostname === '[::1]'`.</li>
+                                                
+                                            </ul>
+                                        </div>
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="col-lg-6">
+                                <div class="card metric-card grade-A">
+                                    <div class="card-body">
+                                        <div class="d-flex justify-content-between align-items-start mb-2">
+                                            <h6 class="card-title mb-0">setupProxy.js</h6>
+                                            <span class="badge bg-primary">A</span>
+                                        </div>
+                                        <p class="text-muted small mb-2">JavaScript • Score: 95/100</p>
+                                        
+                                        
+                                        <div class="mb-2">
+                                            <small class="text-success fw-bold">Strengths:</small>
+                                            <ul class="list-unstyled mb-0" style="font-size: 0.8rem;">
+                                                
+                                                <li><i class="fas fa-check text-success me-1"></i>Simple and effective proxy setup.</li>
+                                                
+                                                <li><i class="fas fa-check text-success me-1"></i>Uses a well-established library for proxying.</li>
+                                                
+                                            </ul>
+                                        </div>
+                                        
+                                        
+                                        
+                                        <div class="mb-0">
+                                            <small class="text-primary fw-bold">Suggestions:</small>
+                                            <ul class="list-unstyled mb-0" style="font-size: 0.8rem;">
+                                                
+                                                <li><i class="fas fa-lightbulb text-primary me-1"></i>Consider adding error handling for proxy failures.</li>
+                                                
+                                                <li><i class="fas fa-lightbulb text-primary me-1"></i>Could add options for configuring the proxy based on environment variables (e.g., different target URLs for development vs. production).</li>
+                                                
+                                            </ul>
+                                        </div>
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="col-lg-6">
+                                <div class="card metric-card grade-B">
+                                    <div class="card-body">
+                                        <div class="d-flex justify-content-between align-items-start mb-2">
+                                            <h6 class="card-title mb-0">package.json</h6>
+                                            <span class="badge bg-primary">B</span>
+                                        </div>
+                                        <p class="text-muted small mb-2">JSON • Score: 75/100</p>
+                                        
+                                        
+                                        <div class="mb-2">
+                                            <small class="text-success fw-bold">Strengths:</small>
+                                            <ul class="list-unstyled mb-0" style="font-size: 0.8rem;">
+                                                
+                                                <li><i class="fas fa-check text-success me-1"></i>Clear structure and organization.</li>
+                                                
+                                                <li><i class="fas fa-check text-success me-1"></i>Includes basic metadata (name, version, description, author, license).</li>
+                                                
+                                            </ul>
+                                        </div>
+                                        
+                                        
+                                        
+                                        <div class="mb-0">
+                                            <small class="text-primary fw-bold">Suggestions:</small>
+                                            <ul class="list-unstyled mb-0" style="font-size: 0.8rem;">
+                                                
+                                                <li><i class="fas fa-lightbulb text-primary me-1"></i>Update engine specification to a wider range (e.g., "node": ">=10.16.0", "npm": ">=6.9.0").</li>
+                                                
+                                                <li><i class="fas fa-lightbulb text-primary me-1"></i>Upgrade dependencies to their latest versions, testing compatibility afterwards.</li>
+                                                
+                                            </ul>
+                                        </div>
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="col-lg-6">
+                                <div class="card metric-card grade-B">
+                                    <div class="card-body">
+                                        <div class="d-flex justify-content-between align-items-start mb-2">
+                                            <h6 class="card-title mb-0">key.js</h6>
+                                            <span class="badge bg-primary">B</span>
+                                        </div>
+                                        <p class="text-muted small mb-2">JavaScript • Score: 80/100</p>
+                                        
+                                        
+                                        <div class="mb-2">
+                                            <small class="text-success fw-bold">Strengths:</small>
+                                            <ul class="list-unstyled mb-0" style="font-size: 0.8rem;">
+                                                
+                                                <li><i class="fas fa-check text-success me-1"></i>Simple and clear logic for environment-based configuration loading.</li>
+                                                
+                                                <li><i class="fas fa-check text-success me-1"></i>Uses `process.env.NODE_ENV` which is a standard practice.</li>
+                                                
+                                            </ul>
+                                        </div>
+                                        
+                                        
+                                        
+                                        <div class="mb-0">
+                                            <small class="text-primary fw-bold">Suggestions:</small>
+                                            <ul class="list-unstyled mb-0" style="font-size: 0.8rem;">
+                                                
+                                                <li><i class="fas fa-lightbulb text-primary me-1"></i>Add a default case or error handling for situations where `process.env.NODE_ENV` is undefined or has an unexpected value.</li>
+                                                
+                                                <li><i class="fas fa-lightbulb text-primary me-1"></i>Consider adding a try-catch block when requiring the modules to handle cases where the files are missing or contain errors.</li>
+                                                
+                                            </ul>
+                                        </div>
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="col-lg-6">
+                                <div class="card metric-card grade-B">
+                                    <div class="card-body">
+                                        <div class="d-flex justify-content-between align-items-start mb-2">
+                                            <h6 class="card-title mb-0">prod.js</h6>
+                                            <span class="badge bg-primary">B</span>
+                                        </div>
+                                        <p class="text-muted small mb-2">JavaScript • Score: 80/100</p>
+                                        
+                                        
+                                        <div class="mb-2">
+                                            <small class="text-success fw-bold">Strengths:</small>
+                                            <ul class="list-unstyled mb-0" style="font-size: 0.8rem;">
+                                                
+                                                <li><i class="fas fa-check text-success me-1"></i>Simple and clear module export.</li>
+                                                
+                                                <li><i class="fas fa-check text-success me-1"></i>Utilizes environment variables for configuration, which is a good practice for production environments.</li>
+                                                
+                                            </ul>
+                                        </div>
+                                        
+                                        
+                                        
+                                        <div class="mb-0">
+                                            <small class="text-primary fw-bold">Suggestions:</small>
+                                            <ul class="list-unstyled mb-0" style="font-size: 0.8rem;">
+                                                
+                                                <li><i class="fas fa-lightbulb text-primary me-1"></i>Add a default value or check for the existence of `process.env.MONGO_URI` before exporting it. Consider throwing an error or logging a warning if it's not defined.</li>
+                                                
+                                                <li><i class="fas fa-lightbulb text-primary me-1"></i>Consider adding basic validation to ensure MONGO_URI is in the expected format (e.g., connection string).</li>
+                                                
+                                            </ul>
+                                        </div>
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="col-lg-6">
+                                <div class="card metric-card grade-B">
+                                    <div class="card-body">
+                                        <div class="d-flex justify-content-between align-items-start mb-2">
+                                            <h6 class="card-title mb-0">index.js</h6>
+                                            <span class="badge bg-primary">B</span>
+                                        </div>
+                                        <p class="text-muted small mb-2">JavaScript • Score: 80/100</p>
+                                        
+                                        
+                                        <div class="mb-2">
+                                            <small class="text-success fw-bold">Strengths:</small>
+                                            <ul class="list-unstyled mb-0" style="font-size: 0.8rem;">
+                                                
+                                                <li><i class="fas fa-check text-success me-1"></i>Uses express for creating a server.</li>
+                                                
+                                                <li><i class="fas fa-check text-success me-1"></i>Includes necessary middleware like cors, body-parser, and cookie-parser.</li>
+                                                
+                                            </ul>
+                                        </div>
+                                        
+                                        
+                                        
+                                        <div class="mb-0">
+                                            <small class="text-primary fw-bold">Suggestions:</small>
+                                            <ul class="list-unstyled mb-0" style="font-size: 0.8rem;">
+                                                
+                                                <li><i class="fas fa-lightbulb text-primary me-1"></i>Remove commented out mongoose connection code to avoid confusion.</li>
+                                                
+                                                <li><i class="fas fa-lightbulb text-primary me-1"></i>Update mongoose connection options if they are no longer necessary for the current mongoose version or replace with the default values.</li>
+                                                
+                                            </ul>
+                                        </div>
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="col-lg-6">
+                                <div class="card metric-card grade-B">
+                                    <div class="card-body">
+                                        <div class="d-flex justify-content-between align-items-start mb-2">
+                                            <h6 class="card-title mb-0">auth.js</h6>
+                                            <span class="badge bg-primary">B</span>
+                                        </div>
+                                        <p class="text-muted small mb-2">JavaScript • Score: 80/100</p>
+                                        
+                                        
+                                        <div class="mb-2">
+                                            <small class="text-success fw-bold">Strengths:</small>
+                                            <ul class="list-unstyled mb-0" style="font-size: 0.8rem;">
+                                                
+                                                <li><i class="fas fa-check text-success me-1"></i>Clear separation of concerns by creating an authentication middleware.</li>
+                                                
+                                                <li><i class="fas fa-check text-success me-1"></i>Uses a token-based authentication approach.</li>
+                                                
+                                            </ul>
+                                        </div>
+                                        
+                                        
+                                        
+                                        <div class="mb-0">
+                                            <small class="text-primary fw-bold">Suggestions:</small>
+                                            <ul class="list-unstyled mb-0" style="font-size: 0.8rem;">
+                                                
+                                                <li><i class="fas fa-lightbulb text-primary me-1"></i>Replace `throw err` with `next(err)` or a more robust error handling mechanism (e.g., logging the error and returning a generic error response).</li>
+                                                
+                                                <li><i class="fas fa-lightbulb text-primary me-1"></i>Provide a more specific error message when a user is not found (e.g., "Authentication failed: Invalid token").</li>
+                                                
+                                            </ul>
+                                        </div>
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="col-lg-6">
+                                <div class="card metric-card grade-B">
+                                    <div class="card-body">
+                                        <div class="d-flex justify-content-between align-items-start mb-2">
+                                            <h6 class="card-title mb-0">User.js</h6>
+                                            <span class="badge bg-primary">B</span>
+                                        </div>
+                                        <p class="text-muted small mb-2">JavaScript • Score: 80/100</p>
+                                        
+                                        
+                                        <div class="mb-2">
+                                            <small class="text-success fw-bold">Strengths:</small>
+                                            <ul class="list-unstyled mb-0" style="font-size: 0.8rem;">
+                                                
+                                                <li><i class="fas fa-check text-success me-1"></i>Uses bcrypt for password hashing, a standard security practice.</li>
+                                                
+                                                <li><i class="fas fa-check text-success me-1"></i>Implements JWT for authentication.</li>
+                                                
+                                            </ul>
+                                        </div>
+                                        
+                                        
+                                        
+                                        <div class="mb-0">
+                                            <small class="text-primary fw-bold">Suggestions:</small>
+                                            <ul class="list-unstyled mb-0" style="font-size: 0.8rem;">
+                                                
+                                                <li><i class="fas fa-lightbulb text-primary me-1"></i>Correct the typo in `minlength`.</li>
+                                                
+                                                <li><i class="fas fa-lightbulb text-primary me-1"></i>Replace the hardcoded 'secret' with a secure environment variable.</li>
+                                                
+                                            </ul>
+                                        </div>
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="col-lg-6">
+                                <div class="card metric-card grade-B">
+                                    <div class="card-body">
+                                        <div class="d-flex justify-content-between align-items-start mb-2">
+                                            <h6 class="card-title mb-0">users.js</h6>
+                                            <span class="badge bg-primary">B</span>
+                                        </div>
+                                        <p class="text-muted small mb-2">JavaScript • Score: 80/100</p>
+                                        
+                                        
+                                        <div class="mb-2">
+                                            <small class="text-success fw-bold">Strengths:</small>
+                                            <ul class="list-unstyled mb-0" style="font-size: 0.8rem;">
+                                                
+                                                <li><i class="fas fa-check text-success me-1"></i>Clear separation of concerns with routes defined in a separate file.</li>
+                                                
+                                                <li><i class="fas fa-check text-success me-1"></i>Use of middleware for authentication.</li>
+                                                
+                                            </ul>
+                                        </div>
+                                        
+                                        
+                                        
+                                        <div class="mb-0">
+                                            <small class="text-primary fw-bold">Suggestions:</small>
+                                            <ul class="list-unstyled mb-0" style="font-size: 0.8rem;">
+                                                
+                                                <li><i class="fas fa-lightbulb text-primary me-1"></i>Implement consistent error handling across all routes, possibly with a centralized error handling middleware.</li>
+                                                
+                                                <li><i class="fas fa-lightbulb text-primary me-1"></i>Refactor using async/await for improved readability and maintainability.</li>
+                                                
+                                            </ul>
+                                        </div>
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+
+        <!-- Recommendations -->
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h3><i class="fas fa-lightbulb me-2"></i>Recommendations</h3>
+                    </div>
+                    <div class="card-body">
+                        
+                        <ul class="list-group list-group-flush">
+                            
+                            <li class="list-group-item border-0 px-0">
+                                <i class="fas fa-arrow-right text-primary me-2"></i>Implement more comprehensive error handling, including logging and user-friendly error messages.
+                            </li>
+                            
+                            <li class="list-group-item border-0 px-0">
+                                <i class="fas fa-arrow-right text-primary me-2"></i>Standardize the formatting of the code using a code formatter like Prettier or ESLint.
+                            </li>
+                            
+                            <li class="list-group-item border-0 px-0">
+                                <i class="fas fa-arrow-right text-primary me-2"></i>Remove `http-proxy-middleware` from devDependencies, and set up the proxy through react-scripts when possible.
+                            </li>
+                            
+                            <li class="list-group-item border-0 px-0">
+                                <i class="fas fa-arrow-right text-primary me-2"></i>Remove the `eslint-disable react-hooks/exhaustive-deps` directive if possible by including the necessary dependencies in the dependency array of the `useEffect` hook. If not possible, provide a comment explaining why it's disabled.
+                            </li>
+                            
+                            <li class="list-group-item border-0 px-0">
+                                <i class="fas fa-arrow-right text-primary me-2"></i>Implement proper cookie security by setting the 'httpOnly' and 'secure' flags.
+                            </li>
+                            
+                        </ul>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Render charts if data is available
+        
+        Plotly.newPlot('commitChart', {"data": [{"hovertemplate": "Date=%{x}<br>Number of Commits=%{y}<extra></extra>", "legendgroup": "", "line": {"color": "#636efa", "dash": "solid"}, "marker": {"symbol": "circle"}, "mode": "lines", "name": "", "orientation": "v", "showlegend": false, "x": ["2019-12-26", "2019-12-30", "2020-01-04", "2020-01-08", "2020-01-09", "2020-01-10", "2020-02-02", "2020-04-03", "2020-07-08", "2020-08-05"], "xaxis": "x", "y": [2, 2, 2, 1, 2, 1, 2, 2, 5, 1], "yaxis": "y", "type": "scatter"}], "layout": {"template": {"data": {"histogram2dcontour": [{"type": "histogram2dcontour", "colorbar": {"outlinewidth": 0, "ticks": ""}, "colorscale": [[0.0, "#0d0887"], [0.1111111111111111, "#46039f"], [0.2222222222222222, "#7201a8"], [0.3333333333333333, "#9c179e"], [0.4444444444444444, "#bd3786"], [0.5555555555555556, "#d8576b"], [0.6666666666666666, "#ed7953"], [0.7777777777777778, "#fb9f3a"], [0.8888888888888888, "#fdca26"], [1.0, "#f0f921"]]}], "choropleth": [{"type": "choropleth", "colorbar": {"outlinewidth": 0, "ticks": ""}}], "histogram2d": [{"type": "histogram2d", "colorbar": {"outlinewidth": 0, "ticks": ""}, "colorscale": [[0.0, "#0d0887"], [0.1111111111111111, "#46039f"], [0.2222222222222222, "#7201a8"], [0.3333333333333333, "#9c179e"], [0.4444444444444444, "#bd3786"], [0.5555555555555556, "#d8576b"], [0.6666666666666666, "#ed7953"], [0.7777777777777778, "#fb9f3a"], [0.8888888888888888, "#fdca26"], [1.0, "#f0f921"]]}], "heatmap": [{"type": "heatmap", "colorbar": {"outlinewidth": 0, "ticks": ""}, "colorscale": [[0.0, "#0d0887"], [0.1111111111111111, "#46039f"], [0.2222222222222222, "#7201a8"], [0.3333333333333333, "#9c179e"], [0.4444444444444444, "#bd3786"], [0.5555555555555556, "#d8576b"], [0.6666666666666666, "#ed7953"], [0.7777777777777778, "#fb9f3a"], [0.8888888888888888, "#fdca26"], [1.0, "#f0f921"]]}], "heatmapgl": [{"type": "heatmapgl", "colorbar": {"outlinewidth": 0, "ticks": ""}, "colorscale": [[0.0, "#0d0887"], [0.1111111111111111, "#46039f"], [0.2222222222222222, "#7201a8"], [0.3333333333333333, "#9c179e"], [0.4444444444444444, "#bd3786"], [0.5555555555555556, "#d8576b"], [0.6666666666666666, "#ed7953"], [0.7777777777777778, "#fb9f3a"], [0.8888888888888888, "#fdca26"], [1.0, "#f0f921"]]}], "contourcarpet": [{"type": "contourcarpet", "colorbar": {"outlinewidth": 0, "ticks": ""}}], "contour": [{"type": "contour", "colorbar": {"outlinewidth": 0, "ticks": ""}, "colorscale": [[0.0, "#0d0887"], [0.1111111111111111, "#46039f"], [0.2222222222222222, "#7201a8"], [0.3333333333333333, "#9c179e"], [0.4444444444444444, "#bd3786"], [0.5555555555555556, "#d8576b"], [0.6666666666666666, "#ed7953"], [0.7777777777777778, "#fb9f3a"], [0.8888888888888888, "#fdca26"], [1.0, "#f0f921"]]}], "surface": [{"type": "surface", "colorbar": {"outlinewidth": 0, "ticks": ""}, "colorscale": [[0.0, "#0d0887"], [0.1111111111111111, "#46039f"], [0.2222222222222222, "#7201a8"], [0.3333333333333333, "#9c179e"], [0.4444444444444444, "#bd3786"], [0.5555555555555556, "#d8576b"], [0.6666666666666666, "#ed7953"], [0.7777777777777778, "#fb9f3a"], [0.8888888888888888, "#fdca26"], [1.0, "#f0f921"]]}], "mesh3d": [{"type": "mesh3d", "colorbar": {"outlinewidth": 0, "ticks": ""}}], "scatter": [{"fillpattern": {"fillmode": "overlay", "size": 10, "solidity": 0.2}, "type": "scatter"}], "parcoords": [{"type": "parcoords", "line": {"colorbar": {"outlinewidth": 0, "ticks": ""}}}], "scatterpolargl": [{"type": "scatterpolargl", "marker": {"colorbar": {"outlinewidth": 0, "ticks": ""}}}], "bar": [{"error_x": {"color": "#2a3f5f"}, "error_y": {"color": "#2a3f5f"}, "marker": {"line": {"color": "#E5ECF6", "width": 0.5}, "pattern": {"fillmode": "overlay", "size": 10, "solidity": 0.2}}, "type": "bar"}], "scattergeo": [{"type": "scattergeo", "marker": {"colorbar": {"outlinewidth": 0, "ticks": ""}}}], "scatterpolar": [{"type": "scatterpolar", "marker": {"colorbar": {"outlinewidth": 0, "ticks": ""}}}], "histogram": [{"marker": {"pattern": {"fillmode": "overlay", "size": 10, "solidity": 0.2}}, "type": "histogram"}], "scattergl": [{"type": "scattergl", "marker": {"colorbar": {"outlinewidth": 0, "ticks": ""}}}], "scatter3d": [{"type": "scatter3d", "line": {"colorbar": {"outlinewidth": 0, "ticks": ""}}, "marker": {"colorbar": {"outlinewidth": 0, "ticks": ""}}}], "scattermapbox": [{"type": "scattermapbox", "marker": {"colorbar": {"outlinewidth": 0, "ticks": ""}}}], "scatterternary": [{"type": "scatterternary", "marker": {"colorbar": {"outlinewidth": 0, "ticks": ""}}}], "scattercarpet": [{"type": "scattercarpet", "marker": {"colorbar": {"outlinewidth": 0, "ticks": ""}}}], "carpet": [{"aaxis": {"endlinecolor": "#2a3f5f", "gridcolor": "white", "linecolor": "white", "minorgridcolor": "white", "startlinecolor": "#2a3f5f"}, "baxis": {"endlinecolor": "#2a3f5f", "gridcolor": "white", "linecolor": "white", "minorgridcolor": "white", "startlinecolor": "#2a3f5f"}, "type": "carpet"}], "table": [{"cells": {"fill": {"color": "#EBF0F8"}, "line": {"color": "white"}}, "header": {"fill": {"color": "#C8D4E3"}, "line": {"color": "white"}}, "type": "table"}], "barpolar": [{"marker": {"line": {"color": "#E5ECF6", "width": 0.5}, "pattern": {"fillmode": "overlay", "size": 10, "solidity": 0.2}}, "type": "barpolar"}], "pie": [{"automargin": true, "type": "pie"}]}, "layout": {"autotypenumbers": "strict", "colorway": ["#636efa", "#EF553B", "#00cc96", "#ab63fa", "#FFA15A", "#19d3f3", "#FF6692", "#B6E880", "#FF97FF", "#FECB52"], "font": {"color": "#2a3f5f"}, "hovermode": "closest", "hoverlabel": {"align": "left"}, "paper_bgcolor": "white", "plot_bgcolor": "#E5ECF6", "polar": {"bgcolor": "#E5ECF6", "angularaxis": {"gridcolor": "white", "linecolor": "white", "ticks": ""}, "radialaxis": {"gridcolor": "white", "linecolor": "white", "ticks": ""}}, "ternary": {"bgcolor": "#E5ECF6", "aaxis": {"gridcolor": "white", "linecolor": "white", "ticks": ""}, "baxis": {"gridcolor": "white", "linecolor": "white", "ticks": ""}, "caxis": {"gridcolor": "white", "linecolor": "white", "ticks": ""}}, "coloraxis": {"colorbar": {"outlinewidth": 0, "ticks": ""}}, "colorscale": {"sequential": [[0.0, "#0d0887"], [0.1111111111111111, "#46039f"], [0.2222222222222222, "#7201a8"], [0.3333333333333333, "#9c179e"], [0.4444444444444444, "#bd3786"], [0.5555555555555556, "#d8576b"], [0.6666666666666666, "#ed7953"], [0.7777777777777778, "#fb9f3a"], [0.8888888888888888, "#fdca26"], [1.0, "#f0f921"]], "sequentialminus": [[0.0, "#0d0887"], [0.1111111111111111, "#46039f"], [0.2222222222222222, "#7201a8"], [0.3333333333333333, "#9c179e"], [0.4444444444444444, "#bd3786"], [0.5555555555555556, "#d8576b"], [0.6666666666666666, "#ed7953"], [0.7777777777777778, "#fb9f3a"], [0.8888888888888888, "#fdca26"], [1.0, "#f0f921"]], "diverging": [[0, "#8e0152"], [0.1, "#c51b7d"], [0.2, "#de77ae"], [0.3, "#f1b6da"], [0.4, "#fde0ef"], [0.5, "#f7f7f7"], [0.6, "#e6f5d0"], [0.7, "#b8e186"], [0.8, "#7fbc41"], [0.9, "#4d9221"], [1, "#276419"]]}, "xaxis": {"gridcolor": "white", "linecolor": "white", "ticks": "", "title": {"standoff": 15}, "zerolinecolor": "white", "automargin": true, "zerolinewidth": 2}, "yaxis": {"gridcolor": "white", "linecolor": "white", "ticks": "", "title": {"standoff": 15}, "zerolinecolor": "white", "automargin": true, "zerolinewidth": 2}, "scene": {"xaxis": {"backgroundcolor": "#E5ECF6", "gridcolor": "white", "linecolor": "white", "showbackground": true, "ticks": "", "zerolinecolor": "white", "gridwidth": 2}, "yaxis": {"backgroundcolor": "#E5ECF6", "gridcolor": "white", "linecolor": "white", "showbackground": true, "ticks": "", "zerolinecolor": "white", "gridwidth": 2}, "zaxis": {"backgroundcolor": "#E5ECF6", "gridcolor": "white", "linecolor": "white", "showbackground": true, "ticks": "", "zerolinecolor": "white", "gridwidth": 2}}, "shapedefaults": {"line": {"color": "#2a3f5f"}}, "annotationdefaults": {"arrowcolor": "#2a3f5f", "arrowhead": 0, "arrowwidth": 1}, "geo": {"bgcolor": "white", "landcolor": "#E5ECF6", "subunitcolor": "white", "showland": true, "showlakes": true, "lakecolor": "white"}, "title": {"x": 0.05}, "mapbox": {"style": "light"}}}, "xaxis": {"anchor": "y", "domain": [0.0, 1.0], "title": {"text": "Date"}}, "yaxis": {"anchor": "x", "domain": [0.0, 1.0], "title": {"text": "Commits"}}, "legend": {"tracegroupgap": 0}, "title": {"text": "Daily Commit Activity"}}}.data, {"data": [{"hovertemplate": "Date=%{x}<br>Number of Commits=%{y}<extra></extra>", "legendgroup": "", "line": {"color": "#636efa", "dash": "solid"}, "marker": {"symbol": "circle"}, "mode": "lines", "name": "", "orientation": "v", "showlegend": false, "x": ["2019-12-26", "2019-12-30", "2020-01-04", "2020-01-08", "2020-01-09", "2020-01-10", "2020-02-02", "2020-04-03", "2020-07-08", "2020-08-05"], "xaxis": "x", "y": [2, 2, 2, 1, 2, 1, 2, 2, 5, 1], "yaxis": "y", "type": "scatter"}], "layout": {"template": {"data": {"histogram2dcontour": [{"type": "histogram2dcontour", "colorbar": {"outlinewidth": 0, "ticks": ""}, "colorscale": [[0.0, "#0d0887"], [0.1111111111111111, "#46039f"], [0.2222222222222222, "#7201a8"], [0.3333333333333333, "#9c179e"], [0.4444444444444444, "#bd3786"], [0.5555555555555556, "#d8576b"], [0.6666666666666666, "#ed7953"], [0.7777777777777778, "#fb9f3a"], [0.8888888888888888, "#fdca26"], [1.0, "#f0f921"]]}], "choropleth": [{"type": "choropleth", "colorbar": {"outlinewidth": 0, "ticks": ""}}], "histogram2d": [{"type": "histogram2d", "colorbar": {"outlinewidth": 0, "ticks": ""}, "colorscale": [[0.0, "#0d0887"], [0.1111111111111111, "#46039f"], [0.2222222222222222, "#7201a8"], [0.3333333333333333, "#9c179e"], [0.4444444444444444, "#bd3786"], [0.5555555555555556, "#d8576b"], [0.6666666666666666, "#ed7953"], [0.7777777777777778, "#fb9f3a"], [0.8888888888888888, "#fdca26"], [1.0, "#f0f921"]]}], "heatmap": [{"type": "heatmap", "colorbar": {"outlinewidth": 0, "ticks": ""}, "colorscale": [[0.0, "#0d0887"], [0.1111111111111111, "#46039f"], [0.2222222222222222, "#7201a8"], [0.3333333333333333, "#9c179e"], [0.4444444444444444, "#bd3786"], [0.5555555555555556, "#d8576b"], [0.6666666666666666, "#ed7953"], [0.7777777777777778, "#fb9f3a"], [0.8888888888888888, "#fdca26"], [1.0, "#f0f921"]]}], "heatmapgl": [{"type": "heatmapgl", "colorbar": {"outlinewidth": 0, "ticks": ""}, "colorscale": [[0.0, "#0d0887"], [0.1111111111111111, "#46039f"], [0.2222222222222222, "#7201a8"], [0.3333333333333333, "#9c179e"], [0.4444444444444444, "#bd3786"], [0.5555555555555556, "#d8576b"], [0.6666666666666666, "#ed7953"], [0.7777777777777778, "#fb9f3a"], [0.8888888888888888, "#fdca26"], [1.0, "#f0f921"]]}], "contourcarpet": [{"type": "contourcarpet", "colorbar": {"outlinewidth": 0, "ticks": ""}}], "contour": [{"type": "contour", "colorbar": {"outlinewidth": 0, "ticks": ""}, "colorscale": [[0.0, "#0d0887"], [0.1111111111111111, "#46039f"], [0.2222222222222222, "#7201a8"], [0.3333333333333333, "#9c179e"], [0.4444444444444444, "#bd3786"], [0.5555555555555556, "#d8576b"], [0.6666666666666666, "#ed7953"], [0.7777777777777778, "#fb9f3a"], [0.8888888888888888, "#fdca26"], [1.0, "#f0f921"]]}], "surface": [{"type": "surface", "colorbar": {"outlinewidth": 0, "ticks": ""}, "colorscale": [[0.0, "#0d0887"], [0.1111111111111111, "#46039f"], [0.2222222222222222, "#7201a8"], [0.3333333333333333, "#9c179e"], [0.4444444444444444, "#bd3786"], [0.5555555555555556, "#d8576b"], [0.6666666666666666, "#ed7953"], [0.7777777777777778, "#fb9f3a"], [0.8888888888888888, "#fdca26"], [1.0, "#f0f921"]]}], "mesh3d": [{"type": "mesh3d", "colorbar": {"outlinewidth": 0, "ticks": ""}}], "scatter": [{"fillpattern": {"fillmode": "overlay", "size": 10, "solidity": 0.2}, "type": "scatter"}], "parcoords": [{"type": "parcoords", "line": {"colorbar": {"outlinewidth": 0, "ticks": ""}}}], "scatterpolargl": [{"type": "scatterpolargl", "marker": {"colorbar": {"outlinewidth": 0, "ticks": ""}}}], "bar": [{"error_x": {"color": "#2a3f5f"}, "error_y": {"color": "#2a3f5f"}, "marker": {"line": {"color": "#E5ECF6", "width": 0.5}, "pattern": {"fillmode": "overlay", "size": 10, "solidity": 0.2}}, "type": "bar"}], "scattergeo": [{"type": "scattergeo", "marker": {"colorbar": {"outlinewidth": 0, "ticks": ""}}}], "scatterpolar": [{"type": "scatterpolar", "marker": {"colorbar": {"outlinewidth": 0, "ticks": ""}}}], "histogram": [{"marker": {"pattern": {"fillmode": "overlay", "size": 10, "solidity": 0.2}}, "type": "histogram"}], "scattergl": [{"type": "scattergl", "marker": {"colorbar": {"outlinewidth": 0, "ticks": ""}}}], "scatter3d": [{"type": "scatter3d", "line": {"colorbar": {"outlinewidth": 0, "ticks": ""}}, "marker": {"colorbar": {"outlinewidth": 0, "ticks": ""}}}], "scattermapbox": [{"type": "scattermapbox", "marker": {"colorbar": {"outlinewidth": 0, "ticks": ""}}}], "scatterternary": [{"type": "scatterternary", "marker": {"colorbar": {"outlinewidth": 0, "ticks": ""}}}], "scattercarpet": [{"type": "scattercarpet", "marker": {"colorbar": {"outlinewidth": 0, "ticks": ""}}}], "carpet": [{"aaxis": {"endlinecolor": "#2a3f5f", "gridcolor": "white", "linecolor": "white", "minorgridcolor": "white", "startlinecolor": "#2a3f5f"}, "baxis": {"endlinecolor": "#2a3f5f", "gridcolor": "white", "linecolor": "white", "minorgridcolor": "white", "startlinecolor": "#2a3f5f"}, "type": "carpet"}], "table": [{"cells": {"fill": {"color": "#EBF0F8"}, "line": {"color": "white"}}, "header": {"fill": {"color": "#C8D4E3"}, "line": {"color": "white"}}, "type": "table"}], "barpolar": [{"marker": {"line": {"color": "#E5ECF6", "width": 0.5}, "pattern": {"fillmode": "overlay", "size": 10, "solidity": 0.2}}, "type": "barpolar"}], "pie": [{"automargin": true, "type": "pie"}]}, "layout": {"autotypenumbers": "strict", "colorway": ["#636efa", "#EF553B", "#00cc96", "#ab63fa", "#FFA15A", "#19d3f3", "#FF6692", "#B6E880", "#FF97FF", "#FECB52"], "font": {"color": "#2a3f5f"}, "hovermode": "closest", "hoverlabel": {"align": "left"}, "paper_bgcolor": "white", "plot_bgcolor": "#E5ECF6", "polar": {"bgcolor": "#E5ECF6", "angularaxis": {"gridcolor": "white", "linecolor": "white", "ticks": ""}, "radialaxis": {"gridcolor": "white", "linecolor": "white", "ticks": ""}}, "ternary": {"bgcolor": "#E5ECF6", "aaxis": {"gridcolor": "white", "linecolor": "white", "ticks": ""}, "baxis": {"gridcolor": "white", "linecolor": "white", "ticks": ""}, "caxis": {"gridcolor": "white", "linecolor": "white", "ticks": ""}}, "coloraxis": {"colorbar": {"outlinewidth": 0, "ticks": ""}}, "colorscale": {"sequential": [[0.0, "#0d0887"], [0.1111111111111111, "#46039f"], [0.2222222222222222, "#7201a8"], [0.3333333333333333, "#9c179e"], [0.4444444444444444, "#bd3786"], [0.5555555555555556, "#d8576b"], [0.6666666666666666, "#ed7953"], [0.7777777777777778, "#fb9f3a"], [0.8888888888888888, "#fdca26"], [1.0, "#f0f921"]], "sequentialminus": [[0.0, "#0d0887"], [0.1111111111111111, "#46039f"], [0.2222222222222222, "#7201a8"], [0.3333333333333333, "#9c179e"], [0.4444444444444444, "#bd3786"], [0.5555555555555556, "#d8576b"], [0.6666666666666666, "#ed7953"], [0.7777777777777778, "#fb9f3a"], [0.8888888888888888, "#fdca26"], [1.0, "#f0f921"]], "diverging": [[0, "#8e0152"], [0.1, "#c51b7d"], [0.2, "#de77ae"], [0.3, "#f1b6da"], [0.4, "#fde0ef"], [0.5, "#f7f7f7"], [0.6, "#e6f5d0"], [0.7, "#b8e186"], [0.8, "#7fbc41"], [0.9, "#4d9221"], [1, "#276419"]]}, "xaxis": {"gridcolor": "white", "linecolor": "white", "ticks": "", "title": {"standoff": 15}, "zerolinecolor": "white", "automargin": true, "zerolinewidth": 2}, "yaxis": {"gridcolor": "white", "linecolor": "white", "ticks": "", "title": {"standoff": 15}, "zerolinecolor": "white", "automargin": true, "zerolinewidth": 2}, "scene": {"xaxis": {"backgroundcolor": "#E5ECF6", "gridcolor": "white", "linecolor": "white", "showbackground": true, "ticks": "", "zerolinecolor": "white", "gridwidth": 2}, "yaxis": {"backgroundcolor": "#E5ECF6", "gridcolor": "white", "linecolor": "white", "showbackground": true, "ticks": "", "zerolinecolor": "white", "gridwidth": 2}, "zaxis": {"backgroundcolor": "#E5ECF6", "gridcolor": "white", "linecolor": "white", "showbackground": true, "ticks": "", "zerolinecolor": "white", "gridwidth": 2}}, "shapedefaults": {"line": {"color": "#2a3f5f"}}, "annotationdefaults": {"arrowcolor": "#2a3f5f", "arrowhead": 0, "arrowwidth": 1}, "geo": {"bgcolor": "white", "landcolor": "#E5ECF6", "subunitcolor": "white", "showland": true, "showlakes": true, "lakecolor": "white"}, "title": {"x": 0.05}, "mapbox": {"style": "light"}}}, "xaxis": {"anchor": "y", "domain": [0.0, 1.0], "title": {"text": "Date"}}, "yaxis": {"anchor": "x", "domain": [0.0, 1.0], "title": {"text": "Commits"}}, "legend": {"tracegroupgap": 0}, "title": {"text": "Daily Commit Activity"}}}.layout);
+        
+
+        
+        Plotly.newPlot('gradeChart', {"data": [{"domain": {"x": [0.0, 1.0], "y": [0.0, 1.0]}, "hovertemplate": "label=%{label}<br>value=%{value}<extra></extra>", "labels": ["B", "A", "C", "B+"], "legendgroup": "", "name": "", "showlegend": true, "values": [24, 4, 2, 1], "type": "pie"}], "layout": {"template": {"data": {"histogram2dcontour": [{"type": "histogram2dcontour", "colorbar": {"outlinewidth": 0, "ticks": ""}, "colorscale": [[0.0, "#0d0887"], [0.1111111111111111, "#46039f"], [0.2222222222222222, "#7201a8"], [0.3333333333333333, "#9c179e"], [0.4444444444444444, "#bd3786"], [0.5555555555555556, "#d8576b"], [0.6666666666666666, "#ed7953"], [0.7777777777777778, "#fb9f3a"], [0.8888888888888888, "#fdca26"], [1.0, "#f0f921"]]}], "choropleth": [{"type": "choropleth", "colorbar": {"outlinewidth": 0, "ticks": ""}}], "histogram2d": [{"type": "histogram2d", "colorbar": {"outlinewidth": 0, "ticks": ""}, "colorscale": [[0.0, "#0d0887"], [0.1111111111111111, "#46039f"], [0.2222222222222222, "#7201a8"], [0.3333333333333333, "#9c179e"], [0.4444444444444444, "#bd3786"], [0.5555555555555556, "#d8576b"], [0.6666666666666666, "#ed7953"], [0.7777777777777778, "#fb9f3a"], [0.8888888888888888, "#fdca26"], [1.0, "#f0f921"]]}], "heatmap": [{"type": "heatmap", "colorbar": {"outlinewidth": 0, "ticks": ""}, "colorscale": [[0.0, "#0d0887"], [0.1111111111111111, "#46039f"], [0.2222222222222222, "#7201a8"], [0.3333333333333333, "#9c179e"], [0.4444444444444444, "#bd3786"], [0.5555555555555556, "#d8576b"], [0.6666666666666666, "#ed7953"], [0.7777777777777778, "#fb9f3a"], [0.8888888888888888, "#fdca26"], [1.0, "#f0f921"]]}], "heatmapgl": [{"type": "heatmapgl", "colorbar": {"outlinewidth": 0, "ticks": ""}, "colorscale": [[0.0, "#0d0887"], [0.1111111111111111, "#46039f"], [0.2222222222222222, "#7201a8"], [0.3333333333333333, "#9c179e"], [0.4444444444444444, "#bd3786"], [0.5555555555555556, "#d8576b"], [0.6666666666666666, "#ed7953"], [0.7777777777777778, "#fb9f3a"], [0.8888888888888888, "#fdca26"], [1.0, "#f0f921"]]}], "contourcarpet": [{"type": "contourcarpet", "colorbar": {"outlinewidth": 0, "ticks": ""}}], "contour": [{"type": "contour", "colorbar": {"outlinewidth": 0, "ticks": ""}, "colorscale": [[0.0, "#0d0887"], [0.1111111111111111, "#46039f"], [0.2222222222222222, "#7201a8"], [0.3333333333333333, "#9c179e"], [0.4444444444444444, "#bd3786"], [0.5555555555555556, "#d8576b"], [0.6666666666666666, "#ed7953"], [0.7777777777777778, "#fb9f3a"], [0.8888888888888888, "#fdca26"], [1.0, "#f0f921"]]}], "surface": [{"type": "surface", "colorbar": {"outlinewidth": 0, "ticks": ""}, "colorscale": [[0.0, "#0d0887"], [0.1111111111111111, "#46039f"], [0.2222222222222222, "#7201a8"], [0.3333333333333333, "#9c179e"], [0.4444444444444444, "#bd3786"], [0.5555555555555556, "#d8576b"], [0.6666666666666666, "#ed7953"], [0.7777777777777778, "#fb9f3a"], [0.8888888888888888, "#fdca26"], [1.0, "#f0f921"]]}], "mesh3d": [{"type": "mesh3d", "colorbar": {"outlinewidth": 0, "ticks": ""}}], "scatter": [{"fillpattern": {"fillmode": "overlay", "size": 10, "solidity": 0.2}, "type": "scatter"}], "parcoords": [{"type": "parcoords", "line": {"colorbar": {"outlinewidth": 0, "ticks": ""}}}], "scatterpolargl": [{"type": "scatterpolargl", "marker": {"colorbar": {"outlinewidth": 0, "ticks": ""}}}], "bar": [{"error_x": {"color": "#2a3f5f"}, "error_y": {"color": "#2a3f5f"}, "marker": {"line": {"color": "#E5ECF6", "width": 0.5}, "pattern": {"fillmode": "overlay", "size": 10, "solidity": 0.2}}, "type": "bar"}], "scattergeo": [{"type": "scattergeo", "marker": {"colorbar": {"outlinewidth": 0, "ticks": ""}}}], "scatterpolar": [{"type": "scatterpolar", "marker": {"colorbar": {"outlinewidth": 0, "ticks": ""}}}], "histogram": [{"marker": {"pattern": {"fillmode": "overlay", "size": 10, "solidity": 0.2}}, "type": "histogram"}], "scattergl": [{"type": "scattergl", "marker": {"colorbar": {"outlinewidth": 0, "ticks": ""}}}], "scatter3d": [{"type": "scatter3d", "line": {"colorbar": {"outlinewidth": 0, "ticks": ""}}, "marker": {"colorbar": {"outlinewidth": 0, "ticks": ""}}}], "scattermapbox": [{"type": "scattermapbox", "marker": {"colorbar": {"outlinewidth": 0, "ticks": ""}}}], "scatterternary": [{"type": "scatterternary", "marker": {"colorbar": {"outlinewidth": 0, "ticks": ""}}}], "scattercarpet": [{"type": "scattercarpet", "marker": {"colorbar": {"outlinewidth": 0, "ticks": ""}}}], "carpet": [{"aaxis": {"endlinecolor": "#2a3f5f", "gridcolor": "white", "linecolor": "white", "minorgridcolor": "white", "startlinecolor": "#2a3f5f"}, "baxis": {"endlinecolor": "#2a3f5f", "gridcolor": "white", "linecolor": "white", "minorgridcolor": "white", "startlinecolor": "#2a3f5f"}, "type": "carpet"}], "table": [{"cells": {"fill": {"color": "#EBF0F8"}, "line": {"color": "white"}}, "header": {"fill": {"color": "#C8D4E3"}, "line": {"color": "white"}}, "type": "table"}], "barpolar": [{"marker": {"line": {"color": "#E5ECF6", "width": 0.5}, "pattern": {"fillmode": "overlay", "size": 10, "solidity": 0.2}}, "type": "barpolar"}], "pie": [{"automargin": true, "type": "pie"}]}, "layout": {"autotypenumbers": "strict", "colorway": ["#636efa", "#EF553B", "#00cc96", "#ab63fa", "#FFA15A", "#19d3f3", "#FF6692", "#B6E880", "#FF97FF", "#FECB52"], "font": {"color": "#2a3f5f"}, "hovermode": "closest", "hoverlabel": {"align": "left"}, "paper_bgcolor": "white", "plot_bgcolor": "#E5ECF6", "polar": {"bgcolor": "#E5ECF6", "angularaxis": {"gridcolor": "white", "linecolor": "white", "ticks": ""}, "radialaxis": {"gridcolor": "white", "linecolor": "white", "ticks": ""}}, "ternary": {"bgcolor": "#E5ECF6", "aaxis": {"gridcolor": "white", "linecolor": "white", "ticks": ""}, "baxis": {"gridcolor": "white", "linecolor": "white", "ticks": ""}, "caxis": {"gridcolor": "white", "linecolor": "white", "ticks": ""}}, "coloraxis": {"colorbar": {"outlinewidth": 0, "ticks": ""}}, "colorscale": {"sequential": [[0.0, "#0d0887"], [0.1111111111111111, "#46039f"], [0.2222222222222222, "#7201a8"], [0.3333333333333333, "#9c179e"], [0.4444444444444444, "#bd3786"], [0.5555555555555556, "#d8576b"], [0.6666666666666666, "#ed7953"], [0.7777777777777778, "#fb9f3a"], [0.8888888888888888, "#fdca26"], [1.0, "#f0f921"]], "sequentialminus": [[0.0, "#0d0887"], [0.1111111111111111, "#46039f"], [0.2222222222222222, "#7201a8"], [0.3333333333333333, "#9c179e"], [0.4444444444444444, "#bd3786"], [0.5555555555555556, "#d8576b"], [0.6666666666666666, "#ed7953"], [0.7777777777777778, "#fb9f3a"], [0.8888888888888888, "#fdca26"], [1.0, "#f0f921"]], "diverging": [[0, "#8e0152"], [0.1, "#c51b7d"], [0.2, "#de77ae"], [0.3, "#f1b6da"], [0.4, "#fde0ef"], [0.5, "#f7f7f7"], [0.6, "#e6f5d0"], [0.7, "#b8e186"], [0.8, "#7fbc41"], [0.9, "#4d9221"], [1, "#276419"]]}, "xaxis": {"gridcolor": "white", "linecolor": "white", "ticks": "", "title": {"standoff": 15}, "zerolinecolor": "white", "automargin": true, "zerolinewidth": 2}, "yaxis": {"gridcolor": "white", "linecolor": "white", "ticks": "", "title": {"standoff": 15}, "zerolinecolor": "white", "automargin": true, "zerolinewidth": 2}, "scene": {"xaxis": {"backgroundcolor": "#E5ECF6", "gridcolor": "white", "linecolor": "white", "showbackground": true, "ticks": "", "zerolinecolor": "white", "gridwidth": 2}, "yaxis": {"backgroundcolor": "#E5ECF6", "gridcolor": "white", "linecolor": "white", "showbackground": true, "ticks": "", "zerolinecolor": "white", "gridwidth": 2}, "zaxis": {"backgroundcolor": "#E5ECF6", "gridcolor": "white", "linecolor": "white", "showbackground": true, "ticks": "", "zerolinecolor": "white", "gridwidth": 2}}, "shapedefaults": {"line": {"color": "#2a3f5f"}}, "annotationdefaults": {"arrowcolor": "#2a3f5f", "arrowhead": 0, "arrowwidth": 1}, "geo": {"bgcolor": "white", "landcolor": "#E5ECF6", "subunitcolor": "white", "showland": true, "showlakes": true, "lakecolor": "white"}, "title": {"x": 0.05}, "mapbox": {"style": "light"}}}, "legend": {"tracegroupgap": 0}, "title": {"text": "Code Quality Grade Distribution"}}}.data, {"data": [{"domain": {"x": [0.0, 1.0], "y": [0.0, 1.0]}, "hovertemplate": "label=%{label}<br>value=%{value}<extra></extra>", "labels": ["B", "A", "C", "B+"], "legendgroup": "", "name": "", "showlegend": true, "values": [24, 4, 2, 1], "type": "pie"}], "layout": {"template": {"data": {"histogram2dcontour": [{"type": "histogram2dcontour", "colorbar": {"outlinewidth": 0, "ticks": ""}, "colorscale": [[0.0, "#0d0887"], [0.1111111111111111, "#46039f"], [0.2222222222222222, "#7201a8"], [0.3333333333333333, "#9c179e"], [0.4444444444444444, "#bd3786"], [0.5555555555555556, "#d8576b"], [0.6666666666666666, "#ed7953"], [0.7777777777777778, "#fb9f3a"], [0.8888888888888888, "#fdca26"], [1.0, "#f0f921"]]}], "choropleth": [{"type": "choropleth", "colorbar": {"outlinewidth": 0, "ticks": ""}}], "histogram2d": [{"type": "histogram2d", "colorbar": {"outlinewidth": 0, "ticks": ""}, "colorscale": [[0.0, "#0d0887"], [0.1111111111111111, "#46039f"], [0.2222222222222222, "#7201a8"], [0.3333333333333333, "#9c179e"], [0.4444444444444444, "#bd3786"], [0.5555555555555556, "#d8576b"], [0.6666666666666666, "#ed7953"], [0.7777777777777778, "#fb9f3a"], [0.8888888888888888, "#fdca26"], [1.0, "#f0f921"]]}], "heatmap": [{"type": "heatmap", "colorbar": {"outlinewidth": 0, "ticks": ""}, "colorscale": [[0.0, "#0d0887"], [0.1111111111111111, "#46039f"], [0.2222222222222222, "#7201a8"], [0.3333333333333333, "#9c179e"], [0.4444444444444444, "#bd3786"], [0.5555555555555556, "#d8576b"], [0.6666666666666666, "#ed7953"], [0.7777777777777778, "#fb9f3a"], [0.8888888888888888, "#fdca26"], [1.0, "#f0f921"]]}], "heatmapgl": [{"type": "heatmapgl", "colorbar": {"outlinewidth": 0, "ticks": ""}, "colorscale": [[0.0, "#0d0887"], [0.1111111111111111, "#46039f"], [0.2222222222222222, "#7201a8"], [0.3333333333333333, "#9c179e"], [0.4444444444444444, "#bd3786"], [0.5555555555555556, "#d8576b"], [0.6666666666666666, "#ed7953"], [0.7777777777777778, "#fb9f3a"], [0.8888888888888888, "#fdca26"], [1.0, "#f0f921"]]}], "contourcarpet": [{"type": "contourcarpet", "colorbar": {"outlinewidth": 0, "ticks": ""}}], "contour": [{"type": "contour", "colorbar": {"outlinewidth": 0, "ticks": ""}, "colorscale": [[0.0, "#0d0887"], [0.1111111111111111, "#46039f"], [0.2222222222222222, "#7201a8"], [0.3333333333333333, "#9c179e"], [0.4444444444444444, "#bd3786"], [0.5555555555555556, "#d8576b"], [0.6666666666666666, "#ed7953"], [0.7777777777777778, "#fb9f3a"], [0.8888888888888888, "#fdca26"], [1.0, "#f0f921"]]}], "surface": [{"type": "surface", "colorbar": {"outlinewidth": 0, "ticks": ""}, "colorscale": [[0.0, "#0d0887"], [0.1111111111111111, "#46039f"], [0.2222222222222222, "#7201a8"], [0.3333333333333333, "#9c179e"], [0.4444444444444444, "#bd3786"], [0.5555555555555556, "#d8576b"], [0.6666666666666666, "#ed7953"], [0.7777777777777778, "#fb9f3a"], [0.8888888888888888, "#fdca26"], [1.0, "#f0f921"]]}], "mesh3d": [{"type": "mesh3d", "colorbar": {"outlinewidth": 0, "ticks": ""}}], "scatter": [{"fillpattern": {"fillmode": "overlay", "size": 10, "solidity": 0.2}, "type": "scatter"}], "parcoords": [{"type": "parcoords", "line": {"colorbar": {"outlinewidth": 0, "ticks": ""}}}], "scatterpolargl": [{"type": "scatterpolargl", "marker": {"colorbar": {"outlinewidth": 0, "ticks": ""}}}], "bar": [{"error_x": {"color": "#2a3f5f"}, "error_y": {"color": "#2a3f5f"}, "marker": {"line": {"color": "#E5ECF6", "width": 0.5}, "pattern": {"fillmode": "overlay", "size": 10, "solidity": 0.2}}, "type": "bar"}], "scattergeo": [{"type": "scattergeo", "marker": {"colorbar": {"outlinewidth": 0, "ticks": ""}}}], "scatterpolar": [{"type": "scatterpolar", "marker": {"colorbar": {"outlinewidth": 0, "ticks": ""}}}], "histogram": [{"marker": {"pattern": {"fillmode": "overlay", "size": 10, "solidity": 0.2}}, "type": "histogram"}], "scattergl": [{"type": "scattergl", "marker": {"colorbar": {"outlinewidth": 0, "ticks": ""}}}], "scatter3d": [{"type": "scatter3d", "line": {"colorbar": {"outlinewidth": 0, "ticks": ""}}, "marker": {"colorbar": {"outlinewidth": 0, "ticks": ""}}}], "scattermapbox": [{"type": "scattermapbox", "marker": {"colorbar": {"outlinewidth": 0, "ticks": ""}}}], "scatterternary": [{"type": "scatterternary", "marker": {"colorbar": {"outlinewidth": 0, "ticks": ""}}}], "scattercarpet": [{"type": "scattercarpet", "marker": {"colorbar": {"outlinewidth": 0, "ticks": ""}}}], "carpet": [{"aaxis": {"endlinecolor": "#2a3f5f", "gridcolor": "white", "linecolor": "white", "minorgridcolor": "white", "startlinecolor": "#2a3f5f"}, "baxis": {"endlinecolor": "#2a3f5f", "gridcolor": "white", "linecolor": "white", "minorgridcolor": "white", "startlinecolor": "#2a3f5f"}, "type": "carpet"}], "table": [{"cells": {"fill": {"color": "#EBF0F8"}, "line": {"color": "white"}}, "header": {"fill": {"color": "#C8D4E3"}, "line": {"color": "white"}}, "type": "table"}], "barpolar": [{"marker": {"line": {"color": "#E5ECF6", "width": 0.5}, "pattern": {"fillmode": "overlay", "size": 10, "solidity": 0.2}}, "type": "barpolar"}], "pie": [{"automargin": true, "type": "pie"}]}, "layout": {"autotypenumbers": "strict", "colorway": ["#636efa", "#EF553B", "#00cc96", "#ab63fa", "#FFA15A", "#19d3f3", "#FF6692", "#B6E880", "#FF97FF", "#FECB52"], "font": {"color": "#2a3f5f"}, "hovermode": "closest", "hoverlabel": {"align": "left"}, "paper_bgcolor": "white", "plot_bgcolor": "#E5ECF6", "polar": {"bgcolor": "#E5ECF6", "angularaxis": {"gridcolor": "white", "linecolor": "white", "ticks": ""}, "radialaxis": {"gridcolor": "white", "linecolor": "white", "ticks": ""}}, "ternary": {"bgcolor": "#E5ECF6", "aaxis": {"gridcolor": "white", "linecolor": "white", "ticks": ""}, "baxis": {"gridcolor": "white", "linecolor": "white", "ticks": ""}, "caxis": {"gridcolor": "white", "linecolor": "white", "ticks": ""}}, "coloraxis": {"colorbar": {"outlinewidth": 0, "ticks": ""}}, "colorscale": {"sequential": [[0.0, "#0d0887"], [0.1111111111111111, "#46039f"], [0.2222222222222222, "#7201a8"], [0.3333333333333333, "#9c179e"], [0.4444444444444444, "#bd3786"], [0.5555555555555556, "#d8576b"], [0.6666666666666666, "#ed7953"], [0.7777777777777778, "#fb9f3a"], [0.8888888888888888, "#fdca26"], [1.0, "#f0f921"]], "sequentialminus": [[0.0, "#0d0887"], [0.1111111111111111, "#46039f"], [0.2222222222222222, "#7201a8"], [0.3333333333333333, "#9c179e"], [0.4444444444444444, "#bd3786"], [0.5555555555555556, "#d8576b"], [0.6666666666666666, "#ed7953"], [0.7777777777777778, "#fb9f3a"], [0.8888888888888888, "#fdca26"], [1.0, "#f0f921"]], "diverging": [[0, "#8e0152"], [0.1, "#c51b7d"], [0.2, "#de77ae"], [0.3, "#f1b6da"], [0.4, "#fde0ef"], [0.5, "#f7f7f7"], [0.6, "#e6f5d0"], [0.7, "#b8e186"], [0.8, "#7fbc41"], [0.9, "#4d9221"], [1, "#276419"]]}, "xaxis": {"gridcolor": "white", "linecolor": "white", "ticks": "", "title": {"standoff": 15}, "zerolinecolor": "white", "automargin": true, "zerolinewidth": 2}, "yaxis": {"gridcolor": "white", "linecolor": "white", "ticks": "", "title": {"standoff": 15}, "zerolinecolor": "white", "automargin": true, "zerolinewidth": 2}, "scene": {"xaxis": {"backgroundcolor": "#E5ECF6", "gridcolor": "white", "linecolor": "white", "showbackground": true, "ticks": "", "zerolinecolor": "white", "gridwidth": 2}, "yaxis": {"backgroundcolor": "#E5ECF6", "gridcolor": "white", "linecolor": "white", "showbackground": true, "ticks": "", "zerolinecolor": "white", "gridwidth": 2}, "zaxis": {"backgroundcolor": "#E5ECF6", "gridcolor": "white", "linecolor": "white", "showbackground": true, "ticks": "", "zerolinecolor": "white", "gridwidth": 2}}, "shapedefaults": {"line": {"color": "#2a3f5f"}}, "annotationdefaults": {"arrowcolor": "#2a3f5f", "arrowhead": 0, "arrowwidth": 1}, "geo": {"bgcolor": "white", "landcolor": "#E5ECF6", "subunitcolor": "white", "showland": true, "showlakes": true, "lakecolor": "white"}, "title": {"x": 0.05}, "mapbox": {"style": "light"}}}, "legend": {"tracegroupgap": 0}, "title": {"text": "Code Quality Grade Distribution"}}}.layout);
+        
+
+        
+        Plotly.newPlot('fileTypeChart', {"data": [{"alignmentgroup": "True", "hovertemplate": "File Type=%{x}<br>Count=%{y}<extra></extra>", "legendgroup": "", "marker": {"color": "#636efa", "pattern": {"shape": ""}}, "name": "", "offsetgroup": "", "orientation": "v", "showlegend": false, "textposition": "auto", "x": ["JavaScript", "JSON", "Markdown", "CSS", "HTML"], "xaxis": "x", "y": [23, 5, 2, 2, 1], "yaxis": "y", "type": "bar"}], "layout": {"template": {"data": {"histogram2dcontour": [{"type": "histogram2dcontour", "colorbar": {"outlinewidth": 0, "ticks": ""}, "colorscale": [[0.0, "#0d0887"], [0.1111111111111111, "#46039f"], [0.2222222222222222, "#7201a8"], [0.3333333333333333, "#9c179e"], [0.4444444444444444, "#bd3786"], [0.5555555555555556, "#d8576b"], [0.6666666666666666, "#ed7953"], [0.7777777777777778, "#fb9f3a"], [0.8888888888888888, "#fdca26"], [1.0, "#f0f921"]]}], "choropleth": [{"type": "choropleth", "colorbar": {"outlinewidth": 0, "ticks": ""}}], "histogram2d": [{"type": "histogram2d", "colorbar": {"outlinewidth": 0, "ticks": ""}, "colorscale": [[0.0, "#0d0887"], [0.1111111111111111, "#46039f"], [0.2222222222222222, "#7201a8"], [0.3333333333333333, "#9c179e"], [0.4444444444444444, "#bd3786"], [0.5555555555555556, "#d8576b"], [0.6666666666666666, "#ed7953"], [0.7777777777777778, "#fb9f3a"], [0.8888888888888888, "#fdca26"], [1.0, "#f0f921"]]}], "heatmap": [{"type": "heatmap", "colorbar": {"outlinewidth": 0, "ticks": ""}, "colorscale": [[0.0, "#0d0887"], [0.1111111111111111, "#46039f"], [0.2222222222222222, "#7201a8"], [0.3333333333333333, "#9c179e"], [0.4444444444444444, "#bd3786"], [0.5555555555555556, "#d8576b"], [0.6666666666666666, "#ed7953"], [0.7777777777777778, "#fb9f3a"], [0.8888888888888888, "#fdca26"], [1.0, "#f0f921"]]}], "heatmapgl": [{"type": "heatmapgl", "colorbar": {"outlinewidth": 0, "ticks": ""}, "colorscale": [[0.0, "#0d0887"], [0.1111111111111111, "#46039f"], [0.2222222222222222, "#7201a8"], [0.3333333333333333, "#9c179e"], [0.4444444444444444, "#bd3786"], [0.5555555555555556, "#d8576b"], [0.6666666666666666, "#ed7953"], [0.7777777777777778, "#fb9f3a"], [0.8888888888888888, "#fdca26"], [1.0, "#f0f921"]]}], "contourcarpet": [{"type": "contourcarpet", "colorbar": {"outlinewidth": 0, "ticks": ""}}], "contour": [{"type": "contour", "colorbar": {"outlinewidth": 0, "ticks": ""}, "colorscale": [[0.0, "#0d0887"], [0.1111111111111111, "#46039f"], [0.2222222222222222, "#7201a8"], [0.3333333333333333, "#9c179e"], [0.4444444444444444, "#bd3786"], [0.5555555555555556, "#d8576b"], [0.6666666666666666, "#ed7953"], [0.7777777777777778, "#fb9f3a"], [0.8888888888888888, "#fdca26"], [1.0, "#f0f921"]]}], "surface": [{"type": "surface", "colorbar": {"outlinewidth": 0, "ticks": ""}, "colorscale": [[0.0, "#0d0887"], [0.1111111111111111, "#46039f"], [0.2222222222222222, "#7201a8"], [0.3333333333333333, "#9c179e"], [0.4444444444444444, "#bd3786"], [0.5555555555555556, "#d8576b"], [0.6666666666666666, "#ed7953"], [0.7777777777777778, "#fb9f3a"], [0.8888888888888888, "#fdca26"], [1.0, "#f0f921"]]}], "mesh3d": [{"type": "mesh3d", "colorbar": {"outlinewidth": 0, "ticks": ""}}], "scatter": [{"fillpattern": {"fillmode": "overlay", "size": 10, "solidity": 0.2}, "type": "scatter"}], "parcoords": [{"type": "parcoords", "line": {"colorbar": {"outlinewidth": 0, "ticks": ""}}}], "scatterpolargl": [{"type": "scatterpolargl", "marker": {"colorbar": {"outlinewidth": 0, "ticks": ""}}}], "bar": [{"error_x": {"color": "#2a3f5f"}, "error_y": {"color": "#2a3f5f"}, "marker": {"line": {"color": "#E5ECF6", "width": 0.5}, "pattern": {"fillmode": "overlay", "size": 10, "solidity": 0.2}}, "type": "bar"}], "scattergeo": [{"type": "scattergeo", "marker": {"colorbar": {"outlinewidth": 0, "ticks": ""}}}], "scatterpolar": [{"type": "scatterpolar", "marker": {"colorbar": {"outlinewidth": 0, "ticks": ""}}}], "histogram": [{"marker": {"pattern": {"fillmode": "overlay", "size": 10, "solidity": 0.2}}, "type": "histogram"}], "scattergl": [{"type": "scattergl", "marker": {"colorbar": {"outlinewidth": 0, "ticks": ""}}}], "scatter3d": [{"type": "scatter3d", "line": {"colorbar": {"outlinewidth": 0, "ticks": ""}}, "marker": {"colorbar": {"outlinewidth": 0, "ticks": ""}}}], "scattermapbox": [{"type": "scattermapbox", "marker": {"colorbar": {"outlinewidth": 0, "ticks": ""}}}], "scatterternary": [{"type": "scatterternary", "marker": {"colorbar": {"outlinewidth": 0, "ticks": ""}}}], "scattercarpet": [{"type": "scattercarpet", "marker": {"colorbar": {"outlinewidth": 0, "ticks": ""}}}], "carpet": [{"aaxis": {"endlinecolor": "#2a3f5f", "gridcolor": "white", "linecolor": "white", "minorgridcolor": "white", "startlinecolor": "#2a3f5f"}, "baxis": {"endlinecolor": "#2a3f5f", "gridcolor": "white", "linecolor": "white", "minorgridcolor": "white", "startlinecolor": "#2a3f5f"}, "type": "carpet"}], "table": [{"cells": {"fill": {"color": "#EBF0F8"}, "line": {"color": "white"}}, "header": {"fill": {"color": "#C8D4E3"}, "line": {"color": "white"}}, "type": "table"}], "barpolar": [{"marker": {"line": {"color": "#E5ECF6", "width": 0.5}, "pattern": {"fillmode": "overlay", "size": 10, "solidity": 0.2}}, "type": "barpolar"}], "pie": [{"automargin": true, "type": "pie"}]}, "layout": {"autotypenumbers": "strict", "colorway": ["#636efa", "#EF553B", "#00cc96", "#ab63fa", "#FFA15A", "#19d3f3", "#FF6692", "#B6E880", "#FF97FF", "#FECB52"], "font": {"color": "#2a3f5f"}, "hovermode": "closest", "hoverlabel": {"align": "left"}, "paper_bgcolor": "white", "plot_bgcolor": "#E5ECF6", "polar": {"bgcolor": "#E5ECF6", "angularaxis": {"gridcolor": "white", "linecolor": "white", "ticks": ""}, "radialaxis": {"gridcolor": "white", "linecolor": "white", "ticks": ""}}, "ternary": {"bgcolor": "#E5ECF6", "aaxis": {"gridcolor": "white", "linecolor": "white", "ticks": ""}, "baxis": {"gridcolor": "white", "linecolor": "white", "ticks": ""}, "caxis": {"gridcolor": "white", "linecolor": "white", "ticks": ""}}, "coloraxis": {"colorbar": {"outlinewidth": 0, "ticks": ""}}, "colorscale": {"sequential": [[0.0, "#0d0887"], [0.1111111111111111, "#46039f"], [0.2222222222222222, "#7201a8"], [0.3333333333333333, "#9c179e"], [0.4444444444444444, "#bd3786"], [0.5555555555555556, "#d8576b"], [0.6666666666666666, "#ed7953"], [0.7777777777777778, "#fb9f3a"], [0.8888888888888888, "#fdca26"], [1.0, "#f0f921"]], "sequentialminus": [[0.0, "#0d0887"], [0.1111111111111111, "#46039f"], [0.2222222222222222, "#7201a8"], [0.3333333333333333, "#9c179e"], [0.4444444444444444, "#bd3786"], [0.5555555555555556, "#d8576b"], [0.6666666666666666, "#ed7953"], [0.7777777777777778, "#fb9f3a"], [0.8888888888888888, "#fdca26"], [1.0, "#f0f921"]], "diverging": [[0, "#8e0152"], [0.1, "#c51b7d"], [0.2, "#de77ae"], [0.3, "#f1b6da"], [0.4, "#fde0ef"], [0.5, "#f7f7f7"], [0.6, "#e6f5d0"], [0.7, "#b8e186"], [0.8, "#7fbc41"], [0.9, "#4d9221"], [1, "#276419"]]}, "xaxis": {"gridcolor": "white", "linecolor": "white", "ticks": "", "title": {"standoff": 15}, "zerolinecolor": "white", "automargin": true, "zerolinewidth": 2}, "yaxis": {"gridcolor": "white", "linecolor": "white", "ticks": "", "title": {"standoff": 15}, "zerolinecolor": "white", "automargin": true, "zerolinewidth": 2}, "scene": {"xaxis": {"backgroundcolor": "#E5ECF6", "gridcolor": "white", "linecolor": "white", "showbackground": true, "ticks": "", "zerolinecolor": "white", "gridwidth": 2}, "yaxis": {"backgroundcolor": "#E5ECF6", "gridcolor": "white", "linecolor": "white", "showbackground": true, "ticks": "", "zerolinecolor": "white", "gridwidth": 2}, "zaxis": {"backgroundcolor": "#E5ECF6", "gridcolor": "white", "linecolor": "white", "showbackground": true, "ticks": "", "zerolinecolor": "white", "gridwidth": 2}}, "shapedefaults": {"line": {"color": "#2a3f5f"}}, "annotationdefaults": {"arrowcolor": "#2a3f5f", "arrowhead": 0, "arrowwidth": 1}, "geo": {"bgcolor": "white", "landcolor": "#E5ECF6", "subunitcolor": "white", "showland": true, "showlakes": true, "lakecolor": "white"}, "title": {"x": 0.05}, "mapbox": {"style": "light"}}}, "xaxis": {"anchor": "y", "domain": [0.0, 1.0], "title": {"text": "File Type"}}, "yaxis": {"anchor": "x", "domain": [0.0, 1.0], "title": {"text": "Count"}}, "legend": {"tracegroupgap": 0}, "title": {"text": "File Type Distribution"}, "barmode": "relative"}}.data, {"data": [{"alignmentgroup": "True", "hovertemplate": "File Type=%{x}<br>Count=%{y}<extra></extra>", "legendgroup": "", "marker": {"color": "#636efa", "pattern": {"shape": ""}}, "name": "", "offsetgroup": "", "orientation": "v", "showlegend": false, "textposition": "auto", "x": ["JavaScript", "JSON", "Markdown", "CSS", "HTML"], "xaxis": "x", "y": [23, 5, 2, 2, 1], "yaxis": "y", "type": "bar"}], "layout": {"template": {"data": {"histogram2dcontour": [{"type": "histogram2dcontour", "colorbar": {"outlinewidth": 0, "ticks": ""}, "colorscale": [[0.0, "#0d0887"], [0.1111111111111111, "#46039f"], [0.2222222222222222, "#7201a8"], [0.3333333333333333, "#9c179e"], [0.4444444444444444, "#bd3786"], [0.5555555555555556, "#d8576b"], [0.6666666666666666, "#ed7953"], [0.7777777777777778, "#fb9f3a"], [0.8888888888888888, "#fdca26"], [1.0, "#f0f921"]]}], "choropleth": [{"type": "choropleth", "colorbar": {"outlinewidth": 0, "ticks": ""}}], "histogram2d": [{"type": "histogram2d", "colorbar": {"outlinewidth": 0, "ticks": ""}, "colorscale": [[0.0, "#0d0887"], [0.1111111111111111, "#46039f"], [0.2222222222222222, "#7201a8"], [0.3333333333333333, "#9c179e"], [0.4444444444444444, "#bd3786"], [0.5555555555555556, "#d8576b"], [0.6666666666666666, "#ed7953"], [0.7777777777777778, "#fb9f3a"], [0.8888888888888888, "#fdca26"], [1.0, "#f0f921"]]}], "heatmap": [{"type": "heatmap", "colorbar": {"outlinewidth": 0, "ticks": ""}, "colorscale": [[0.0, "#0d0887"], [0.1111111111111111, "#46039f"], [0.2222222222222222, "#7201a8"], [0.3333333333333333, "#9c179e"], [0.4444444444444444, "#bd3786"], [0.5555555555555556, "#d8576b"], [0.6666666666666666, "#ed7953"], [0.7777777777777778, "#fb9f3a"], [0.8888888888888888, "#fdca26"], [1.0, "#f0f921"]]}], "heatmapgl": [{"type": "heatmapgl", "colorbar": {"outlinewidth": 0, "ticks": ""}, "colorscale": [[0.0, "#0d0887"], [0.1111111111111111, "#46039f"], [0.2222222222222222, "#7201a8"], [0.3333333333333333, "#9c179e"], [0.4444444444444444, "#bd3786"], [0.5555555555555556, "#d8576b"], [0.6666666666666666, "#ed7953"], [0.7777777777777778, "#fb9f3a"], [0.8888888888888888, "#fdca26"], [1.0, "#f0f921"]]}], "contourcarpet": [{"type": "contourcarpet", "colorbar": {"outlinewidth": 0, "ticks": ""}}], "contour": [{"type": "contour", "colorbar": {"outlinewidth": 0, "ticks": ""}, "colorscale": [[0.0, "#0d0887"], [0.1111111111111111, "#46039f"], [0.2222222222222222, "#7201a8"], [0.3333333333333333, "#9c179e"], [0.4444444444444444, "#bd3786"], [0.5555555555555556, "#d8576b"], [0.6666666666666666, "#ed7953"], [0.7777777777777778, "#fb9f3a"], [0.8888888888888888, "#fdca26"], [1.0, "#f0f921"]]}], "surface": [{"type": "surface", "colorbar": {"outlinewidth": 0, "ticks": ""}, "colorscale": [[0.0, "#0d0887"], [0.1111111111111111, "#46039f"], [0.2222222222222222, "#7201a8"], [0.3333333333333333, "#9c179e"], [0.4444444444444444, "#bd3786"], [0.5555555555555556, "#d8576b"], [0.6666666666666666, "#ed7953"], [0.7777777777777778, "#fb9f3a"], [0.8888888888888888, "#fdca26"], [1.0, "#f0f921"]]}], "mesh3d": [{"type": "mesh3d", "colorbar": {"outlinewidth": 0, "ticks": ""}}], "scatter": [{"fillpattern": {"fillmode": "overlay", "size": 10, "solidity": 0.2}, "type": "scatter"}], "parcoords": [{"type": "parcoords", "line": {"colorbar": {"outlinewidth": 0, "ticks": ""}}}], "scatterpolargl": [{"type": "scatterpolargl", "marker": {"colorbar": {"outlinewidth": 0, "ticks": ""}}}], "bar": [{"error_x": {"color": "#2a3f5f"}, "error_y": {"color": "#2a3f5f"}, "marker": {"line": {"color": "#E5ECF6", "width": 0.5}, "pattern": {"fillmode": "overlay", "size": 10, "solidity": 0.2}}, "type": "bar"}], "scattergeo": [{"type": "scattergeo", "marker": {"colorbar": {"outlinewidth": 0, "ticks": ""}}}], "scatterpolar": [{"type": "scatterpolar", "marker": {"colorbar": {"outlinewidth": 0, "ticks": ""}}}], "histogram": [{"marker": {"pattern": {"fillmode": "overlay", "size": 10, "solidity": 0.2}}, "type": "histogram"}], "scattergl": [{"type": "scattergl", "marker": {"colorbar": {"outlinewidth": 0, "ticks": ""}}}], "scatter3d": [{"type": "scatter3d", "line": {"colorbar": {"outlinewidth": 0, "ticks": ""}}, "marker": {"colorbar": {"outlinewidth": 0, "ticks": ""}}}], "scattermapbox": [{"type": "scattermapbox", "marker": {"colorbar": {"outlinewidth": 0, "ticks": ""}}}], "scatterternary": [{"type": "scatterternary", "marker": {"colorbar": {"outlinewidth": 0, "ticks": ""}}}], "scattercarpet": [{"type": "scattercarpet", "marker": {"colorbar": {"outlinewidth": 0, "ticks": ""}}}], "carpet": [{"aaxis": {"endlinecolor": "#2a3f5f", "gridcolor": "white", "linecolor": "white", "minorgridcolor": "white", "startlinecolor": "#2a3f5f"}, "baxis": {"endlinecolor": "#2a3f5f", "gridcolor": "white", "linecolor": "white", "minorgridcolor": "white", "startlinecolor": "#2a3f5f"}, "type": "carpet"}], "table": [{"cells": {"fill": {"color": "#EBF0F8"}, "line": {"color": "white"}}, "header": {"fill": {"color": "#C8D4E3"}, "line": {"color": "white"}}, "type": "table"}], "barpolar": [{"marker": {"line": {"color": "#E5ECF6", "width": 0.5}, "pattern": {"fillmode": "overlay", "size": 10, "solidity": 0.2}}, "type": "barpolar"}], "pie": [{"automargin": true, "type": "pie"}]}, "layout": {"autotypenumbers": "strict", "colorway": ["#636efa", "#EF553B", "#00cc96", "#ab63fa", "#FFA15A", "#19d3f3", "#FF6692", "#B6E880", "#FF97FF", "#FECB52"], "font": {"color": "#2a3f5f"}, "hovermode": "closest", "hoverlabel": {"align": "left"}, "paper_bgcolor": "white", "plot_bgcolor": "#E5ECF6", "polar": {"bgcolor": "#E5ECF6", "angularaxis": {"gridcolor": "white", "linecolor": "white", "ticks": ""}, "radialaxis": {"gridcolor": "white", "linecolor": "white", "ticks": ""}}, "ternary": {"bgcolor": "#E5ECF6", "aaxis": {"gridcolor": "white", "linecolor": "white", "ticks": ""}, "baxis": {"gridcolor": "white", "linecolor": "white", "ticks": ""}, "caxis": {"gridcolor": "white", "linecolor": "white", "ticks": ""}}, "coloraxis": {"colorbar": {"outlinewidth": 0, "ticks": ""}}, "colorscale": {"sequential": [[0.0, "#0d0887"], [0.1111111111111111, "#46039f"], [0.2222222222222222, "#7201a8"], [0.3333333333333333, "#9c179e"], [0.4444444444444444, "#bd3786"], [0.5555555555555556, "#d8576b"], [0.6666666666666666, "#ed7953"], [0.7777777777777778, "#fb9f3a"], [0.8888888888888888, "#fdca26"], [1.0, "#f0f921"]], "sequentialminus": [[0.0, "#0d0887"], [0.1111111111111111, "#46039f"], [0.2222222222222222, "#7201a8"], [0.3333333333333333, "#9c179e"], [0.4444444444444444, "#bd3786"], [0.5555555555555556, "#d8576b"], [0.6666666666666666, "#ed7953"], [0.7777777777777778, "#fb9f3a"], [0.8888888888888888, "#fdca26"], [1.0, "#f0f921"]], "diverging": [[0, "#8e0152"], [0.1, "#c51b7d"], [0.2, "#de77ae"], [0.3, "#f1b6da"], [0.4, "#fde0ef"], [0.5, "#f7f7f7"], [0.6, "#e6f5d0"], [0.7, "#b8e186"], [0.8, "#7fbc41"], [0.9, "#4d9221"], [1, "#276419"]]}, "xaxis": {"gridcolor": "white", "linecolor": "white", "ticks": "", "title": {"standoff": 15}, "zerolinecolor": "white", "automargin": true, "zerolinewidth": 2}, "yaxis": {"gridcolor": "white", "linecolor": "white", "ticks": "", "title": {"standoff": 15}, "zerolinecolor": "white", "automargin": true, "zerolinewidth": 2}, "scene": {"xaxis": {"backgroundcolor": "#E5ECF6", "gridcolor": "white", "linecolor": "white", "showbackground": true, "ticks": "", "zerolinecolor": "white", "gridwidth": 2}, "yaxis": {"backgroundcolor": "#E5ECF6", "gridcolor": "white", "linecolor": "white", "showbackground": true, "ticks": "", "zerolinecolor": "white", "gridwidth": 2}, "zaxis": {"backgroundcolor": "#E5ECF6", "gridcolor": "white", "linecolor": "white", "showbackground": true, "ticks": "", "zerolinecolor": "white", "gridwidth": 2}}, "shapedefaults": {"line": {"color": "#2a3f5f"}}, "annotationdefaults": {"arrowcolor": "#2a3f5f", "arrowhead": 0, "arrowwidth": 1}, "geo": {"bgcolor": "white", "landcolor": "#E5ECF6", "subunitcolor": "white", "showland": true, "showlakes": true, "lakecolor": "white"}, "title": {"x": 0.05}, "mapbox": {"style": "light"}}}, "xaxis": {"anchor": "y", "domain": [0.0, 1.0], "title": {"text": "File Type"}}, "yaxis": {"anchor": "x", "domain": [0.0, 1.0], "title": {"text": "Count"}}, "legend": {"tracegroupgap": 0}, "title": {"text": "File Type Distribution"}, "barmode": "relative"}}.layout);
+        
+    </script>
+</body>
+</html>

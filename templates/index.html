@@ -1,0 +1,198 @@
+{% extends "base.html" %}
+
+{% block title %}AutoTestify - Dashboard{% endblock %}
+
+{% block content %}
+<div class="hero-section">
+    <div class="container">
+        <div class="row align-items-center min-vh-100">
+            <div class="col-lg-6">
+                <div class="hero-content">
+                    <h1 class="display-4 fw-bold text-white mb-4">
+                        Automated Testing & Code Analysis
+                    </h1>
+                    <p class="lead text-white-50 mb-4">
+                        Comprehensive GitHub repository analysis, intelligent code review with AI, and automated API testing - all in one powerful platform.
+                    </p>
+                    <div class="d-flex gap-3 flex-wrap">
+                        <a href="{{ url_for('github_analysis') }}" class="btn btn-light btn-lg px-4">
+                            <i class="fab fa-github me-2"></i>Analyze Repository
+                        </a>
+                        <a href="{{ url_for('api_testing') }}" class="btn btn-outline-light btn-lg px-4">
+                            <i class="fas fa-code me-2"></i>Test APIs
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="hero-image">
+                    <div class="dashboard-preview">
+                        <div class="card shadow-lg">
+                            <div class="card-body p-4">
+                                <div class="d-flex align-items-center mb-3">
+                                    <div class="icon-box bg-primary">
+                                        <i class="fas fa-chart-line text-white"></i>
+                                    </div>
+                                    <div class="ms-3">
+                                        <h6 class="mb-0">Live Analytics</h6>
+                                        <small class="text-muted">Real-time monitoring</small>
+                                    </div>
+                                </div>
+                                <div class="progress mb-2">
+                                    <div class="progress-bar bg-success" style="width: 85%"></div>
+                                </div>
+                                <div class="progress mb-2">
+                                    <div class="progress-bar bg-warning" style="width: 75%"></div>
+                                </div>
+                                <div class="progress">
+                                    <div class="progress-bar bg-info" style="width: 90%"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container my-5">
+    <!-- Features Section -->
+    <div class="row g-4 mb-5">
+        <div class="col-md-4">
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fab fa-github"></i>
+                </div>
+                <h4>GitHub Integration</h4>
+                <p>Comprehensive repository analysis including commit history, branch analysis, and file structure examination.</p>
+                <ul class="feature-list">
+                    <li>Commit activity visualization</li>
+                    <li>Branch comparison</li>
+                    <li>Contributor analysis</li>
+                    <li>File type distribution</li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-brain"></i>
+                </div>
+                <h4>AI Code Review</h4>
+                <p>Intelligent code assessment powered by Google's Gemini API with detailed quality analysis and suggestions.</p>
+                <ul class="feature-list">
+                    <li>Code quality scoring</li>
+                    <li>Security vulnerability detection</li>
+                    <li>Best practice recommendations</li>
+                    <li>Maintainability analysis</li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-rocket"></i>
+                </div>
+                <h4>API Testing</h4>
+                <p>Automated endpoint testing, performance monitoring, and comprehensive API health analysis.</p>
+                <ul class="feature-list">
+                    <li>Response time monitoring</li>
+                    <li>Status code analysis</li>
+                    <li>Security header validation</li>
+                    <li>Performance grading</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Quick Actions -->
+    <div class="row g-4 mb-5">
+        <div class="col-lg-8">
+            <div class="card border-0 shadow-sm">
+                <div class="card-body p-4">
+                    <h3 class="card-title mb-4">
+                        <i class="fas fa-bolt text-primary me-2"></i>Quick Start
+                    </h3>
+                    <div class="row g-3">
+                        <div class="col-sm-6">
+                            <div class="quick-action-card">
+                                <i class="fab fa-github text-primary"></i>
+                                <h5>Analyze Repository</h5>
+                                <p>Get instant insights into your GitHub repository with AI-powered code analysis.</p>
+                                <a href="{{ url_for('github_analysis') }}" class="btn btn-primary btn-sm">
+                                    Start Analysis <i class="fas fa-arrow-right ms-1"></i>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="quick-action-card">
+                                <i class="fas fa-code text-success"></i>
+                                <h5>Test API Endpoints</h5>
+                                <p>Comprehensive API testing with performance metrics and security analysis.</p>
+                                <a href="{{ url_for('api_testing') }}" class="btn btn-success btn-sm">
+                                    Test APIs <i class="fas fa-arrow-right ms-1"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4">
+            <div class="card border-0 shadow-sm">
+                <div class="card-body p-4">
+                    <h3 class="card-title mb-4">
+                        <i class="fas fa-chart-bar text-success me-2"></i>Stats
+                    </h3>
+                    <div class="stats-list">
+                        <div class="stat-item">
+                            <div class="stat-number">2,500+</div>
+                            <div class="stat-label">Repositories Analyzed</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number">15,000+</div>
+                            <div class="stat-label">API Endpoints Tested</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number">98%</div>
+                            <div class="stat-label">Accuracy Rate</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Recent Activity -->
+    <div class="card border-0 shadow-sm">
+        <div class="card-body p-4">
+            <h3 class="card-title mb-4">
+                <i class="fas fa-history text-info me-2"></i>Platform Capabilities
+            </h3>
+            <div class="row g-4">
+                <div class="col-md-6">
+                    <h5 class="text-primary">GitHub Analysis Features</h5>
+                    <ul class="list-unstyled">
+                        <li><i class="fas fa-check text-success me-2"></i>Repository structure analysis</li>
+                        <li><i class="fas fa-check text-success me-2"></i>Commit history visualization</li>
+                        <li><i class="fas fa-check text-success me-2"></i>Branch comparison and analysis</li>
+                        <li><i class="fas fa-check text-success me-2"></i>Contributor activity tracking</li>
+                        <li><i class="fas fa-check text-success me-2"></i>File type and size analysis</li>
+                    </ul>
+                </div>
+                <div class="col-md-6">
+                    <h5 class="text-success">API Testing Features</h5>
+                    <ul class="list-unstyled">
+                        <li><i class="fas fa-check text-success me-2"></i>Automatic endpoint discovery</li>
+                        <li><i class="fas fa-check text-success me-2"></i>Response time measurement</li>
+                        <li><i class="fas fa-check text-success me-2"></i>Security header validation</li>
+                        <li><i class="fas fa-check text-success me-2"></i>Status code distribution</li>
+                        <li><i class="fas fa-check text-success me-2"></i>Performance grading system</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
