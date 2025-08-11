@@ -233,15 +233,20 @@ def view_report(filename):
 def delete_report():
     try:
         data = request.get_json()
-        filename = data.get('filename')
+        filename = data.get('filename', '').strip()
         
-        if not filename:
-            return jsonify({'error': 'Filename is required'}), 400
+        if not filename or not filename.endswith('.html'):
+            return jsonify({'success': False, 'error': 'Invalid filename'}), 400
+        
+        # Security: prevent path traversal
+        if '..' in filename or '/' in filename or '\\' in filename:
+            return jsonify({'success': False, 'error': 'Invalid filename'}), 400
         
         report_path = os.path.join('reports', filename)
         json_path = os.path.join('reports', filename.replace('.html', '.json'))
         
         deleted_files = []
+        
         if os.path.exists(report_path):
             os.remove(report_path)
             deleted_files.append(filename)
@@ -251,12 +256,15 @@ def delete_report():
             deleted_files.append(filename.replace('.html', '.json'))
         
         if not deleted_files:
-            return jsonify({'error': 'Report not found'}), 404
+            return jsonify({'success': False, 'error': 'Report not found'}), 404
         
         return jsonify({'success': True, 'deleted_files': deleted_files})
     
+    except PermissionError:
+        return jsonify({'success': False, 'error': 'Permission denied'}), 403
     except Exception as e:
-        return jsonify({'error': str(e)}), 500
+        print(f"Delete error: {e}")
+        return jsonify({'success': False, 'error': 'Server error'}), 500
 
 # ─────────────────────────────── BOOTSTRAP ───────────────────────────────
 
