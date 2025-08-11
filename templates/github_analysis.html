@@ -181,56 +181,15 @@ document.getElementById('githubAnalysisForm').onsubmit = async function(e) {
             
             // Create view link that opens report in new tab
             document.getElementById('viewBtn').onclick = function() {
-                const newWindow = window.open();
-                newWindow.document.write(result.report_html);
-                newWindow.document.close();
+                const blob = new Blob([result.report_html], { type: 'text/html' });
+                const url = URL.createObjectURL(blob);
+                window.open(url, '_blank');
             };
         } else {
             showError(result.error);
         }
     } catch (error) {
         showError('Network error: ' + error.message);
-    }
-    
-    document.getElementById('analyzeBtn').disabled = false;
-};
-
-function simulateProgress() {
-    const progressBar = document.getElementById('progressBar');
-    const progressText = document.getElementById('progressText');
-    const steps = [
-        { percent: 20, text: 'Connecting to GitHub API...' },
-        { percent: 40, text: 'Analyzing repository structure...' },
-        { percent: 60, text: 'Processing code files...' },
-        { percent: 80, text: 'Generating AI assessment...' },
-        { percent: 95, text: 'Creating report...' }
-    ];
-    
-    let currentStep = 0;
-    const interval = setInterval(() => {
-        if (currentStep < steps.length) {
-            progressBar.style.width = steps[currentStep].percent + '%';
-            progressText.textContent = steps[currentStep].text;
-            currentStep++;
-        } else {
-            clearInterval(interval);
-        }
-    }, 1000);
-}
-
-function showError(message) {
-    document.getElementById('progressSection').style.display = 'none';
-    document.getElementById('errorSection').style.display = 'block';
-    document.getElementById('errorMessage').textContent = message;
-}
-
-function resetForm() {
-    document.getElementById('errorSection').style.display = 'none';
-    document.getElementById('resultsSection').style.display = 'none';
-    document.getElementById('progressSection').style.display = 'none';
-}
-</script>
-{% endblock %} error.message);
     }
     
     document.getElementById('analyzeBtn').disabled = false;
