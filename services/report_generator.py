@@ -49,7 +49,8 @@ class ReportGenerator:
     #     except Exception as e:
     #         logging.exception("GitHub report generation failed")
     #         return self._generate_simple_report(repo_data, filename, 'GitHub Analysis')
-    def generate_github_report(self, repo_data, code_assessment, filename, export_pdf=False, selenium_ui_data=None):
+    def generate_github_report_content(self, repo_data, code_assessment, selenium_ui_data=None):
+        """Generate GitHub report HTML content without saving to file"""
         try:
             charts = self._generate_github_charts(repo_data, code_assessment)
             template_data = {
@@ -58,20 +59,24 @@ class ReportGenerator:
                 'charts': charts,
                 'generated_at': datetime.now(),
                 'report_type': 'GitHub Analysis',
-                'selenium_ui': selenium_ui_data or {}  # ✅ Pass to template
+                'selenium_ui': selenium_ui_data or {}
             }
 
             template = self._get_template('github_report.html')
-            html_content = template.render(**template_data)
+            return template.render(**template_data)
 
+        except Exception as e:
+            logging.exception("GitHub report generation failed")
+            return self._generate_simple_report_content(repo_data, 'GitHub Analysis')
+
+    def generate_github_report(self, repo_data, code_assessment, filename, export_pdf=False, selenium_ui_data=None):
+        try:
+            html_content = self.generate_github_report_content(repo_data, code_assessment, selenium_ui_data)
             report_path = self._save_report(html_content, filename)
 
-            # ✅ Save Selenium metadata if present
             if selenium_ui_data:
                 metadata_path = os.path.join(self.reports_dir, filename.replace('.html', '.json'))
-                metadata = {
-                    'selenium_ui': selenium_ui_data
-                }
+                metadata = {'selenium_ui': selenium_ui_data}
                 with open(metadata_path, 'w') as meta_file:
                     json.dump(metadata, meta_file, indent=2)
 
@@ -177,8 +182,8 @@ class ReportGenerator:
 
         return charts
 
-    def _generate_simple_report(self, data, filename, report_type):
-        html_content = f"""
+    def _generate_simple_report_content(self, data, report_type):
+        return f"""
         <!DOCTYPE html>
         <html>
         <head>
@@ -198,6 +203,9 @@ class ReportGenerator:
         </body>
         </html>
         """
+
+    def _generate_simple_report(self, data, filename, report_type):
+        html_content = self._generate_simple_report_content(data, report_type)
         return self._save_report(html_content, filename)
 
     def _get_template(self, template_name):

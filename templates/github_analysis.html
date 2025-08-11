@@ -171,13 +171,66 @@ document.getElementById('githubAnalysisForm').onsubmit = async function(e) {
             document.getElementById('progressSection').style.display = 'none';
             document.getElementById('resultsSection').style.display = 'block';
             document.getElementById('resultMessage').textContent = result.message;
-            document.getElementById('downloadBtn').href = result.report_url;
-            document.getElementById('viewBtn').href = result.report_url.replace('/download-report/', '/view-report/');
+            
+            // Create download link for client-side download
+            const blob = new Blob([result.report_html], { type: 'text/html' });
+            const downloadUrl = URL.createObjectURL(blob);
+            
+            document.getElementById('downloadBtn').href = downloadUrl;
+            document.getElementById('downloadBtn').download = result.report_filename;
+            
+            // Create view link that opens report in new tab
+            document.getElementById('viewBtn').onclick = function() {
+                const newWindow = window.open();
+                newWindow.document.write(result.report_html);
+                newWindow.document.close();
+            };
         } else {
             showError(result.error);
         }
     } catch (error) {
         showError('Network error: ' + error.message);
+    }
+    
+    document.getElementById('analyzeBtn').disabled = false;
+};
+
+function simulateProgress() {
+    const progressBar = document.getElementById('progressBar');
+    const progressText = document.getElementById('progressText');
+    const steps = [
+        { percent: 20, text: 'Connecting to GitHub API...' },
+        { percent: 40, text: 'Analyzing repository structure...' },
+        { percent: 60, text: 'Processing code files...' },
+        { percent: 80, text: 'Generating AI assessment...' },
+        { percent: 95, text: 'Creating report...' }
+    ];
+    
+    let currentStep = 0;
+    const interval = setInterval(() => {
+        if (currentStep < steps.length) {
+            progressBar.style.width = steps[currentStep].percent + '%';
+            progressText.textContent = steps[currentStep].text;
+            currentStep++;
+        } else {
+            clearInterval(interval);
+        }
+    }, 1000);
+}
+
+function showError(message) {
+    document.getElementById('progressSection').style.display = 'none';
+    document.getElementById('errorSection').style.display = 'block';
+    document.getElementById('errorMessage').textContent = message;
+}
+
+function resetForm() {
+    document.getElementById('errorSection').style.display = 'none';
+    document.getElementById('resultsSection').style.display = 'none';
+    document.getElementById('progressSection').style.display = 'none';
+}
+</script>
+{% endblock %} error.message);
     }
     
     document.getElementById('analyzeBtn').disabled = false;

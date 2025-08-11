@@ -102,22 +102,26 @@ def analyze_github():
             'screenshot_path': os.path.basename(screenshot_path) if screenshot_path else None
         }
 
-        # Step 3: Generate HTML report
+        # Step 3: Generate HTML report content
         report_filename = f"github_analysis_{owner}_{repo_name}_{datetime.now().strftime('%Y%m%d_%H%M%S')}.html"
-        report_path = report_generator.generate_github_report(
+        report_html = report_generator.generate_github_report_content(
             repo_data=repo_data,
             code_assessment=code_assessment,
-            filename=report_filename,
             selenium_ui_data=selenium_ui_data
         )
 
         # Step 4: Email report (if requested)
         if email:
-            email_service.send_report_email(email, report_path, 'GitHub Analysis Report')
+            temp_path = os.path.join('reports', report_filename)
+            with open(temp_path, 'w', encoding='utf-8') as f:
+                f.write(report_html)
+            email_service.send_report_email(email, temp_path, 'GitHub Analysis Report')
+            os.remove(temp_path)
 
         return jsonify({
             'success': True,
-            'report_url': f'/download-report/{report_filename}',
+            'report_html': report_html,
+            'report_filename': report_filename,
             'message': 'Analysis completed successfully!'
         })
 
