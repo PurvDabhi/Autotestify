@@ -71,7 +71,12 @@ def reports():
 
 @app.route('/screenshots/<path:filename>')
 def screenshots(filename):
-    return send_from_directory('screenshots', filename)
+    try:
+        print(f"Screenshot request for: {filename}")
+        return send_from_directory('screenshots', filename)
+    except Exception as e:
+        print(f"Screenshot error: {e}")
+        return "Screenshot not found", 404
 
 @app.route('/api/analyze-github', methods=['POST'])
 def analyze_github():
@@ -94,29 +99,23 @@ def analyze_github():
         code_assessment = gemini_service.assess_code_quality(repo_data['files'])
 
         # Step 2: Run Selenium UI Checks
-        selenium_results = github_service._validate_github_ui_with_selenium(owner, repo_name)
-        screenshot_path = selenium_results.get("screenshot")
-        
-        selenium_ui_data = {
-            **selenium_results,
-            'screenshot_path': os.path.basename(screenshot_path) if screenshot_path else None
-        }
+        selenium_ui_data = github_service._validate_github_ui_with_selenium(owner, repo_name)
 
-        # Step 3: Generate HTML report content
+        # Step 3: Generate and save HTML report
         report_filename = f"github_analysis_{owner}_{repo_name}_{datetime.now().strftime('%Y%m%d_%H%M%S')}.html"
-        report_html = report_generator.generate_github_report_content(
+        report_path = report_generator.generate_github_report(
             repo_data=repo_data,
             code_assessment=code_assessment,
+            filename=report_filename,
             selenium_ui_data=selenium_ui_data
         )
+        
+        with open(report_path, 'r', encoding='utf-8') as f:
+            report_html = f.read()
 
         # Step 4: Email report (if requested)
         if email:
-            temp_path = os.path.join('reports', report_filename)
-            with open(temp_path, 'w', encoding='utf-8') as f:
-                f.write(report_html)
-            email_service.send_report_email(email, temp_path, 'GitHub Analysis Report')
-            os.remove(temp_path)
+            email_service.send_report_email(email, report_path, 'GitHub Analysis Report')
 
         return jsonify({
             'success': True,

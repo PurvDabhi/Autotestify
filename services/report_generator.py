@@ -121,7 +121,11 @@ class ReportGenerator:
                 daily = df.groupby('date_only').size().reset_index(name='count')
 
                 fig = px.line(daily, x='date_only', y='count', title='Daily Commit Activity')
-                fig.update_layout(height=400)
+                fig.update_layout(
+                    height=400,
+                    autosize=True,
+                    margin=dict(l=40, r=40, t=40, b=40)
+                )
                 charts['commit_activity'] = json.dumps(fig, cls=PlotlyJSONEncoder)
 
             # Grade distribution chart
@@ -129,8 +133,16 @@ class ReportGenerator:
                 grades = [x.get('grade', 'F') for x in code_assessment['file_assessments'] if x.get('grade')]
                 if grades:
                     grade_counts = pd.Series(grades).value_counts()
-                    fig = px.pie(values=grade_counts.values, names=grade_counts.index, title='Code Quality Grades')
-                    fig.update_layout(height=400)
+                    fig = px.pie(
+                        values=grade_counts.values.tolist(), 
+                        names=grade_counts.index.tolist(), 
+                        title='Code Quality Grades'
+                    )
+                    fig.update_layout(
+                        height=400,
+                        autosize=True,
+                        margin=dict(l=40, r=40, t=40, b=40)
+                    )
                     charts['grade_distribution'] = json.dumps(fig, cls=PlotlyJSONEncoder)
 
             # File type distribution chart
@@ -138,8 +150,17 @@ class ReportGenerator:
                 file_types = [file.get('type', 'Unknown') for file in repo_data['files'] if file.get('type')]
                 if file_types:
                     type_counts = pd.Series(file_types).value_counts().head(10)
-                    fig = px.bar(x=type_counts.index, y=type_counts.values, title='File Type Distribution')
-                    fig.update_layout(height=400)
+                    fig = px.bar(
+                        x=type_counts.index.tolist(), 
+                        y=type_counts.values.tolist(), 
+                        title='File Type Distribution'
+                    )
+                    fig.update_layout(
+                        height=400,
+                        autosize=True,
+                        margin=dict(l=40, r=40, t=40, b=40),
+                        xaxis_tickangle=-45
+                    )
                     charts['file_types'] = json.dumps(fig, cls=PlotlyJSONEncoder)
 
         except Exception as e:
@@ -158,23 +179,42 @@ class ReportGenerator:
                     names = [f"{ep.get('method', 'GET')} {ep.get('endpoint', '')}" for ep in valid]
                     times = [ep.get('response_time', 0) for ep in valid]
                     fig = px.bar(x=names, y=times, title='Response Time by Endpoint')
-                    fig.update_xaxes(tickangle=45)
-                    fig.update_layout(height=400)
+                    fig.update_xaxes(tickangle=-45)
+                    fig.update_layout(
+                        height=400,
+                        autosize=True,
+                        margin=dict(l=40, r=40, t=40, b=80)
+                    )
                     charts['response_times'] = json.dumps(fig, cls=PlotlyJSONEncoder)
 
                     grades = [ep.get('performance_grade', 'F') for ep in valid]
                     if grades:
                         grade_counts = pd.Series(grades).value_counts()
-                        fig = px.bar(x=grade_counts.index, y=grade_counts.values, title='Performance Grades')
-                        fig.update_layout(height=400)
+                        fig = px.bar(
+                            x=grade_counts.index.tolist(), 
+                            y=grade_counts.values.tolist(), 
+                            title='Performance Grades'
+                        )
+                        fig.update_layout(
+                            height=400,
+                            autosize=True,
+                            margin=dict(l=40, r=40, t=40, b=40)
+                        )
                         charts['performance_grades'] = json.dumps(fig, cls=PlotlyJSONEncoder)
 
             if test_results.get('status_code_distribution'):
                 codes = test_results['status_code_distribution']
                 if codes:
-                    fig = px.pie(values=list(codes.values()), names=[f"HTTP {k}" for k in codes.keys()],
-                                 title='Status Code Distribution')
-                    fig.update_layout(height=400)
+                    fig = px.pie(
+                        values=list(codes.values()), 
+                        names=[f"HTTP {k}" for k in codes.keys()],
+                        title='Status Code Distribution'
+                    )
+                    fig.update_layout(
+                        height=400,
+                        autosize=True,
+                        margin=dict(l=40, r=40, t=40, b=40)
+                    )
                     charts['status_codes'] = json.dumps(fig, cls=PlotlyJSONEncoder)
 
         except Exception as e:

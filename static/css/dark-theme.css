@@ -1,0 +1,115 @@
+[data-bs-theme="dark"] {
+    --bs-body-bg: #1a1a1a;
+    --bs-body-color: #f8f9fa;
+    --bs-primary: #6366f1;
+    --bs-secondary: #8b5cf6;
+    --bs-success: #198754;
+    --bs-info: #0dcaf0;
+    --bs-warning: #ffc107;
+    --bs-danger: #dc3545;
+    --bs-light: #495057;
+    --bs-dark: #212529;
+}
+
+[data-bs-theme="dark"] body {
+    background: #1a1a1a !important;
+    min-height: 100vh;
+    color: #f8f9fa !important;
+}
+
+[data-bs-theme="dark"] .navbar {
+    background: linear-gradient(135deg, #4c1d95 0%, #3730a3 100%) !important;
+    border-bottom: 1px solid #6366f1;
+    backdrop-filter: blur(10px);
+}
+
+[data-bs-theme="dark"] .card {
+    background: #2a2a2a !important;
+    border-color: rgba(99, 102, 241, 0.3) !important;
+    box-shadow: 0 0.5rem 1rem rgba(99, 102, 241, 0.2) !important;
+    backdrop-filter: blur(10px);
+}
+
+[data-bs-theme="dark"] .card-header {
+    background-color: #343a40 !important;
+    border-bottom-color: #495057 !important;
+}
+
+[data-bs-theme="dark"] .bg-light {
+    background-color: #343a40 !important;
+}
+
+[data-bs-theme="dark"] .text-muted {
+    color: #ced4da !important;
+}
+
+[data-bs-theme="dark"] .form-control {
+    background-color: #343a40 !important;
+    border-color: #495057 !important;
+    color: #f8f9fa !important;
+}
+
+[data-bs-theme="dark"] .form-control:focus {
+    background-color: #343a40 !important;
+    border-color: #86b7fe !important;
+    box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25) !important;
+}
+
+[data-bs-theme="dark"] .btn-outline-primary {
+    color: #0d6efd;
+    border-color: #0d6efd;
+}
+
+[data-bs-theme="dark"] .btn-outline-primary:hover {
+    background-color: #0d6efd;
+    color: #fff;
+}
+
+[data-bs-theme="dark"] .table {
+    color: #f8f9fa;
+}
+
+[data-bs-theme="dark"] .table-borderless td {
+    border-color: transparent;
+}
+
+[data-bs-theme="dark"] .progress {
+    background-color: #343a40;
+}
+
+[data-bs-theme="dark"] .alert {
+    border-color: #495057;
+}
+
+[data-bs-theme="dark"] .alert-warning {
+    background-color: #664d03;
+    border-color: #997404;
+    color: #ffecb5;
+}
+
+[data-bs-theme="dark"] label,
+[data-bs-theme="dark"] .form-label {
+    color: #e0e7ff !important;
+    font-weight: 500;
+}
+
+[data-bs-theme="dark"] span {
+    color: #c7d2fe !important;
+}
+
+[data-bs-theme="dark"] .badge {
+    background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%) !important;
+    color: #ffffff !important;
+}
+
+[data-bs-theme="dark"] .btn-primary {
+    background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%) !important;
+    border: none !important;
+    box-shadow: 0 0.25rem 0.5rem rgba(99, 102, 241, 0.3) !important;
+}
+
+[data-bs-theme="dark"] .btn-primary:hover {
+    background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%) !important;
+    transform: translateY(-1px);
+    box-shadow: 0 0.5rem 1rem rgba(99, 102, 241, 0.4) !important;
+}

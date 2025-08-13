@@ -14,21 +14,26 @@ from selenium.common.exceptions import TimeoutException
 class GitHubService:
     def __init__(self):
         self.token = os.environ.get('GITHUB_TOKEN')
+        self.github = None
+        self.authenticated = False
+        
         if self.token:
             try:
-                self.github = Github(self.token, per_page=100)
-                # Test the token immediately
-                self.github.get_user().login
+                test_github = Github(self.token, per_page=100)
+                test_github.get_user().login
+                self.github = test_github
+                self.authenticated = True
+                print("GitHub API: Authenticated access enabled")
             except Exception as e:
-                print(f"Invalid GitHub token: {e}")
-                # Fall back to unauthenticated access
+                print(f"GitHub token invalid ({e}), using unauthenticated access")
                 self.github = Github(per_page=30)
                 self.token = None
         else:
+            print("No GitHub token found, using unauthenticated access")
             self.github = Github(per_page=30)
 
         self.last_request_time = 0
-        self.min_request_interval = 1.0
+        self.min_request_interval = 2.0 if not self.authenticated else 0.5
         self.driver_path = './chromedriver.exe'
 
     def _rate_limit_check(self):
@@ -39,34 +44,43 @@ class GitHubService:
         self.last_request_time = time.time()
 
     def _check_rate_limit_status(self):
+        if not self.authenticated:
+            return True
+            
         try:
             rate_limit = self.github.get_rate_limit()
             core_remaining = rate_limit.core.remaining
             core_reset_time = rate_limit.core.reset
+            
+            print(f"GitHub API rate limit: {core_remaining} requests remaining")
 
-            if core_remaining < 10:
+            if core_remaining < 5:
                 wait_time = max(0, core_reset_time.timestamp() - time.time())
                 if wait_time > 0:
-                    time.sleep(min(wait_time, 300))
+                    print(f"Rate limit low, waiting {min(wait_time, 60)} seconds")
+                    time.sleep(min(wait_time, 60))
 
             return core_remaining > 0
-        except Exception:
+        except Exception as e:
+            print(f"Rate limit check failed: {e}")
             return True
 
     def analyze_repository(self, owner, repo_name):
         try:
-            if self.token and not self._check_rate_limit_status():
-                raise Exception("GitHub API rate limit exceeded.")
+            if self.authenticated and not self._check_rate_limit_status():
+                print("Switching to unauthenticated access due to rate limits")
+                self.github = Github(per_page=30)
+                self.authenticated = False
+                self.min_request_interval = 2.0
 
             self._rate_limit_check()
             try:
                 repo = self.github.get_repo(f"{owner}/{repo_name}")
             except Exception as e:
-                if "401" in str(e) or "Bad credentials" in str(e):
-                    # Try without authentication
-                    self.github = Github(per_page=30)
-                    self.token = None
-                    repo = self.github.get_repo(f"{owner}/{repo_name}")
+                if "403" in str(e) and "rate limit" in str(e).lower():
+                    raise Exception("GitHub API rate limit exceeded. Please wait or add a valid GitHub token.")
+                elif "401" in str(e) or "Bad credentials" in str(e):
+                    raise Exception("Invalid GitHub token. Please check your GITHUB_TOKEN environment variable.")
                 else:
                     raise e
 
@@ -151,7 +165,7 @@ class GitHubService:
             'readme_found': False,
             'badge_found': False,
             'actions_visible': False,
-            'screenshot': None
+            'screenshot_path': None
         }
 
         try:
@@ -159,23 +173,29 @@ class GitHubService:
             options.add_argument('--headless')
             options.add_argument('--no-sandbox')
             options.add_argument('--disable-dev-shm-usage')
+            options.add_argument('--window-size=1920,1080')
             driver = webdriver.Chrome(options=options)
 
             url = f"https://github.com/{owner}/{repo_name}"
             driver.get(url)
 
-            time.sleep(2)
-            folder = "screenshots"  # NOT static/screenshots
+            WebDriverWait(driver, 10).until(
+                EC.presence_of_element_located((By.TAG_NAME, "body"))
+            )
+            time.sleep(3)
+            
+            folder = "screenshots"
             os.makedirs(folder, exist_ok=True)
 
             filename = f"{owner}_{repo_name}_screenshot.png"
             screenshot_path = os.path.join(folder, filename)
 
             driver.save_screenshot(screenshot_path)
-
-            # JSON return
-            result['screenshot'] = screenshot_path            # full path if needed
-            result['screenshot_path'] = filename 
+            
+            if os.path.exists(screenshot_path) and os.path.getsize(screenshot_path) > 0:
+                result['screenshot_path'] = filename
+            else:
+                result['screenshot_path'] = None 
 
             # try:
             #     readme = driver.find_element(By.XPATH, "//*[contains(@id, 'readme')]")

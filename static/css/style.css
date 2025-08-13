@@ -294,6 +294,33 @@ body {
     font-size: 1.25rem;
 }
 
+/* Chart Responsiveness */
+.plotly-graph-div {
+    width: 100% !important;
+    height: 100% !important;
+}
+
+/* Image Responsiveness */
+.img-fluid {
+    max-width: 100%;
+    height: auto;
+}
+
+/* Screenshot specific styling */
+.screenshot-container {
+    max-width: 100%;
+    overflow: hidden;
+    border-radius: 8px;
+}
+
+.screenshot-container img {
+    width: 100%;
+    height: auto;
+    max-height: 400px;
+    object-fit: contain;
+    border-radius: 8px;
+}
+
 /* Progress Bars */
 .progress {
     height: 8px;
@@ -309,6 +336,7 @@ body {
 @media (max-width: 768px) {
     .hero-section {
         text-align: center;
+        padding: 2rem 1rem;
     }
     
     .dashboard-preview {
@@ -327,6 +355,32 @@ body {
     .display-5 {
         font-size: 2rem;
     }
+    
+    /* Chart responsiveness */
+    .chart-container {
+        min-height: 300px;
+        overflow-x: auto;
+    }
+    
+    /* Table responsiveness */
+    .table-responsive {
+        border: none;
+    }
+    
+    /* Image responsiveness */
+    img {
+        max-width: 100%;
+        height: auto;
+    }
+    
+    /* Navigation adjustments */
+    .navbar-nav {
+        text-align: center;
+    }
+    
+    .navbar-nav .nav-link {
+        padding: 0.75rem 1rem !important;
+    }
 }
 
 @media (max-width: 576px) {
@@ -335,12 +389,87 @@ body {
         padding-right: 1rem;
     }
     
+    .container-fluid {
+        padding-left: 0.75rem;
+        padding-right: 0.75rem;
+    }
+    
     .card-body {
         padding: 1rem;
     }
     
     .feature-card {
         padding: 1.5rem;
+    }
+    
+    .chart-container {
+        min-height: 250px;
+    }
+    
+    .btn {
+        padding: 0.5rem 1rem;
+        font-size: 0.9rem;
+    }
+    
+    .btn-lg {
+        padding: 0.75rem 1.5rem;
+        font-size: 1rem;
+    }
+    
+    .form-control {
+        padding: 0.5rem 0.75rem;
+    }
+    
+    .form-control-lg {
+        padding: 0.75rem 1rem;
+        font-size: 1rem;
+    }
+    
+    /* Smaller text on mobile */
+    h1 {
+        font-size: 1.75rem;
+    }
+    
+    h2 {
+        font-size: 1.5rem;
+    }
+    
+    h3 {
+        font-size: 1.25rem;
+    }
+    
+    /* Better spacing on mobile */
+    .mb-4 {
+        margin-bottom: 2rem !important;
+    }
+    
+    .py-4 {
+        padding-top: 2rem !important;
+        padding-bottom: 2rem !important;
+    }
+}
+
+/* Extra small devices */
+@media (max-width: 375px) {
+    .container-fluid {
+        padding-left: 0.5rem;
+        padding-right: 0.5rem;
+    }
+    
+    .card {
+        margin-bottom: 1rem;
+    }
+    
+    .chart-container {
+        min-height: 200px;
+    }
+    
+    .feature-card {
+        padding: 1rem;
+    }
+    
+    .card-body {
+        padding: 0.75rem;
     }
 }
 

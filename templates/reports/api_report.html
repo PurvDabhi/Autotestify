@@ -37,6 +37,76 @@
         min-height: 400px;
         margin: 1rem 0;
         width: 100%;
+        overflow: hidden;
+        position: relative;
+      }
+      
+      /* Responsive Design Improvements */
+      @media (max-width: 1200px) {
+        .chart-container {
+          min-height: 350px;
+        }
+      }
+      
+      @media (max-width: 992px) {
+        .chart-container {
+          min-height: 320px;
+        }
+      }
+      
+      @media (max-width: 768px) {
+        .container-fluid {
+          padding-left: 15px;
+          padding-right: 15px;
+        }
+        
+        .chart-container {
+          min-height: 300px;
+        }
+        
+        .report-header {
+          padding: 1.5rem;
+        }
+        
+        .report-header h1 {
+          font-size: 1.5rem;
+        }
+        
+        .report-header h2 {
+          font-size: 1.25rem;
+        }
+      }
+      
+      @media (max-width: 576px) {
+        .col-lg-6 {
+          margin-bottom: 1rem;
+        }
+        
+        .chart-container {
+          min-height: 280px;
+        }
+        
+        .card-header {
+          padding: 1rem;
+        }
+        
+        .card-body {
+          padding: 1rem;
+        }
+      }
+      
+      @media (max-width: 480px) {
+        .chart-container {
+          min-height: 250px;
+        }
+        
+        .report-header h1 {
+          font-size: 1.25rem;
+        }
+        
+        .report-header h2 {
+          font-size: 1.1rem;
+        }
       }
       .endpoint-card {
         border-left: 4px solid #6c757d;
@@ -386,36 +456,84 @@
     </div>
 
     <script>
+      // Render charts with full responsive configuration
+      function renderChart(elementId, chartData) {
+        try {
+          var config = {
+            responsive: true,
+            displayModeBar: false,
+            toImageButtonOptions: {
+              format: 'png',
+              filename: 'chart',
+              height: 400,
+              width: 600,
+              scale: 1
+            }
+          };
+          
+          // Ensure layout is fully responsive
+          if (chartData.layout) {
+            chartData.layout.autosize = true;
+            chartData.layout.responsive = true;
+            
+            // Adjust margins for mobile
+            if (window.innerWidth <= 768) {
+              chartData.layout.margin = {l: 30, r: 30, t: 40, b: 40};
+              chartData.layout.height = 300;
+            } else if (window.innerWidth <= 576) {
+              chartData.layout.margin = {l: 20, r: 20, t: 35, b: 35};
+              chartData.layout.height = 280;
+            }
+            
+            // Adjust font sizes for mobile
+            if (window.innerWidth <= 576) {
+              chartData.layout.font = {size: 10};
+              if (chartData.layout.title) {
+                chartData.layout.title.font = {size: 12};
+              }
+            }
+          }
+          
+          Plotly.newPlot(elementId, chartData.data, chartData.layout, config);
+          
+        } catch(e) {
+          console.error('Error rendering chart for ' + elementId + ':', e);
+          document.getElementById(elementId).innerHTML = '<div class="alert alert-warning">Chart could not be loaded</div>';
+        }
+      }
+      
+      // Handle window resize with debouncing
+      let resizeTimeout;
+      function handleResize() {
+        clearTimeout(resizeTimeout);
+        resizeTimeout = setTimeout(function() {
+          ['responseTimeChart', 'statusCodeChart', 'performanceGradeChart'].forEach(function(chartId) {
+            var element = document.getElementById(chartId);
+            if (element && element.data) {
+              Plotly.Plots.resize(chartId);
+            }
+          });
+        }, 250);
+      }
+      
       document.addEventListener('DOMContentLoaded', function() {
         {% if charts.response_times %}
-        Plotly.newPlot('responseTimeChart', {{ charts.response_times|safe }}.data, {
-          ...{{ charts.response_times|safe }}.layout,
-          responsive: true,
-          autosize: true
-        });
+        var responseTimeData = {{ charts.response_times|safe }};
+        renderChart('responseTimeChart', responseTimeData);
         {% endif %}
 
         {% if charts.status_codes %}
-        Plotly.newPlot('statusCodeChart', {{ charts.status_codes|safe }}.data, {
-          ...{{ charts.status_codes|safe }}.layout,
-          responsive: true,
-          autosize: true
-        });
+        var statusCodeData = {{ charts.status_codes|safe }};
+        renderChart('statusCodeChart', statusCodeData);
         {% endif %}
 
         {% if charts.performance_grades %}
-        Plotly.newPlot('performanceGradeChart', {{ charts.performance_grades|safe }}.data, {
-          ...{{ charts.performance_grades|safe }}.layout,
-          responsive: true,
-          autosize: true
-        });
+        var performanceGradeData = {{ charts.performance_grades|safe }};
+        renderChart('performanceGradeChart', performanceGradeData);
         {% endif %}
-
-        window.addEventListener('resize', function() {
-          Plotly.Plots.resize('responseTimeChart');
-          Plotly.Plots.resize('statusCodeChart'); 
-          Plotly.Plots.resize('performanceGradeChart');
-        });
+        
+        // Add resize listener
+        window.addEventListener('resize', handleResize);
       });
     </script>
   </body>
