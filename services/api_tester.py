@@ -51,33 +51,44 @@ class APITester:
         return self._aggregate_results(base_url, endpoint_results, total_duration)
 
     def _aggregate_results(self, base_url: str, results: List[Dict], duration: float) -> Dict:
-        """Aggregates individual endpoint results into a final report."""
+        """Enhanced aggregation with detailed performance and reliability metrics."""
         successful_tests = sum(1 for r in results if r['success'])
         failed_tests = len(results) - successful_tests
         
         status_code_dist = {}
         content_type_dist = {}
-        response_times = []
+        response_times = [r['response_time'] for r in results if r['response_time'] > 0]
+        method_performance = {}
+        endpoint_grades = []
 
         for r in results:
-            response_times.append(r['response_time'])
-            # Update status code distribution
-            status_code = r['status_code'] if r['status_code'] else 'N/A'
+            # Status code distribution
+            status_code = str(r['status_code']) if r['status_code'] else 'Error'
             status_code_dist[status_code] = status_code_dist.get(status_code, 0) + 1
-            # Update content type analysis
+            
+            # Content type analysis
             content_type = r.get('content_type', 'unknown').split(';')[0]
             content_type_dist[content_type] = content_type_dist.get(content_type, 0) + 1
+            
+            # Method-based performance tracking
+            method = r['method']
+            if method not in method_performance:
+                method_performance[method] = {'times': [], 'success_rate': 0, 'total': 0}
+            method_performance[method]['times'].append(r['response_time'])
+            method_performance[method]['total'] += 1
+            if r['success']:
+                method_performance[method]['success_rate'] += 1
+            
+            # Calculate endpoint grade
+            grade = self._calculate_endpoint_grade(r)
+            endpoint_grades.append(grade)
+            r['performance_grade'] = grade
 
-        # Calculate performance metrics
-        perf_metrics = {}
-        if response_times:
-            fastest_res = min(results, key=lambda r: r['response_time'])
-            slowest_res = max(results, key=lambda r: r['response_time'])
-            perf_metrics = {
-                'average_response_time': round(sum(response_times) / len(response_times), 2),
-                'fastest_endpoint': {'endpoint': fastest_res['endpoint'], 'time_ms': fastest_res['response_time']},
-                'slowest_endpoint': {'endpoint': slowest_res['endpoint'], 'time_ms': slowest_res['response_time']}
-            }
+        # Enhanced performance metrics
+        perf_metrics = self._calculate_performance_metrics(results, response_times, method_performance)
+        
+        # Calculate overall API grade
+        overall_grade = self._calculate_overall_grade(endpoint_grades, successful_tests, len(results))
         
         final_report = {
             'base_url': base_url,
@@ -86,9 +97,13 @@ class APITester:
             'total_endpoints_tested': len(results),
             'successful_tests': successful_tests,
             'failed_tests': failed_tests,
+            'success_rate': round((successful_tests / len(results)) * 100, 1) if results else 0,
+            'overall_grade': overall_grade,
             'performance_metrics': perf_metrics,
             'status_code_distribution': status_code_dist,
             'content_type_analysis': content_type_dist,
+            'method_performance': method_performance,
+            'reliability_score': self._calculate_reliability_score(results),
             'security_analysis': self._analyze_security(results),
             'endpoint_results': results,
         }
@@ -154,7 +169,7 @@ class APITester:
         return endpoints
 
     def _test_single_endpoint(self, base_url: str, endpoint_config: Dict) -> Dict:
-        """Test a single API endpoint."""
+        """Enhanced single endpoint testing with detailed metrics."""
         full_url = urljoin(base_url, endpoint_config['path'])
         method = endpoint_config.get('method', 'GET')
         
@@ -167,8 +182,12 @@ class APITester:
             'response_time': -1,
             'response_size': 0,
             'content_type': None,
-            'schema_valid': 'N/A', # ADDED
+            'schema_valid': 'N/A',
+            'headers_count': 0,
+            'has_cache_headers': False,
+            'has_security_headers': False,
             'error': None,
+            'performance_grade': 'F'
         }
         
         try:
@@ -185,9 +204,15 @@ class APITester:
             result['status_code'] = response.status_code
             result['response_size'] = len(response.content)
             result['content_type'] = response.headers.get('content-type', '')
+            result['headers_count'] = len(response.headers)
             
-            # Main success criteria: 2xx status code
-            result['success'] = 200 <= response.status_code < 300
+            # Analyze response headers
+            result['has_cache_headers'] = any(h in response.headers for h in ['cache-control', 'etag', 'expires'])
+            security_headers = ['x-frame-options', 'x-content-type-options', 'x-xss-protection', 'strict-transport-security']
+            result['has_security_headers'] = any(h in response.headers for h in security_headers)
+            
+            # Enhanced success criteria
+            result['success'] = 200 <= response.status_code < 300 and result['response_time'] < 10000
             
             # ADDED: Schema validation logic
             if 'application/json' in result['content_type'] and endpoint_config.get('expected_schema'):
@@ -222,19 +247,136 @@ class APITester:
         except Exception as e:
             return False, f"An unexpected schema validation error occurred: {e}"
 
+    def _calculate_performance_metrics(self, results, response_times, method_performance):
+        """Calculate comprehensive performance metrics."""
+        if not response_times:
+            return {}
+            
+        # Calculate percentiles
+        sorted_times = sorted(response_times)
+        n = len(sorted_times)
+        
+        def percentile(p):
+            k = (n - 1) * p / 100
+            f = int(k)
+            c = k - f
+            if f == n - 1:
+                return sorted_times[f]
+            return sorted_times[f] * (1 - c) + sorted_times[f + 1] * c
+        
+        fastest_res = min(results, key=lambda r: r['response_time'] if r['response_time'] > 0 else float('inf'))
+        slowest_res = max(results, key=lambda r: r['response_time'])
+        
+        # Calculate method averages
+        for method, data in method_performance.items():
+            if data['times']:
+                data['avg_response_time'] = round(sum(data['times']) / len(data['times']), 2)
+                data['success_rate'] = round((data['success_rate'] / data['total']) * 100, 1)
+        
+        return {
+            'average_response_time': round(sum(response_times) / len(response_times), 2),
+            'median_response_time': round(percentile(50), 2),
+            'p95_response_time': round(percentile(95), 2),
+            'p99_response_time': round(percentile(99), 2),
+            'fastest_endpoint': {'endpoint': fastest_res['endpoint'], 'time_ms': fastest_res['response_time']},
+            'slowest_endpoint': {'endpoint': slowest_res['endpoint'], 'time_ms': slowest_res['response_time']},
+            'throughput_estimate': round(len(results) / max(sum(response_times) / 1000, 0.1), 2)
+        }
+    
+    def _calculate_endpoint_grade(self, result):
+        """Calculate performance grade for individual endpoint."""
+        if not result['success']:
+            return 'F'
+        
+        response_time = result['response_time']
+        if response_time < 100:
+            return 'A'
+        elif response_time < 300:
+            return 'B'
+        elif response_time < 1000:
+            return 'C'
+        elif response_time < 3000:
+            return 'D'
+        else:
+            return 'F'
+    
+    def _calculate_overall_grade(self, grades, successful, total):
+        """Calculate overall API performance grade."""
+        if total == 0:
+            return 'F'
+        
+        success_rate = successful / total
+        grade_scores = {'A': 5, 'B': 4, 'C': 3, 'D': 2, 'F': 1}
+        avg_grade_score = sum(grade_scores.get(g, 1) for g in grades) / len(grades) if grades else 1
+        
+        # Weight by success rate
+        final_score = avg_grade_score * success_rate
+        
+        if final_score >= 4.5:
+            return 'A'
+        elif final_score >= 3.5:
+            return 'B'
+        elif final_score >= 2.5:
+            return 'C'
+        elif final_score >= 1.5:
+            return 'D'
+        else:
+            return 'F'
+    
+    def _calculate_reliability_score(self, results):
+        """Calculate API reliability score based on various factors."""
+        if not results:
+            return 0
+        
+        success_rate = sum(1 for r in results if r['success']) / len(results)
+        avg_response_time = sum(r['response_time'] for r in results if r['response_time'] > 0) / len(results)
+        
+        # Penalize slow responses
+        time_penalty = max(0, (avg_response_time - 500) / 1000)  # Penalty after 500ms
+        reliability = (success_rate * 100) - (time_penalty * 10)
+        
+        return max(0, min(100, round(reliability, 1)))
+    
     def _analyze_security(self, endpoint_results: List[Dict]) -> Dict:
-        """Analyze overall security based on endpoint results."""
-        # This method's logic is mostly fine, no major changes needed.
-        # It's a good-faith effort at a basic security check.
+        """Enhanced security analysis."""
         https_usage = any(r['url'].startswith('https://') for r in endpoint_results)
-        recommendations = []
+        status_codes = [r['status_code'] for r in endpoint_results if r['status_code']]
+        
+        security_issues = []
+        security_score = 100
+        
         if not https_usage:
-            recommendations.append("Critical: API is not served over HTTPS. All traffic is insecure.")
+            security_issues.append("Critical: API not served over HTTPS")
+            security_score -= 50
+        
+        # Check for information disclosure
+        if any(code in [500, 502, 503] for code in status_codes):
+            security_issues.append("Warning: Server errors detected - may expose internal information")
+            security_score -= 10
+        
+        # Check for proper error handling
+        if 404 not in status_codes and len(endpoint_results) > 5:
+            security_issues.append("Info: No 404 responses - endpoint enumeration might be possible")
+            security_score -= 5
         
         return {
             'https_enabled': https_usage,
-            'recommendations': recommendations
+            'security_score': max(0, security_score),
+            'security_issues': security_issues,
+            'recommendations': self._get_security_recommendations(security_issues)
         }
+    
+    def _get_security_recommendations(self, issues):
+        """Generate security recommendations based on identified issues."""
+        recommendations = []
+        for issue in issues:
+            if "HTTPS" in issue:
+                recommendations.append("Enable HTTPS/TLS encryption for all API endpoints")
+            elif "Server errors" in issue:
+                recommendations.append("Implement proper error handling to avoid information disclosure")
+            elif "404" in issue:
+                recommendations.append("Implement consistent error responses for non-existent endpoints")
+        return recommendations
 
     @staticmethod
     def _is_valid_url(url: str) -> bool:

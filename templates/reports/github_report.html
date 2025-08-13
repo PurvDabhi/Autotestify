@@ -264,14 +264,53 @@
             </div>
             {% endif %}
             
+            {% if charts.category_radar %}
+            <div class="col-lg-6 mb-4">
+                <div class="card">
+                    <div class="card-header">
+                        <h5><i class="fas fa-radar-chart me-2"></i>Quality Categories</h5>
+                    </div>
+                    <div class="card-body">
+                        <div id="categoryRadarChart" class="chart-container"></div>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+            
+            {% if charts.complexity_distribution %}
+            <div class="col-lg-6 mb-4">
+                <div class="card">
+                    <div class="card-header">
+                        <h5><i class="fas fa-chart-bar me-2"></i>Complexity Distribution</h5>
+                    </div>
+                    <div class="card-body">
+                        <div id="complexityChart" class="chart-container"></div>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+            
             {% if charts.file_types %}
-            <div class="col-12 mb-4">
+            <div class="col-lg-6 mb-4">
                 <div class="card">
                     <div class="card-header">
                         <h5><i class="fas fa-chart-bar me-2"></i>File Type Distribution</h5>
                     </div>
                     <div class="card-body">
                         <div id="fileTypeChart" class="chart-container"></div>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+            
+            {% if charts.score_vs_size %}
+            <div class="col-lg-6 mb-4">
+                <div class="card">
+                    <div class="card-header">
+                        <h5><i class="fas fa-chart-scatter me-2"></i>Quality vs File Size</h5>
+                    </div>
+                    <div class="card-body">
+                        <div id="scoreVsSizeChart" class="chart-container"></div>
                     </div>
                 </div>
             </div>
@@ -459,7 +498,7 @@
         function handleResize() {
             clearTimeout(resizeTimeout);
             resizeTimeout = setTimeout(function() {
-                ['commitChart', 'gradeChart', 'fileTypeChart'].forEach(function(chartId) {
+                ['commitChart', 'gradeChart', 'categoryRadarChart', 'complexityChart', 'fileTypeChart', 'scoreVsSizeChart'].forEach(function(chartId) {
                     var element = document.getElementById(chartId);
                     if (element && element.data) {
                         Plotly.Plots.resize(chartId);
@@ -479,10 +518,25 @@
             var gradeData = {{ charts.grade_distribution|safe }};
             renderChart('gradeChart', gradeData);
             {% endif %}
+            
+            {% if charts.category_radar %}
+            var categoryData = {{ charts.category_radar|safe }};
+            renderChart('categoryRadarChart', categoryData);
+            {% endif %}
+            
+            {% if charts.complexity_distribution %}
+            var complexityData = {{ charts.complexity_distribution|safe }};
+            renderChart('complexityChart', complexityData);
+            {% endif %}
 
             {% if charts.file_types %}
             var fileTypeData = {{ charts.file_types|safe }};
             renderChart('fileTypeChart', fileTypeData);
+            {% endif %}
+            
+            {% if charts.score_vs_size %}
+            var scoreVsSizeData = {{ charts.score_vs_size|safe }};
+            renderChart('scoreVsSizeChart', scoreVsSizeData);
             {% endif %}
             
             // Add resize listener

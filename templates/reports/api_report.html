@@ -161,45 +161,43 @@
             </div>
             <div class="card-body">
               <div class="row g-3">
-                <div class="col-md-3">
+                <div class="col-6 col-md-3">
                   <div class="card metric-card status-success text-center">
-                    <div class="card-body p-3">
-                      <h4 class="text-success">
+                    <div class="card-body p-2">
+                      <h4 class="text-success mb-1">
                         {{ test_results.successful_tests }}
                       </h4>
-                      <small>Successful Tests</small>
+                      <small>Success</small>
                     </div>
                   </div>
                 </div>
-                <div class="col-md-3">
+                <div class="col-6 col-md-3">
                   <div class="card metric-card status-danger text-center">
-                    <div class="card-body p-3">
-                      <h4 class="text-danger">
+                    <div class="card-body p-2">
+                      <h4 class="text-danger mb-1">
                         {{ test_results.failed_tests }}
                       </h4>
-                      <small>Failed Tests</small>
+                      <small>Failed</small>
                     </div>
                   </div>
                 </div>
-                <div class="col-md-3">
+                <div class="col-6 col-md-3">
                   <div class="card metric-card status-warning text-center">
-                    <div class="card-body p-3">
-                      <h4 class="text-info">
-                        {{
-                        "%.1f"|format(test_results.performance_metrics.average_response_time)
-                        }}ms
+                    <div class="card-body p-2">
+                      <h4 class="text-info mb-1">
+                        {{ "%.0f"|format(test_results.performance_metrics.average_response_time or 0) }}ms
                       </h4>
-                      <small>Avg Response Time</small>
+                      <small>Avg Time</small>
                     </div>
                   </div>
                 </div>
-                <div class="col-md-3">
+                <div class="col-6 col-md-3">
                   <div class="card metric-card text-center">
-                    <div class="card-body p-3">
-                      <h4 class="text-primary">
-                        {{ test_results.total_endpoints }}
+                    <div class="card-body p-2">
+                      <h4 class="text-primary mb-1">
+                        {{ test_results.success_rate or 0 }}%
                       </h4>
-                      <small>Total Endpoints</small>
+                      <small>Success Rate</small>
                     </div>
                   </div>
                 </div>
@@ -214,59 +212,35 @@
       <div class="row mb-4">
         <div class="col-12">
           <div class="card">
-            <div
-              class="card-header d-flex justify-content-between align-items-center"
-            >
+            <div class="card-header d-flex justify-content-between align-items-center">
               <h3><i class="fas fa-shield-alt me-2"></i>Security Analysis</h3>
-              <div
-                class="badge bg-{% if test_results.security_analysis.security_grade == 'A' %}success{% elif test_results.security_analysis.security_grade == 'B' %}primary{% elif test_results.security_analysis.security_grade == 'C' %}warning{% else %}danger{% endif %} fs-6"
-              >
-                Grade: {{ test_results.security_analysis.security_grade }}
+              <div class="badge bg-{% if test_results.security_analysis.https_enabled %}success{% else %}danger{% endif %} fs-6">
+                Score: {{ test_results.security_analysis.security_score or 0 }}/100
               </div>
             </div>
             <div class="card-body">
               <div class="row">
-                <div class="col-md-4">
+                <div class="col-md-6">
                   <h6>HTTPS Usage</h6>
-                  <p
-                    class="text-{% if test_results.security_analysis.https_usage %}success{% else %}danger{% endif %}"
-                  >
-                    <i
-                      class="fas fa-{% if test_results.security_analysis.https_usage %}check{% else %}times{% endif %} me-2"
-                    ></i>
-                    {% if test_results.security_analysis.https_usage %}Enabled{%
-                    else %}Not Detected{% endif %}
+                  <p class="text-{% if test_results.security_analysis.https_enabled %}success{% else %}danger{% endif %}">
+                    <i class="fas fa-{% if test_results.security_analysis.https_enabled %}check{% else %}times{% endif %} me-2"></i>
+                    {% if test_results.security_analysis.https_enabled %}Enabled{% else %}Not Detected{% endif %}
                   </p>
                 </div>
-                <div class="col-md-4">
-                  <h6>Security Headers</h6>
-                  <p class="text-info">
-                    <i class="fas fa-info-circle me-2"></i>
-                    {{ test_results.security_analysis.security_headers_present
-                    }} headers found
-                  </p>
-                </div>
-                <div class="col-md-4">
-                  <h6>Overall Security</h6>
-                  <p
-                    class="text-{% if test_results.security_analysis.security_grade in ['A', 'B'] %}success{% elif test_results.security_analysis.security_grade == 'C' %}warning{% else %}danger{% endif %}"
-                  >
+                <div class="col-md-6">
+                  <h6>Security Score</h6>
+                  <p class="text-{% if test_results.security_analysis.security_score >= 80 %}success{% elif test_results.security_analysis.security_score >= 60 %}warning{% else %}danger{% endif %}">
                     <i class="fas fa-star me-2"></i>
-                    Grade {{ test_results.security_analysis.security_grade }}
+                    {{ test_results.security_analysis.security_score or 0 }}/100
                   </p>
                 </div>
               </div>
-
-              {% if test_results.security_analysis.recommendations %}
+              {% if test_results.security_analysis.security_issues %}
               <div class="mt-3">
-                <h6>Security Recommendations</h6>
+                <h6>Security Issues</h6>
                 <ul class="list-unstyled">
-                  {% for recommendation in
-                  test_results.security_analysis.recommendations %}
-                  <li>
-                    <i class="fas fa-arrow-right text-primary me-2"></i>{{
-                    recommendation }}
-                  </li>
+                  {% for issue in test_results.security_analysis.security_issues %}
+                  <li><i class="fas fa-exclamation-triangle text-warning me-2"></i>{{ issue }}</li>
                   {% endfor %}
                 </ul>
               </div>
@@ -281,37 +255,92 @@
       {% if charts %}
       <div class="row mb-4">
         {% if charts.response_times %}
-        <div class="col-lg-6 mb-4">
-          <div class="card">
-            <div class="card-header">
-              <h5><i class="fas fa-chart-bar me-2"></i>Response Times</h5>
+        <div class="col-12 mb-4">
+          <div class="card border-0 shadow-sm">
+            <div class="card-header bg-gradient" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white;">
+              <h5 class="mb-0"><i class="fas fa-tachometer-alt me-2"></i>Performance Waterfall Analysis</h5>
+              <small class="opacity-75">Response times sorted by performance with SLA benchmarks</small>
             </div>
-            <div class="card-body">
+            <div class="card-body p-0">
               <div id="responseTimeChart" class="chart-container"></div>
             </div>
           </div>
         </div>
-        {% endif %} {% if charts.status_codes %}
+        {% endif %}
+        
+        {% if charts.status_codes %}
         <div class="col-lg-6 mb-4">
           <div class="card">
             <div class="card-header">
-              <h5>
-                <i class="fas fa-chart-pie me-2"></i>Status Code Distribution
-              </h5>
+              <h5><i class="fas fa-chart-pie me-2"></i>Status Codes</h5>
             </div>
             <div class="card-body">
               <div id="statusCodeChart" class="chart-container"></div>
             </div>
           </div>
         </div>
-        {% endif %} {% if charts.performance_grades %}
-        <div class="col-12 mb-4">
+        {% endif %}
+        
+        {% if charts.performance_grades %}
+        <div class="col-lg-6 mb-4">
           <div class="card">
             <div class="card-header">
               <h5><i class="fas fa-trophy me-2"></i>Performance Grades</h5>
             </div>
             <div class="card-body">
               <div id="performanceGradeChart" class="chart-container"></div>
+            </div>
+          </div>
+        </div>
+        {% endif %}
+        
+        {% if charts.method_performance %}
+        <div class="col-lg-6 mb-4">
+          <div class="card">
+            <div class="card-header">
+              <h5><i class="fas fa-chart-scatter me-2"></i>Method Performance</h5>
+            </div>
+            <div class="card-body">
+              <div id="methodPerformanceChart" class="chart-container"></div>
+            </div>
+          </div>
+        </div>
+        {% endif %}
+        
+        {% if charts.response_time_distribution %}
+        <div class="col-lg-6 mb-4">
+          <div class="card border-0 shadow-sm">
+            <div class="card-header bg-info text-white">
+              <h5 class="mb-0"><i class="fas fa-chart-area me-2"></i>Distribution & Percentiles</h5>
+              <small class="opacity-75">Statistical analysis of response times</small>
+            </div>
+            <div class="card-body p-0">
+              <div id="responseTimeDistChart" class="chart-container"></div>
+            </div>
+          </div>
+        </div>
+        {% endif %}
+        
+        {% if charts.reliability_gauge %}
+        <div class="col-12 mb-4">
+          <div class="card">
+            <div class="card-header">
+              <h5><i class="fas fa-heartbeat me-2"></i>API Reliability Score</h5>
+            </div>
+            <div class="card-body text-center">
+              <div class="row">
+                <div class="col-md-6">
+                  <div id="reliabilityChart" class="chart-container" style="height: 300px;"></div>
+                </div>
+                <div class="col-md-6 d-flex align-items-center">
+                  <div class="w-100">
+                    <h2 class="text-{% if test_results.reliability_score >= 80 %}success{% elif test_results.reliability_score >= 60 %}warning{% else %}danger{% endif %} mb-3">
+                      {{ test_results.reliability_score or 0 }}%
+                    </h2>
+                    <p class="text-muted">Overall API reliability based on success rate and performance</p>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -507,7 +536,7 @@
       function handleResize() {
         clearTimeout(resizeTimeout);
         resizeTimeout = setTimeout(function() {
-          ['responseTimeChart', 'statusCodeChart', 'performanceGradeChart'].forEach(function(chartId) {
+          ['responseTimeChart', 'statusCodeChart', 'performanceGradeChart', 'reliabilityChart', 'methodPerformanceChart', 'responseTimeDistChart'].forEach(function(chartId) {
             var element = document.getElementById(chartId);
             if (element && element.data) {
               Plotly.Plots.resize(chartId);
@@ -530,6 +559,21 @@
         {% if charts.performance_grades %}
         var performanceGradeData = {{ charts.performance_grades|safe }};
         renderChart('performanceGradeChart', performanceGradeData);
+        {% endif %}
+        
+        {% if charts.reliability_gauge %}
+        var reliabilityData = {{ charts.reliability_gauge|safe }};
+        renderChart('reliabilityChart', reliabilityData);
+        {% endif %}
+        
+        {% if charts.method_performance %}
+        var methodData = {{ charts.method_performance|safe }};
+        renderChart('methodPerformanceChart', methodData);
+        {% endif %}
+        
+        {% if charts.response_time_distribution %}
+        var distributionData = {{ charts.response_time_distribution|safe }};
+        renderChart('responseTimeDistChart', distributionData);
         {% endif %}
         
         // Add resize listener
