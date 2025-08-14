@@ -40,7 +40,7 @@
 }
 
 [data-bs-theme="dark"] .text-muted {
-    color: #ced4da !important;
+    color: #9ca3af !important;
 }
 
 [data-bs-theme="dark"] .form-control {
@@ -112,4 +112,110 @@
     background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%) !important;
     transform: translateY(-1px);
     box-shadow: 0 0.5rem 1rem rgba(99, 102, 241, 0.4) !important;
+}
+
+/* Quick Action Cards */
+[data-bs-theme="dark"] .quick-action-card {
+    background: #343a40 !important;
+    border: 1px solid rgba(99, 102, 241, 0.3) !important;
+    color: #f8f9fa !important;
+}
+
+[data-bs-theme="dark"] .quick-action-card:hover {
+    background: #495057 !important;
+    border-color: rgba(99, 102, 241, 0.5) !important;
+}
+
+[data-bs-theme="dark"] .quick-action-card h5 {
+    color: #e0e7ff !important;
+}
+
+[data-bs-theme="dark"] .quick-action-card p {
+    color: #c7d2fe !important;
+}
+
+/* Feature Cards */
+[data-bs-theme="dark"] .feature-card {
+    background: #2a2a2a !important;
+    border: 1px solid rgba(99, 102, 241, 0.3) !important;
+    border-top: 4px solid #6366f1 !important;
+    color: #f8f9fa !important;
+}
+
+[data-bs-theme="dark"] .feature-card:hover {
+    background: #343a40 !important;
+    border-color: rgba(99, 102, 241, 0.5) !important;
+}
+
+[data-bs-theme="dark"] .feature-card h4 {
+    color: #e0e7ff !important;
+}
+
+[data-bs-theme="dark"] .feature-card p {
+    color: #c7d2fe !important;
+}
+
+[data-bs-theme="dark"] .feature-list li {
+    color: #c7d2fe !important;
+}
+
+/* Stats */
+[data-bs-theme="dark"] .stat-item {
+    border-bottom-color: #495057 !important;
+}
+
+[data-bs-theme="dark"] .stat-number {
+    color: #6366f1 !important;
+}
+
+[data-bs-theme="dark"] .stat-label {
+    color: #9ca3af !important;
+}
+
+/* Dashboard Preview Card */
+[data-bs-theme="dark"] .dashboard-preview .card {
+    background: rgba(42, 42, 42, 0.9) !important;
+    backdrop-filter: blur(10px);
+}
+
+/* Hero Section Text */
+[data-bs-theme="dark"] .text-white-50 {
+    color: rgba(248, 249, 250, 0.7) !important;
+}
+
+/* List Items */
+[data-bs-theme="dark"] .list-unstyled li {
+    color: #c7d2fe !important;
+}
+
+/* Card Titles */
+[data-bs-theme="dark"] .card-title {
+    color: #e0e7ff !important;
+}
+
+/* Text Colors */
+[data-bs-theme="dark"] h1, 
+[data-bs-theme="dark"] h2, 
+[data-bs-theme="dark"] h3, 
+[data-bs-theme="dark"] h4, 
+[data-bs-theme="dark"] h5, 
+[data-bs-theme="dark"] h6 {
+    color: #f8f9fa !important;
+}
+
+[data-bs-theme="dark"] p {
+    color: #c7d2fe !important;
+}
+
+/* Success Button */
+[data-bs-theme="dark"] .btn-success {
+    background: linear-gradient(135deg, #10b981 0%, #059669 100%) !important;
+    border: none !important;
+    box-shadow: 0 0.25rem 0.5rem rgba(16, 185, 129, 0.3) !important;
+}
+
+[data-bs-theme="dark"] .btn-success:hover {
+    background: linear-gradient(135deg, #059669 0%, #047857 100%) !important;
+    transform: translateY(-1px);
+    box-shadow: 0 0.5rem 1rem rgba(16, 185, 129, 0.4) !important;
 }
