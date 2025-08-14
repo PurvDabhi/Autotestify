@@ -171,8 +171,20 @@ document.getElementById('githubAnalysisForm').onsubmit = async function(e) {
             document.getElementById('progressSection').style.display = 'none';
             document.getElementById('resultsSection').style.display = 'block';
             document.getElementById('resultMessage').textContent = result.message;
-            document.getElementById('downloadBtn').href = result.report_url;
-            document.getElementById('viewBtn').href = result.report_url.replace('/download-report/', '/view-report/');
+            
+            // Create download link for client-side download
+            const blob = new Blob([result.report_html], { type: 'text/html' });
+            const downloadUrl = URL.createObjectURL(blob);
+            
+            document.getElementById('downloadBtn').href = downloadUrl;
+            document.getElementById('downloadBtn').download = result.report_filename;
+            
+            // Create view link that opens report in new tab
+            document.getElementById('viewBtn').onclick = function() {
+                const blob = new Blob([result.report_html], { type: 'text/html' });
+                const url = URL.createObjectURL(blob);
+                window.open(url, '_blank');
+            };
         } else {
             showError(result.error);
         }

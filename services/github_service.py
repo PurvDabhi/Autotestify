@@ -4,34 +4,63 @@ import os
 from datetime import datetime
 import base64
 import time
+import logging
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.common.exceptions import TimeoutException
+try:
+    from utils.connection_pool import connection_pool, cache_manager, rate_limiter, get_cached_or_fetch
+except ImportError:
+    connection_pool = None
+    cache_manager = None
+    rate_limiter = None
+    get_cached_or_fetch = None
 
 class GitHubService:
     def __init__(self):
+        self.logger = logging.getLogger(__name__)
         self.token = os.environ.get('GITHUB_TOKEN')
+        self.github = None
+        self.authenticated = False
+        self.session = connection_pool.get_session('github') if connection_pool else requests.Session()
+        
         if self.token:
             try:
-                self.github = Github(self.token, per_page=100)
-                # Test the token immediately
-                self.github.get_user().login
+                test_github = Github(self.token, per_page=100)
+                test_github.get_user().login
+                self.github = test_github
+                self.authenticated = True
+                self.logger.info("GitHub API: Authenticated access enabled")
             except Exception as e:
-                print(f"Invalid GitHub token: {e}")
-                # Fall back to unauthenticated access
+                self.logger.warning(f"GitHub token invalid ({e}), using unauthenticated access")
                 self.github = Github(per_page=30)
                 self.token = None
         else:
+            self.logger.info("No GitHub token found, using unauthenticated access")
             self.github = Github(per_page=30)
 
         self.last_request_time = 0
-        self.min_request_interval = 1.0
+        self.min_request_interval = 2.0 if not self.authenticated else 0.5
         self.driver_path = './chromedriver.exe'
+        
+        # Configure session headers for GitHub API
+        if self.token:
+            self.session.headers.update({
+                'Authorization': f'token {self.token}',
+                'Accept': 'application/vnd.github.v3+json'
+            })
 
     def _rate_limit_check(self):
+        # Use rate limiter for additional protection (if available)
+        if rate_limiter:
+            identifier = f"github_{self.token[:10] if self.token else 'anonymous'}"
+            if not rate_limiter.is_allowed(identifier):
+                self.logger.warning("Rate limit exceeded, waiting...")
+                time.sleep(60)  # Wait 1 minute if rate limited
+        
         current_time = time.time()
         time_since_last = current_time - self.last_request_time
         if time_since_last < self.min_request_interval:
@@ -39,34 +68,53 @@ class GitHubService:
         self.last_request_time = time.time()
 
     def _check_rate_limit_status(self):
+        if not self.authenticated:
+            return True
+            
         try:
             rate_limit = self.github.get_rate_limit()
             core_remaining = rate_limit.core.remaining
             core_reset_time = rate_limit.core.reset
+            
+            print(f"GitHub API rate limit: {core_remaining} requests remaining")
 
-            if core_remaining < 10:
+            if core_remaining < 5:
                 wait_time = max(0, core_reset_time.timestamp() - time.time())
                 if wait_time > 0:
-                    time.sleep(min(wait_time, 300))
+                    print(f"Rate limit low, waiting {min(wait_time, 60)} seconds")
+                    time.sleep(min(wait_time, 60))
 
             return core_remaining > 0
-        except Exception:
+        except Exception as e:
+            print(f"Rate limit check failed: {e}")
             return True
 
     def analyze_repository(self, owner, repo_name):
+        # Create cache key for repository analysis
+        cache_key = f"github_analysis_{owner}_{repo_name}"
+        
+        # Try to get cached result first (if cache is available)
+        if cache_manager:
+            cached_result = cache_manager.get(cache_key)
+            if cached_result:
+                self.logger.info(f"Using cached analysis for {owner}/{repo_name}")
+                return cached_result
+        
         try:
-            if self.token and not self._check_rate_limit_status():
-                raise Exception("GitHub API rate limit exceeded.")
+            if self.authenticated and not self._check_rate_limit_status():
+                self.logger.warning("Switching to unauthenticated access due to rate limits")
+                self.github = Github(per_page=30)
+                self.authenticated = False
+                self.min_request_interval = 2.0
 
             self._rate_limit_check()
             try:
                 repo = self.github.get_repo(f"{owner}/{repo_name}")
             except Exception as e:
-                if "401" in str(e) or "Bad credentials" in str(e):
-                    # Try without authentication
-                    self.github = Github(per_page=30)
-                    self.token = None
-                    repo = self.github.get_repo(f"{owner}/{repo_name}")
+                if "403" in str(e) and "rate limit" in str(e).lower():
+                    raise Exception("GitHub API rate limit exceeded. Please wait or add a valid GitHub token.")
+                elif "401" in str(e) or "Bad credentials" in str(e):
+                    raise Exception("Invalid GitHub token. Please check your GITHUB_TOKEN environment variable.")
                 else:
                     raise e
 
@@ -134,10 +182,16 @@ class GitHubService:
 
             repo_data['key_files'] = self._check_key_files_presence(repo_data['files'])
             repo_data['ui_validation'] = self._validate_github_ui_with_selenium(owner, repo_name)
+            
+            # Cache the result for future use (if cache is available)
+            if cache_manager:
+                cache_manager.set(cache_key, repo_data)
+                self.logger.info(f"Cached analysis result for {owner}/{repo_name}")
 
             return repo_data
 
         except Exception as e:
+            self.logger.error(f"Error analyzing repository {owner}/{repo_name}: {str(e)}")
             raise Exception(f"Error analyzing repository: {str(e)}")
 
     def _check_key_files_presence(self, files):
@@ -147,11 +201,19 @@ class GitHubService:
     
     
     def _validate_github_ui_with_selenium(self, owner, repo_name):
+        # Check cache first for UI validation (if available)
+        if cache_manager:
+            ui_cache_key = f"github_ui_{owner}_{repo_name}"
+            cached_ui_result = cache_manager.get(ui_cache_key)
+            if cached_ui_result:
+                self.logger.info(f"Using cached UI validation for {owner}/{repo_name}")
+                return cached_ui_result
+        
         result = {
             'readme_found': False,
             'badge_found': False,
             'actions_visible': False,
-            'screenshot': None
+            'screenshot_path': None
         }
 
         try:
@@ -159,23 +221,29 @@ class GitHubService:
             options.add_argument('--headless')
             options.add_argument('--no-sandbox')
             options.add_argument('--disable-dev-shm-usage')
+            options.add_argument('--window-size=1920,1080')
             driver = webdriver.Chrome(options=options)
 
             url = f"https://github.com/{owner}/{repo_name}"
             driver.get(url)
 
-            time.sleep(2)
-            folder = "screenshots"  # NOT static/screenshots
+            WebDriverWait(driver, 10).until(
+                EC.presence_of_element_located((By.TAG_NAME, "body"))
+            )
+            time.sleep(3)
+            
+            folder = "screenshots"
             os.makedirs(folder, exist_ok=True)
 
             filename = f"{owner}_{repo_name}_screenshot.png"
             screenshot_path = os.path.join(folder, filename)
 
             driver.save_screenshot(screenshot_path)
-
-            # JSON return
-            result['screenshot'] = screenshot_path            # full path if needed
-            result['screenshot_path'] = filename 
+            
+            if os.path.exists(screenshot_path) and os.path.getsize(screenshot_path) > 0:
+                result['screenshot_path'] = filename
+            else:
+                result['screenshot_path'] = None 
 
             # try:
             #     readme = driver.find_element(By.XPATH, "//*[contains(@id, 'readme')]")
@@ -202,9 +270,19 @@ class GitHubService:
                 result['actions_visible'] = False
 
             driver.quit()
+            
+            # Cache the UI validation result (if cache is available)
+            if cache_manager:
+                cache_manager.set(ui_cache_key, result)
+                self.logger.info(f"Cached UI validation result for {owner}/{repo_name}")
 
         except Exception as e:
-            print(f"Selenium error: {e}")
+            self.logger.error(f"Selenium error for {owner}/{repo_name}: {e}")
+            try:
+                if 'driver' in locals():
+                    driver.quit()
+            except:
+                pass
 
         return result
 
@@ -218,15 +296,29 @@ class GitHubService:
                     self._rate_limit_check()
                     subcontents = repo.get_contents(content.path)
                     self._get_repository_files(repo, subcontents, files_list, content.path, max_files)
-                except Exception:
+                except Exception as e:
+                    self.logger.debug(f"Error accessing directory {content.path}: {e}")
                     continue
             else:
                 if self._is_code_file(content.name):
                     try:
                         file_content = ""
-                        if content.size < 50000:
-                            self._rate_limit_check()
-                            file_content = base64.b64decode(content.content).decode('utf-8', errors='ignore')
+                        if content.size < 50000:  # Only fetch content for smaller files
+                            # Check cache for file content (if available)
+                            if cache_manager:
+                                file_cache_key = f"github_file_{repo.full_name}_{content.sha}"
+                                cached_content = cache_manager.get(file_cache_key)
+                                
+                                if cached_content:
+                                    file_content = cached_content
+                                else:
+                                    self._rate_limit_check()
+                                    file_content = base64.b64decode(content.content).decode('utf-8', errors='ignore')
+                                    # Cache file content
+                                    cache_manager.set(file_cache_key, file_content)
+                            else:
+                                self._rate_limit_check()
+                                file_content = base64.b64decode(content.content).decode('utf-8', errors='ignore')
 
                         files_list.append({
                             'name': content.name,
@@ -236,7 +328,8 @@ class GitHubService:
                             'content': file_content,
                             'url': content.html_url
                         })
-                    except Exception:
+                    except Exception as e:
+                        self.logger.debug(f"Error processing file {content.name}: {e}")
                         continue
 
     def _is_code_file(self, filename):

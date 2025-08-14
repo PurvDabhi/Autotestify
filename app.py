@@ -1,5 +1,7 @@
 from flask import Flask, render_template, request, jsonify, send_file, send_from_directory
 import os
+import sys
+import logging
 from datetime import datetime
 from services.github_service import GitHubService
 from services.gemini_service import GeminiService 
@@ -7,17 +9,82 @@ from services.api_tester import APITester
 from services.email_service import EmailService
 from services.report_generator import ReportGenerator
 from config import Config
+try:
+    from utils.config_validator import ConfigValidator
+except ImportError:
+    ConfigValidator = None
 import json
+import traceback
+from functools import wraps
+import time
+
+# Configure logging
+logging.basicConfig(
+    level=logging.INFO,
+    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
+    handlers=[
+        logging.FileHandler('autotestify.log'),
+        logging.StreamHandler(sys.stdout)
+    ]
+)
+logger = logging.getLogger(__name__)
+
+# Validate configuration before starting (if validator is available)
+logger.info("Starting AutoTestify application...")
+if ConfigValidator:
+    config_validator = ConfigValidator()
+    validation_results = config_validator.validate_all_configs()
+    
+    if not validation_results['valid']:
+        logger.warning("Configuration validation found issues")
+        try:
+            print(config_validator.get_validation_summary())
+        except UnicodeEncodeError:
+            logger.warning("Configuration summary contains unicode characters that cannot be displayed")
+        
+        # Try to fix common issues
+        fixes = config_validator.fix_common_issues()
+        if fixes:
+            logger.info(f"Applied automatic fixes: {fixes}")
+    else:
+        logger.info("Configuration validation passed")
+else:
+    logger.info("Configuration validator not available, skipping validation")
 
 app = Flask(__name__)
 app.config.from_object(Config)
 
-# Initialize services
-github_service = GitHubService()
-gemini_service = GeminiService()
-api_tester = APITester()
-report_generator = ReportGenerator()
-email_service = EmailService(app.config)
+# Enhanced error handling decorator
+def handle_errors(f):
+    @wraps(f)
+    def decorated_function(*args, **kwargs):
+        try:
+            start_time = time.time()
+            result = f(*args, **kwargs)
+            duration = time.time() - start_time
+            logger.info(f"Request {f.__name__} completed in {duration:.2f}s")
+            return result
+        except Exception as e:
+            logger.error(f"Error in {f.__name__}: {str(e)}")
+            logger.error(traceback.format_exc())
+            return jsonify({
+                'success': False,
+                'error': f'Internal server error: {str(e)}',
+                'error_type': type(e).__name__
+            }), 500
+    return decorated_function
+
+# Initialize services with enhanced error handling
+try:
+    github_service = GitHubService()
+    gemini_service = GeminiService()
+    api_tester = APITester()
+    report_generator = ReportGenerator()
+    email_service = EmailService(app.config)
+    logger.info("All services initialized successfully")
+except Exception as e:
+    logger.critical(f"Failed to initialize services: {str(e)}")
+    sys.exit(1)
 
 # ─────────────────────────────── ROUTES ───────────────────────────────
 
@@ -71,9 +138,15 @@ def reports():
 
 @app.route('/screenshots/<path:filename>')
 def screenshots(filename):
-    return send_from_directory('screenshots', filename)
+    try:
+        print(f"Screenshot request for: {filename}")
+        return send_from_directory('screenshots', filename)
+    except Exception as e:
+        print(f"Screenshot error: {e}")
+        return "Screenshot not found", 404
 
 @app.route('/api/analyze-github', methods=['POST'])
+@handle_errors
 def analyze_github():
     try:
         data = request.get_json()
@@ -94,15 +167,9 @@ def analyze_github():
         code_assessment = gemini_service.assess_code_quality(repo_data['files'])
 
         # Step 2: Run Selenium UI Checks
-        selenium_results = github_service._validate_github_ui_with_selenium(owner, repo_name)
-        screenshot_path = selenium_results.get("screenshot")
-        
-        selenium_ui_data = {
-            **selenium_results,
-            'screenshot_path': os.path.basename(screenshot_path) if screenshot_path else None
-        }
+        selenium_ui_data = github_service._validate_github_ui_with_selenium(owner, repo_name)
 
-        # Step 3: Generate HTML report
+        # Step 3: Generate and save HTML report
         report_filename = f"github_analysis_{owner}_{repo_name}_{datetime.now().strftime('%Y%m%d_%H%M%S')}.html"
         report_path = report_generator.generate_github_report(
             repo_data=repo_data,
@@ -110,6 +177,9 @@ def analyze_github():
             filename=report_filename,
             selenium_ui_data=selenium_ui_data
         )
+        
+        with open(report_path, 'r', encoding='utf-8') as f:
+            report_html = f.read()
 
         # Step 4: Email report (if requested)
         if email:
@@ -117,7 +187,8 @@ def analyze_github():
 
         return jsonify({
             'success': True,
-            'report_url': f'/download-report/{report_filename}',
+            'report_html': report_html,
+            'report_filename': report_filename,
             'message': 'Analysis completed successfully!'
         })
 
@@ -136,6 +207,7 @@ def analyze_github():
         return jsonify({'success': False, 'error': error_message}), 500
 
 @app.route('/api/test-api', methods=['POST'])
+@handle_errors
 def test_api():
     try:
         data = request.get_json()
@@ -166,6 +238,7 @@ def test_api():
 # ──────────────────────── GitHub UI Check (Selenium) ────────────────────────
 
 @app.route('/api/github-ui-check', methods=['POST'])
+@handle_errors
 def github_ui_check():
     try:
         data = request.get_json()
@@ -183,6 +256,7 @@ def github_ui_check():
         return jsonify({'success': False, 'error': str(e)}), 500
 
 @app.route('/api/github-screenshot', methods=['POST'])
+@handle_errors
 def github_screenshot():
     try:
         data = request.get_json()
@@ -224,6 +298,44 @@ def view_report(filename):
         return jsonify({'error': 'Report not found'}), 404
     except Exception as e:
         return jsonify({'error': str(e)}), 500
+
+@app.route('/api/delete-report', methods=['POST'])
+@handle_errors
+def delete_report():
+    try:
+        data = request.get_json()
+        filename = data.get('filename', '').strip()
+        
+        if not filename or not filename.endswith('.html'):
+            return jsonify({'success': False, 'error': 'Invalid filename'}), 400
+        
+        # Security: prevent path traversal
+        if '..' in filename or '/' in filename or '\\' in filename:
+            return jsonify({'success': False, 'error': 'Invalid filename'}), 400
+        
+        report_path = os.path.join('reports', filename)
+        json_path = os.path.join('reports', filename.replace('.html', '.json'))
+        
+        deleted_files = []
+        
+        if os.path.exists(report_path):
+            os.remove(report_path)
+            deleted_files.append(filename)
+        
+        if os.path.exists(json_path):
+            os.remove(json_path)
+            deleted_files.append(filename.replace('.html', '.json'))
+        
+        if not deleted_files:
+            return jsonify({'success': False, 'error': 'Report not found'}), 404
+        
+        return jsonify({'success': True, 'deleted_files': deleted_files})
+    
+    except PermissionError:
+        return jsonify({'success': False, 'error': 'Permission denied'}), 403
+    except Exception as e:
+        print(f"Delete error: {e}")
+        return jsonify({'success': False, 'error': 'Server error'}), 500
 
 # ─────────────────────────────── BOOTSTRAP ───────────────────────────────
 

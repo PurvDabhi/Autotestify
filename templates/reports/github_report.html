@@ -25,6 +25,85 @@
         .chart-container {
             min-height: 400px;
             margin: 1rem 0;
+            width: 100%;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        /* Responsive Design Improvements */
+        @media (max-width: 1200px) {
+            .chart-container {
+                min-height: 350px;
+            }
+        }
+        
+        @media (max-width: 992px) {
+            .chart-container {
+                min-height: 320px;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .container-fluid {
+                padding-left: 15px;
+                padding-right: 15px;
+            }
+            
+            .chart-container {
+                min-height: 300px;
+            }
+            
+            .metric-card .card-body {
+                padding: 1rem;
+            }
+            
+            .report-header {
+                padding: 1.5rem;
+            }
+            
+            .report-header h1 {
+                font-size: 1.5rem;
+            }
+            
+            .report-header h2 {
+                font-size: 1.25rem;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .col-lg-6 {
+                margin-bottom: 1rem;
+            }
+            
+            .chart-container {
+                min-height: 280px;
+            }
+            
+            .metric-card .card-body {
+                padding: 0.75rem;
+            }
+            
+            .card-header {
+                padding: 1rem;
+            }
+            
+            .card-body {
+                padding: 1rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .chart-container {
+                min-height: 250px;
+            }
+            
+            .report-header h1 {
+                font-size: 1.25rem;
+            }
+            
+            .report-header h2 {
+                font-size: 1.1rem;
+            }
         }
     </style>
 </head>
@@ -185,14 +264,53 @@
             </div>
             {% endif %}
             
+            {% if charts.category_radar %}
+            <div class="col-lg-6 mb-4">
+                <div class="card">
+                    <div class="card-header">
+                        <h5><i class="fas fa-radar-chart me-2"></i>Quality Categories</h5>
+                    </div>
+                    <div class="card-body">
+                        <div id="categoryRadarChart" class="chart-container"></div>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+            
+            {% if charts.complexity_distribution %}
+            <div class="col-lg-6 mb-4">
+                <div class="card">
+                    <div class="card-header">
+                        <h5><i class="fas fa-chart-bar me-2"></i>Complexity Distribution</h5>
+                    </div>
+                    <div class="card-body">
+                        <div id="complexityChart" class="chart-container"></div>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+            
             {% if charts.file_types %}
-            <div class="col-12 mb-4">
+            <div class="col-lg-6 mb-4">
                 <div class="card">
                     <div class="card-header">
                         <h5><i class="fas fa-chart-bar me-2"></i>File Type Distribution</h5>
                     </div>
                     <div class="card-body">
                         <div id="fileTypeChart" class="chart-container"></div>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+            
+            {% if charts.score_vs_size %}
+            <div class="col-lg-6 mb-4">
+                <div class="card">
+                    <div class="card-header">
+                        <h5><i class="fas fa-chart-scatter me-2"></i>Quality vs File Size</h5>
+                    </div>
+                    <div class="card-body">
+                        <div id="scoreVsSizeChart" class="chart-container"></div>
                     </div>
                 </div>
             </div>
@@ -312,7 +430,10 @@
                     {% if selenium_ui.screenshot_path %}
                     <div class="col-md-6 text-center">
                         <h5>GitHub Repository Screenshot</h5>
-                        <img src="/screenshots/{{selenium_ui.screenshot_path}}" alt="Screenshot" class="img-fluid rounded shadow border" style="max-height: 100%;">
+                        <div class="screenshot-container">
+                            <img src="/screenshots/{{selenium_ui.screenshot_path}}" alt="GitHub Repository Screenshot" class="img-fluid rounded shadow border" loading="lazy" onerror="this.style.display='none'; this.nextElementSibling.style.display='block'">
+                            <div style="display:none" class="alert alert-warning">Screenshot not available</div>
+                        </div>
                     </div>
                     {% endif %}
                 </div>
@@ -326,33 +447,101 @@
 
 
     <script>
-        // Render charts if data is available
-        {% if charts.commit_activity %}
-        try {
+        // Render charts with full responsive configuration
+        function renderChart(elementId, chartData) {
+            try {
+                var config = {
+                    responsive: true,
+                    displayModeBar: false,
+                    toImageButtonOptions: {
+                        format: 'png',
+                        filename: 'chart',
+                        height: 400,
+                        width: 600,
+                        scale: 1
+                    }
+                };
+                
+                // Ensure layout is fully responsive
+                if (chartData.layout) {
+                    chartData.layout.autosize = true;
+                    chartData.layout.responsive = true;
+                    
+                    // Adjust margins for mobile
+                    if (window.innerWidth <= 768) {
+                        chartData.layout.margin = {l: 30, r: 30, t: 40, b: 40};
+                        chartData.layout.height = 300;
+                    } else if (window.innerWidth <= 576) {
+                        chartData.layout.margin = {l: 20, r: 20, t: 35, b: 35};
+                        chartData.layout.height = 280;
+                    }
+                    
+                    // Adjust font sizes for mobile
+                    if (window.innerWidth <= 576) {
+                        chartData.layout.font = {size: 10};
+                        if (chartData.layout.title) {
+                            chartData.layout.title.font = {size: 12};
+                        }
+                    }
+                }
+                
+                Plotly.newPlot(elementId, chartData.data, chartData.layout, config);
+                
+            } catch(e) {
+                console.error('Error rendering chart for ' + elementId + ':', e);
+                document.getElementById(elementId).innerHTML = '<div class="alert alert-warning">Chart could not be loaded</div>';
+            }
+        }
+        
+        // Handle window resize with debouncing
+        let resizeTimeout;
+        function handleResize() {
+            clearTimeout(resizeTimeout);
+            resizeTimeout = setTimeout(function() {
+                ['commitChart', 'gradeChart', 'categoryRadarChart', 'complexityChart', 'fileTypeChart', 'scoreVsSizeChart'].forEach(function(chartId) {
+                    var element = document.getElementById(chartId);
+                    if (element && element.data) {
+                        Plotly.Plots.resize(chartId);
+                    }
+                });
+            }, 250);
+        }
+        
+        // Render charts when DOM is ready
+        document.addEventListener('DOMContentLoaded', function() {
+            {% if charts.commit_activity %}
             var commitData = {{ charts.commit_activity|safe }};
-            Plotly.newPlot('commitChart', commitData.data, commitData.layout);
-        } catch(e) {
-            console.error('Error rendering commit chart:', e);
-        }
-        {% endif %}
+            renderChart('commitChart', commitData);
+            {% endif %}
 
-        {% if charts.grade_distribution %}
-        try {
+            {% if charts.grade_distribution %}
             var gradeData = {{ charts.grade_distribution|safe }};
-            Plotly.newPlot('gradeChart', gradeData.data, gradeData.layout);
-        } catch(e) {
-            console.error('Error rendering grade chart:', e);
-        }
-        {% endif %}
+            renderChart('gradeChart', gradeData);
+            {% endif %}
+            
+            {% if charts.category_radar %}
+            var categoryData = {{ charts.category_radar|safe }};
+            renderChart('categoryRadarChart', categoryData);
+            {% endif %}
+            
+            {% if charts.complexity_distribution %}
+            var complexityData = {{ charts.complexity_distribution|safe }};
+            renderChart('complexityChart', complexityData);
+            {% endif %}
 
-        {% if charts.file_types %}
-        try {
+            {% if charts.file_types %}
             var fileTypeData = {{ charts.file_types|safe }};
-            Plotly.newPlot('fileTypeChart', fileTypeData.data, fileTypeData.layout);
-        } catch(e) {
-            console.error('Error rendering file type chart:', e);
-        }
-        {% endif %}
+            renderChart('fileTypeChart', fileTypeData);
+            {% endif %}
+            
+            {% if charts.score_vs_size %}
+            var scoreVsSizeData = {{ charts.score_vs_size|safe }};
+            renderChart('scoreVsSizeChart', scoreVsSizeData);
+            {% endif %}
+            
+            // Add resize listener
+            window.addEventListener('resize', handleResize);
+        });
     </script>
 </body>
 </html>
