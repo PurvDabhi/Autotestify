@@ -16,6 +16,7 @@ parts/
 sdist/
 var/
 wheels/
+cache/
 *.egg-info/
 .installed.cfg
 *.egg
@@ -46,8 +47,9 @@ ehthumbs.db
 Thumbs.db
 
 # Application specific
-reports/*.html
-screenshots/*.png
+reports/
+screenshots/
+dist_protected/
 static/charts/*.png
 static/charts/*.html
 logs/
